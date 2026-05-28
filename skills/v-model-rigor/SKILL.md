@@ -15,6 +15,12 @@ Use this skill when a codebase needs stronger systems engineering discipline.
 The goal is not ceremony. The goal is an auditable trace from need to
 requirements, design, implementation, verification, validation, and evidence.
 
+For repeatable repo adoption, prefer the focused skills:
+
+- `vtrace-assess` for the first assessment.
+- `vtrace-adopt` for creating stage deliverables.
+- `vtrace-gate` for specification, design, and readiness reviews.
+
 ## Grounding
 
 VTRACE is inspired by public NASA systems and software engineering guidance, but
@@ -35,6 +41,18 @@ repo's source notes or public source URLs.
    field data, stakeholder review, or product-level success criteria.
 7. Record gaps as traceability findings, not vague quality concerns.
 8. Propose the smallest complete adoption slice.
+
+## VTRACE Stages
+
+Use this stage order:
+
+```text
+MISSION -> CONOPS -> REQUIREMENTS -> ARCHITECTURE -> INTERFACES -> DESIGN
+  -> IMPLEMENTATION -> VERIFICATION -> VALIDATION -> TRACE -> REVIEW
+```
+
+Use VTRACE `templates/adoption/` for repo-local deliverables under
+`docs/vtrace/`.
 
 ## Required Output
 

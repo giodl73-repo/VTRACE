@@ -18,7 +18,7 @@ objective evidence repeatable across codebases.
 |------:|-------|--------|---------|
 | 01 | Repository foundation | complete | Create repo skeleton, docs, skills, and source-grounded first contract. |
 | 02 | Source custody and encoding model | complete | Add source registry, rights posture, encoding schema, and first trace template. |
-| 03 | First repo adoption | pending | Apply VTRACE to one portfolio repo and record adoption findings. |
+| 03 | Usable adoption process | complete | Add process docs, review gates, templates, and focused skills. |
 | 04 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
 
 ## Success Criteria
@@ -27,5 +27,7 @@ objective evidence repeatable across codebases.
 - Product plan names users, waves, dependencies, and non-goals.
 - Source pass cites public NASA references.
 - First reusable skill exists under `skills/`.
+- Focused assessment, adoption, and gate-review skills exist.
+- Stage templates exist for repo-local `docs/vtrace/` adoption.
 - Repo-local wave, pulse, and research skills exist.
 - `git diff --check` passes.

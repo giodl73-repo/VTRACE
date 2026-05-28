@@ -18,10 +18,14 @@ that coding agents can apply repo by repo.
 
 ## First Skill
 
-The first reusable skill is:
+The main reusable skills are:
 
-- `skills/v-model-rigor/SKILL.md` - assess or establish a V-model traceability
-  spine in an existing codebase.
+- `skills/v-model-rigor/SKILL.md` - general V-model rigor guidance.
+- `skills/vtrace-assess/SKILL.md` - inspect an existing repo and find gaps.
+- `skills/vtrace-adopt/SKILL.md` - create or update repo-local VTRACE
+  deliverables.
+- `skills/vtrace-gate/SKILL.md` - run specification, design, or readiness
+  review gates.
 
 Use it when a repo needs stronger rigor around:
 
@@ -67,6 +71,20 @@ VTRACE is pointer-first. Public NASA sources can inform derived guidance and may
 be downloaded into ignored local caches when appropriate. Copyrighted industry
 standards stay citation-only unless a separate rights review says otherwise.
 See `docs/source-custody.md` and `sources/source-registry.json`.
+
+## Applying VTRACE
+
+Use `docs/framework/vtrace-process.md` as the operating process. For a target
+repo, start with the minimum first slice under `docs/vtrace/`:
+
+- `MISSION.md`
+- `REQUIREMENTS.md`
+- `TRACE.md`
+- `VERIFICATION.md`
+- `REVIEW.md`
+
+Add CONOPS, architecture, interfaces, detailed design, and validation artifacts
+as the repo's risk and maturity require.
 
 ## Validation
 

@@ -66,6 +66,9 @@ Apply VTRACE to one existing repo and record the before/after evidence:
 - implemented docs or checks,
 - validation command results.
 
+The process is now codified as focused skills plus stage templates. The next
+step is applying it to a real repo and tightening the artifacts based on use.
+
 ### Wave 4: Tooling Candidates
 
 Prototype lightweight validators only after the document contracts stabilize.
