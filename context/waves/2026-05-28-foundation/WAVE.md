@@ -21,7 +21,8 @@ objective evidence repeatable across codebases.
 | 03 | Usable adoption process | complete | Add process docs, review gates, templates, and focused skills. |
 | 04 | Code rigor in the V | complete | Add pre-code rigor constraints and right-side verification evidence. |
 | 05 | End-to-end example and scenarios | complete | Add hello-world VTRACE package and scenario tests. |
-| 06 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
+| 06 | Role panel | complete | Add VTRACE review lenses for process, traceability, V&V, assurance, custody, adoption, and agent continuity. |
+| 07 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
 
 ## Success Criteria
 

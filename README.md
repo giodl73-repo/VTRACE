@@ -62,6 +62,7 @@ sources/              Source registries and rights posture metadata.
 skills/               Reusable public skills for codebase rigor.
 templates/            Adoption templates for codebases.
 examples/             End-to-end examples and process scenario tests.
+.roles/               Review lenses for VTRACE process and adoption quality.
 context/waves/        Local development wave and pulse records.
 .claude/skills/       Repo-local execution skills.
 ```
