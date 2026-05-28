@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/giodl73-repo/VTRACE/schemas/encoded-concept.schema.json",
+  "title": "VTRACE Encoded Concept",
+  "type": "object",
+  "required": [
+    "id",
+    "source_ids",
+    "concept",
+    "software_adaptation",
+    "trace_links",
+    "evidence_expectations",
+    "rights_posture"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^vtrace\\.[a-z0-9_.-]+$"
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "concept": {
+      "type": "string"
+    },
+    "software_adaptation": {
+      "type": "string"
+    },
+    "trace_links": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "mission_need",
+          "stakeholder_expectation",
+          "requirement",
+          "architecture",
+          "interface",
+          "implementation",
+          "verification_method",
+          "validation_method",
+          "objective_evidence",
+          "review_gate",
+          "risk"
+        ]
+      },
+      "minItems": 1
+    },
+    "evidence_expectations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "rights_posture": {
+      "type": "string",
+      "enum": [
+        "locally_authored",
+        "derived_from_public_source",
+        "citation_only"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

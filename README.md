@@ -52,10 +52,21 @@ spaceflight lifecycle.
 
 ```text
 docs/research/        Source-grounded research notes.
+docs/framework/       VTRACE framework maps and encoding guidance.
+schemas/              Machine-readable local artifact schemas.
+sources/              Source registries and rights posture metadata.
 skills/               Reusable public skills for codebase rigor.
+templates/            Adoption templates for codebases.
 context/waves/        Local development wave and pulse records.
 .claude/skills/       Repo-local execution skills.
 ```
+
+## Source Custody
+
+VTRACE is pointer-first. Public NASA sources can inform derived guidance and may
+be downloaded into ignored local caches when appropriate. Copyrighted industry
+standards stay citation-only unless a separate rights review says otherwise.
+See `docs/source-custody.md` and `sources/source-registry.json`.
 
 ## Validation
 

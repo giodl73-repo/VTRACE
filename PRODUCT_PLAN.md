@@ -50,6 +50,12 @@ Define practical templates for:
 - V&V plans,
 - objective evidence ledgers.
 
+### Wave 2A: Source Custody and Encoding
+
+Define the source registry, rights posture, and encoded concept shape before
+downloading or deriving from standards. Keep public NASA guidance, NASA
+standards, and copyrighted industry standards in separate handling lanes.
+
 ### Wave 3: Repo Adoption Path
 
 Apply VTRACE to one existing repo and record the before/after evidence:

@@ -17,7 +17,7 @@ objective evidence repeatable across codebases.
 | Pulse | Title | Status | Outcome |
 |------:|-------|--------|---------|
 | 01 | Repository foundation | complete | Create repo skeleton, docs, skills, and source-grounded first contract. |
-| 02 | Trace artifact templates | pending | Add practical templates for requirements, V&V, interfaces, and evidence. |
+| 02 | Source custody and encoding model | complete | Add source registry, rights posture, encoding schema, and first trace template. |
 | 03 | First repo adoption | pending | Apply VTRACE to one portfolio repo and record adoption findings. |
 | 04 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
 

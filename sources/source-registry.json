@@ -1,0 +1,133 @@
+{
+  "schema": "vtrace.source-registry.v1",
+  "updated": "2026-05-28",
+  "sources": [
+    {
+      "id": "nasa-se-handbook",
+      "title": "NASA Systems Engineering Handbook",
+      "publisher": "NASA",
+      "source_type": "handbook",
+      "url": "https://www.nasa.gov/reference/systems-engineering-handbook/",
+      "accessed": "2026-05-28",
+      "rights_posture": "public_web_reference",
+      "download_policy": "cache_allowed",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "systems engineering life-cycle context",
+        "common technical processes",
+        "system design and product realization framing",
+        "technical management framing"
+      ],
+      "encoding_status": "seeded"
+    },
+    {
+      "id": "nasa-se-handbook-appendix",
+      "title": "NASA Systems Engineering Handbook Appendix",
+      "publisher": "NASA",
+      "source_type": "handbook_appendix",
+      "url": "https://www.nasa.gov/reference/system-engineering-handbook-appendix/",
+      "accessed": "2026-05-28",
+      "rights_posture": "public_web_reference",
+      "download_policy": "cache_allowed",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "good requirement checklist",
+        "requirement verification matrix",
+        "validation plan and validation matrix",
+        "interface requirements document outline",
+        "technical peer review guidance",
+        "concept of operations outline"
+      ],
+      "encoding_status": "seeded"
+    },
+    {
+      "id": "npr-7123-1d",
+      "title": "NPR 7123.1D NASA Systems Engineering Processes and Requirements",
+      "publisher": "NASA NODIS",
+      "source_type": "procedural_requirement",
+      "url": "https://nodis3.gsfc.nasa.gov/displayDir.cfm?c=7123&s=1C&t=NPR",
+      "accessed": "2026-05-28",
+      "effective_date": "2023-07-05",
+      "expiration_date": "2028-07-05",
+      "rights_posture": "public_web_reference",
+      "download_policy": "pointer_only",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "current NASA systems engineering process reference",
+        "common technical process list",
+        "requirements management and review framing"
+      ],
+      "encoding_status": "metadata_only"
+    },
+    {
+      "id": "nasa-swe-handbook",
+      "title": "NASA Software Engineering Handbook",
+      "publisher": "NASA",
+      "source_type": "software_engineering_handbook",
+      "url": "https://swehb.nasa.gov/",
+      "accessed": "2026-05-28",
+      "document_number": "NASA-HDBK-2203",
+      "version": "D",
+      "document_date": "2020-04-20",
+      "rights_posture": "public_web_reference",
+      "download_policy": "pointer_only",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "software requirements implementation guidance",
+        "objective evidence expectations",
+        "software architecture and peer review evidence"
+      ],
+      "encoding_status": "metadata_only"
+    },
+    {
+      "id": "nasa-std-8739-8b",
+      "title": "NASA-STD-8739.8B Software Assurance and Software Safety Standard",
+      "publisher": "NASA",
+      "source_type": "technical_standard",
+      "url": "https://standards.nasa.gov/standard/nasa/nasa-std-87398",
+      "accessed": "2026-05-28",
+      "document_number": "NASA-STD-8739.8",
+      "version": "B",
+      "document_date": "2022-09-08",
+      "rights_posture": "public_standard",
+      "download_policy": "cache_allowed",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "software assurance framing",
+        "software safety framing",
+        "independent verification and validation context"
+      ],
+      "encoding_status": "metadata_only"
+    },
+    {
+      "id": "iso-iec-ieee-15288",
+      "title": "ISO/IEC/IEEE 15288 Systems and Software Engineering - System Life Cycle Processes",
+      "publisher": "ISO/IEC/IEEE",
+      "source_type": "industry_standard",
+      "url": "https://www.iso.org/standard/81702.html",
+      "accessed": "2026-05-28",
+      "rights_posture": "copyrighted_industry_standard",
+      "download_policy": "pointer_only",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "citation-only comparison point for life-cycle process language"
+      ],
+      "encoding_status": "metadata_only"
+    },
+    {
+      "id": "iso-iec-ieee-29148",
+      "title": "ISO/IEC/IEEE 29148 Systems and Software Engineering - Life Cycle Processes - Requirements Engineering",
+      "publisher": "ISO/IEC/IEEE",
+      "source_type": "industry_standard",
+      "url": "https://www.iso.org/standard/72089.html",
+      "accessed": "2026-05-28",
+      "rights_posture": "copyrighted_industry_standard",
+      "download_policy": "pointer_only",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "citation-only comparison point for requirements engineering"
+      ],
+      "encoding_status": "metadata_only"
+    }
+  ]
+}
