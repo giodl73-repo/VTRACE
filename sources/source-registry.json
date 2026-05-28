@@ -100,6 +100,25 @@
       "encoding_status": "metadata_only"
     },
     {
+      "id": "jpl-power-of-ten",
+      "title": "The Power of 10: Rules for Developing Safety-Critical Code",
+      "publisher": "NASA/JPL Laboratory for Reliable Software",
+      "source_type": "coding_rule_set",
+      "url": "https://www.synaptics.org/documents/nasa/10rules.pdf",
+      "accessed": "2026-05-28",
+      "rights_posture": "public_web_reference",
+      "download_policy": "pointer_only",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "coding-verifiability constraints",
+        "small reviewable functions",
+        "bounded control flow",
+        "assertion and return-value discipline",
+        "static analysis and warnings discipline"
+      ],
+      "encoding_status": "seeded"
+    },
+    {
       "id": "iso-iec-ieee-15288",
       "title": "ISO/IEC/IEEE 15288 Systems and Software Engineering - System Life Cycle Processes",
       "publisher": "ISO/IEC/IEEE",

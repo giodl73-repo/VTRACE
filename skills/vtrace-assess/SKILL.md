@@ -15,9 +15,12 @@ Assess the target repo before adding or changing process artifacts.
    CI, validation commands, issue/wave history, and release claims.
 3. Identify existing artifacts for each VTRACE stage:
    mission, CONOPS, requirements, architecture, interfaces, design,
-   implementation, verification, validation, trace, review.
+   code rigor, implementation, verification, validation, trace, review.
 4. Record evidence, gaps, and risk by stage.
-5. Recommend the smallest adoption slice.
+5. Check whether critical code needs explicit size, complexity, assertion,
+   error-handling, warning, or static-analysis constraints before new code is
+   written.
+6. Recommend the smallest adoption slice.
 
 ## Output
 
@@ -28,6 +31,7 @@ Write or return an assessment with these sections:
 - `Traceability Gaps`
 - `Verification Evidence`
 - `Validation Evidence`
+- `Code Rigor Need`
 - `Readiness Risks`
 - `Recommended Adoption Slice`
 - `Validation Commands`

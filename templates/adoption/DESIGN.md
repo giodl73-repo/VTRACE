@@ -27,3 +27,12 @@ Describe algorithms, selection rules, state transitions, or core logic.
 ## Migration / Rollout
 
 Describe compatibility, data migration, or rollout concerns.
+
+## Code Rigor Hooks
+
+Identify any implementation areas that need `CODE_RIGOR.md` constraints before
+code is written.
+
+| Area | Risk | Required Code Rigor Constraint |
+|---|---|---|
+|  |  |  |

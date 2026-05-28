@@ -61,6 +61,7 @@ schemas/              Machine-readable local artifact schemas.
 sources/              Source registries and rights posture metadata.
 skills/               Reusable public skills for codebase rigor.
 templates/            Adoption templates for codebases.
+examples/             End-to-end examples and process scenario tests.
 context/waves/        Local development wave and pulse records.
 .claude/skills/       Repo-local execution skills.
 ```
@@ -85,6 +86,17 @@ repo, start with the minimum first slice under `docs/vtrace/`:
 
 Add CONOPS, architecture, interfaces, detailed design, and validation artifacts
 as the repo's risk and maturity require.
+
+Use `CODE_RIGOR.md` before implementation when a repo needs explicit coding
+constraints for function size, complexity, assertions, error handling, static
+analysis, or warnings. Code rigor is a left-side design constraint with
+right-side verification evidence.
+
+## Examples
+
+Start with `examples/hello-world/` to see the complete process on a tiny
+runnable program. Use `examples/scenario-tests/` to sanity-check the model
+against docs-only, Rust CLI, generated-code, and high-risk-control cases.
 
 ## Validation
 

@@ -19,7 +19,9 @@ objective evidence repeatable across codebases.
 | 01 | Repository foundation | complete | Create repo skeleton, docs, skills, and source-grounded first contract. |
 | 02 | Source custody and encoding model | complete | Add source registry, rights posture, encoding schema, and first trace template. |
 | 03 | Usable adoption process | complete | Add process docs, review gates, templates, and focused skills. |
-| 04 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
+| 04 | Code rigor in the V | complete | Add pre-code rigor constraints and right-side verification evidence. |
+| 05 | End-to-end example and scenarios | complete | Add hello-world VTRACE package and scenario tests. |
+| 06 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
 
 ## Success Criteria
 

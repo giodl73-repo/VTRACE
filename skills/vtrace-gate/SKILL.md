@@ -20,10 +20,12 @@ Use this skill to run a scoped review gate.
 3. Inspect implementation surfaces and validation command results relevant to
    the scope.
 4. Compare claims against evidence.
-5. Record findings by severity.
-6. Choose one decision:
+5. For readiness gates, check code-rigor constraints and evidence when
+   `docs/vtrace/CODE_RIGOR.md` exists or critical implementation is in scope.
+6. Record findings by severity.
+7. Choose one decision:
    `pass`, `pass_with_risk`, `blocked`, or `deferred`.
-7. Update or create `docs/vtrace/REVIEW.md`.
+8. Update or create `docs/vtrace/REVIEW.md`.
 
 ## Decision Rules
 

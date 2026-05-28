@@ -18,7 +18,7 @@ Mission / Need                         Validation
           \             /
            Interfaces Interface verification
             \         /
-             Design Component/unit verification
+             Design + Code Rigor Component/unit/static verification
               \     /
             Implementation
 ```
@@ -39,6 +39,7 @@ evidence that will prove it.
 | Architecture | `docs/vtrace/ARCHITECTURE.md` | Define components, boundaries, data flows, and dependency posture. | Requirements map to system elements and known risks. |
 | Interfaces | `docs/vtrace/INTERFACES.md` | Control APIs, CLIs, schemas, file formats, config, and external boundaries. | Interfaces have owners, compatibility rules, and verification methods. |
 | Detailed Design | `docs/vtrace/DESIGN.md` or feature notes | Define algorithms, invariants, state transitions, edge cases, and tradeoffs. | Design decisions link to requirements and expected component evidence. |
+| Code Rigor | `docs/vtrace/CODE_RIGOR.md` | Define coding constraints that make implementation reviewable, testable, statically checkable, and maintainable. | Size, complexity, assertion, error-handling, warning, and static-analysis expectations are set before code is written. |
 | Implementation | Code, docs, fixtures, generated artifacts | Build the controlled design. | Meaningful implementation surfaces reference requirement or design IDs. |
 | Verification | `docs/vtrace/VERIFICATION.md` | Prove the system was built correctly. | Tests, inspections, static checks, schema checks, simulations, or reports cover requirements. |
 | Validation | `docs/vtrace/VALIDATION.md` | Prove the right thing was built for the intended use. | User workflows, acceptance scenarios, demos, or operator review cover mission success criteria. |
@@ -56,8 +57,8 @@ slice should produce:
 4. `docs/vtrace/VERIFICATION.md`
 5. `docs/vtrace/REVIEW.md`
 
-Add CONOPS, architecture, interfaces, detailed design, and validation depth as
-the repo's risk and maturity justify it.
+Add CONOPS, architecture, interfaces, detailed design, code rigor, and
+validation depth as the repo's risk and maturity justify it.
 
 ## Stage Rules
 
@@ -135,12 +136,46 @@ compatibility, safety, performance, or maintainability. Include:
 - rejected alternatives,
 - rollout or migration plan.
 
+### Code Rigor
+
+Code rigor is the left-side pre-code agreement for implementation quality. It
+belongs before or during detailed design, not after a large patch exists.
+
+Use code rigor when the repo has critical logic, generated code, public APIs,
+cross-repo consumers, safety/security consequences, difficult reviews, or a
+history of regressions.
+
+Define constraints for:
+
+- maximum function or method size,
+- cyclomatic or branch complexity,
+- module/file size,
+- assertion or invariant expectations,
+- error and return-value handling,
+- static analysis and warning policy,
+- testability of critical paths,
+- exceptions requiring written rationale.
+
+The common VTRACE default is:
+
+- small functions by default, with a soft cap around 60 logical lines unless a
+  project sets a stricter language-specific rule,
+- complex control flow requires design rationale,
+- public interfaces require input, error, and compatibility evidence,
+- critical logic requires assertions, invariants, property tests, or inspection,
+- warnings and static analysis findings are clean or explicitly waived.
+
+The right side of this stage is code-rigor verification: lint, static analysis,
+review findings, complexity checks, unit/component tests, and evidence ledger
+entries.
+
 ### Verification
 
 Verification proves "built correctly." Methods include:
 
 - automated tests,
 - static checks,
+- coding-standard and complexity checks,
 - schema validation,
 - fixture comparison,
 - inspections,

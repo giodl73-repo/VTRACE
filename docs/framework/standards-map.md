@@ -10,6 +10,7 @@ metadata-only, and what belongs in future adoption templates.
 | NPR 7123.1D | Current NASA procedural requirement | Current NASA systems engineering process reference and terminology checkpoint. | Metadata and citations; no compliance claims. |
 | NASA Software Engineering Handbook | Public NASA software handbook | Software objective evidence, architecture, requirements, review, and assurance guidance. | Derived software-codebase guidance. |
 | NASA-STD-8739.8B | Public NASA technical standard | Assurance, software safety, and IV&V context for high-rigor repos. | Metadata first; derived concepts after focused review. |
+| JPL Power of Ten | Public NASA/JPL coding rule set | Coding-verifiability principles for small reviewable units, simple control flow, assertions, return-value handling, static analysis, and warning discipline. | Derived code-rigor constraints and templates. |
 | ISO/IEC/IEEE 15288 | Copyrighted industry standard | Comparison point for system life-cycle process language. | Citation-only. |
 | ISO/IEC/IEEE 29148 | Copyrighted industry standard | Comparison point for requirements engineering language. | Citation-only. |
 | IEEE 1012 | Copyrighted industry standard | Comparison point for verification and validation. | Citation-only. |
