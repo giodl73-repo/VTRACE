@@ -2,9 +2,9 @@
 
 Use this template to connect intent, design, implementation, and evidence.
 
-| Requirement ID | Parent Need | Requirement | Design Element | Code Rigor Constraint | Implementation Surface | Verification Method | Validation Method | Evidence Pointer | Status |
-|---|---|---|---|---|---|---|---|---|---|
-| REQ-001 |  |  |  |  |  |  |  |  | proposed |
+| Requirement ID | Parent Need | Requirement | Design Element | Code Rigor Constraint | Work Package | Implementation Surface | Verification Method | Validation Method | Evidence Pointer | Status |
+|---|---|---|---|---|---|---|---|---|---|---|
+| REQ-001 |  |  |  |  | WP-001 |  |  |  |  | proposed |
 
 ## Field Rules
 
@@ -13,6 +13,7 @@ Use this template to connect intent, design, implementation, and evidence.
 - `Requirement`: one clear, verifiable statement.
 - `Design Element`: architecture section, module, interface, schema, or contract.
 - `Code Rigor Constraint`: coding constraint such as `CR-001` when applicable.
+- `Work Package`: implementation package such as `WP-001`, or disposition such as `deferred`.
 - `Implementation Surface`: files, crates, commands, fixtures, or generated artifacts.
 - `Verification Method`: test, analysis, inspection, demonstration, or review.
 - `Validation Method`: scenario, acceptance check, operator review, user workflow, or field evidence.

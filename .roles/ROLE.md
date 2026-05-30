@@ -15,6 +15,8 @@ Use these roles before VTRACE changes are treated as process-ready.
 | `parliament/requirements-traceability-auditor.md` | Requirements Traceability Auditor | Stable trace links vs. vague intent |
 | `parliament/verification-validation-lead.md` | Verification and Validation Lead | Objective evidence vs. unproven claims |
 | `parliament/software-assurance-guardian.md` | Software Assurance Guardian | Code rigor and risk controls vs. unchecked implementation |
+| `parliament/security-privacy-guardian.md` | Security Privacy Guardian | Security/privacy/supply-chain posture vs. hidden implementation risk |
+| `parliament/safety-risk-officer.md` | Safety Risk Officer | Consequence-aware readiness vs. generic quality review |
 | `parliament/source-custody-counsel.md` | Source Custody Counsel | Standards grounding vs. rights or endorsement mistakes |
 
 ## Editorial Roles

@@ -60,6 +60,24 @@
       "encoding_status": "metadata_only"
     },
     {
+      "id": "npr-7120-5e",
+      "title": "NPR 7120.5E NASA Space Flight Program and Project Management Requirements",
+      "publisher": "NASA NODIS",
+      "source_type": "program_project_management_requirement",
+      "url": "https://nodis3.gsfc.nasa.gov/displayDir.cfm?Internal_ID=N_PR_7120_005E_&page_name=main",
+      "accessed": "2026-05-30",
+      "rights_posture": "public_web_reference",
+      "download_policy": "pointer_only",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "life-cycle phases",
+        "life-cycle reviews",
+        "key decision points",
+        "formulation and implementation management framing"
+      ],
+      "encoding_status": "metadata_only"
+    },
+    {
       "id": "nasa-swe-handbook",
       "title": "NASA Software Engineering Handbook",
       "publisher": "NASA",
@@ -96,6 +114,23 @@
         "software assurance framing",
         "software safety framing",
         "independent verification and validation context"
+      ],
+      "encoding_status": "metadata_only"
+    },
+    {
+      "id": "nasa-cybersecurity-policies",
+      "title": "NASA Cybersecurity Policies",
+      "publisher": "NASA",
+      "source_type": "cybersecurity_policy_index",
+      "url": "https://www.nasa.gov/cybersecurity-policies/",
+      "accessed": "2026-05-30",
+      "rights_posture": "public_web_reference",
+      "download_policy": "pointer_only",
+      "commit_source_bytes": false,
+      "vtrace_use": [
+        "cybersecurity policy pointer",
+        "security/privacy review lane",
+        "NODIS/standards source discovery"
       ],
       "encoding_status": "metadata_only"
     },

@@ -21,6 +21,8 @@ Reviewer / lenses: VTRACE maintainer; repo adopter
 - `docs/vtrace/INTERFACES.md`
 - `docs/vtrace/DESIGN.md`
 - `docs/vtrace/CODE_RIGOR.md`
+- `docs/vtrace/IMPLEMENTATION_PLAN.md`
+- `docs/vtrace/WORK_PACKAGES.md`
 - `docs/vtrace/VERIFICATION.md`
 - `docs/vtrace/VALIDATION.md`
 - `docs/vtrace/TRACE.md`

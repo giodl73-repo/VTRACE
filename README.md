@@ -93,6 +93,19 @@ constraints for function size, complexity, assertions, error handling, static
 analysis, or warnings. Code rigor is a left-side design constraint with
 right-side verification evidence.
 
+For non-trivial work, use `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md` before
+coding. VTRACE implementation slices should have parent IDs, entry criteria,
+exit criteria, verification commands, evidence pointers, and review gates.
+Use execution control guidance for Git branches/worktrees, commits, pushes,
+agent handoffs, and L0/L1/L2 validation levels.
+Use assurance/security review guidance for role lanes covering systems
+engineering, traceability, V&V, software assurance, security/privacy,
+safety/risk, source custody, and configuration control.
+Use staged execution and role recommendation guidance to drive completeness and
+create ROLES-conformant review panels in target repos.
+For portfolio repos that already use waves and pulses, record each VTRACE work
+package inside the active repo-local pulse using `PULSE_EXECUTION.md`.
+
 ## Examples
 
 Start with `examples/hello-world/` to see the complete process on a tiny

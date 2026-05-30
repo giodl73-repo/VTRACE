@@ -17,6 +17,14 @@ Repo or feature:
 
 ```
 
+## Validation Levels
+
+| Level | Purpose | Commands / Evidence | Result |
+|---|---|---|---|
+| L0 | Fast local sanity for active work package. |  | pending |
+| L1 | Full repo confidence before push or PR. |  | pending |
+| L2 | Integration/readiness proof before merge, release, or public claim. |  | pending |
+
 ## Evidence Ledger
 
 | Evidence ID | Type | Path / URL / Command | Covers | Result |

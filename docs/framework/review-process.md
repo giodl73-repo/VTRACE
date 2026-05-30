@@ -3,6 +3,11 @@
 VTRACE uses three review gates. Each gate is scoped: review the current feature,
 wave, release, or repo baseline, not the whole universe.
 
+Use `assurance-security-review.md` to decide which role-review lanes are
+required for the scope.
+Use `roles-recommendation.md` to recommend a ROLES-conformant `.roles` panel for
+target repos.
+
 ## Gate 1: Specification Review
 
 Run before serious implementation or before accepting a major feature scope.
@@ -15,6 +20,7 @@ Checks:
 - Non-goals and constraints are explicit.
 - Each requirement has a planned verification method.
 - Validation scenarios are identified or explicitly deferred.
+- Required role-review lanes are identified.
 
 Output: `docs/vtrace/REVIEW.md` section or a dated review note.
 
@@ -39,6 +45,8 @@ Checks:
 - Tradeoffs and rejected alternatives are recorded.
 - Verification approach matches design risk.
 - Validation path still matches the mission need.
+- Security/privacy, safety/risk, assurance, and source-custody lanes are
+  required or explicitly not required.
 
 Allowed decisions are the same four gate outcomes.
 
@@ -54,6 +62,7 @@ Checks:
 - Validation evidence exists or is explicitly deferred with rationale.
 - Trace matrix has no unowned critical gaps.
 - Open findings are accepted, blocked, or deferred.
+- Required role-review lanes are complete.
 - Claims in README, docs, or release notes match the evidence.
 
 Allowed decisions are the same four gate outcomes.
@@ -75,6 +84,7 @@ Each review should record:
 - gate type,
 - decision,
 - participants or review lenses,
+- role review matrix,
 - evidence inspected,
 - findings,
 - accepted risks,

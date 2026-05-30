@@ -22,7 +22,8 @@ objective evidence repeatable across codebases.
 | 04 | Code rigor in the V | complete | Add pre-code rigor constraints and right-side verification evidence. |
 | 05 | End-to-end example and scenarios | complete | Add hello-world VTRACE package and scenario tests. |
 | 06 | Role panel | complete | Add VTRACE review lenses for process, traceability, V&V, assurance, custody, adoption, and agent continuity. |
-| 07 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
+| 07 | Implementation management | complete | Add baseline, work-package, change-control, and integration planning procedure. |
+| 08 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
 
 ## Success Criteria
 

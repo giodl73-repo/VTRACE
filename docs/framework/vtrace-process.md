@@ -37,10 +37,12 @@ evidence that will prove it.
 | CONOPS | `docs/vtrace/CONOPS.md` | Define how the system is used in real workflows. | Actors, scenarios, inputs, outputs, failure paths, and handoffs are recorded. |
 | Requirements | `docs/vtrace/REQUIREMENTS.md` | Turn mission and CONOPS into testable statements. | Each requirement has an ID, rationale, priority, owner, and verification method. |
 | Architecture | `docs/vtrace/ARCHITECTURE.md` | Define components, boundaries, data flows, and dependency posture. | Requirements map to system elements and known risks. |
+| Package Boundaries | `docs/vtrace/PACKAGE_BOUNDARIES.md` | Define crate/package/module/language ownership, dependency direction, and validation profiles. | Work packages know which boundaries they may touch and which commands apply. |
 | Interfaces | `docs/vtrace/INTERFACES.md` | Control APIs, CLIs, schemas, file formats, config, and external boundaries. | Interfaces have owners, compatibility rules, and verification methods. |
 | Detailed Design | `docs/vtrace/DESIGN.md` or feature notes | Define algorithms, invariants, state transitions, edge cases, and tradeoffs. | Design decisions link to requirements and expected component evidence. |
 | Code Rigor | `docs/vtrace/CODE_RIGOR.md` | Define coding constraints that make implementation reviewable, testable, statically checkable, and maintainable. | Size, complexity, assertion, error-handling, warning, and static-analysis expectations are set before code is written. |
-| Implementation | Code, docs, fixtures, generated artifacts | Build the controlled design. | Meaningful implementation surfaces reference requirement or design IDs. |
+| Implementation Planning | `docs/vtrace/IMPLEMENTATION_PLAN.md`, `docs/vtrace/WORK_PACKAGES.md` | Convert the accepted baseline into controlled work packages. | Work packages have parent IDs, entry criteria, exit criteria, verification commands, and review gates. |
+| Implementation | Code, docs, fixtures, generated artifacts | Build the controlled design through approved work packages. | Meaningful implementation surfaces reference requirement, design, interface, code-rigor, and work-package IDs. |
 | Verification | `docs/vtrace/VERIFICATION.md` | Prove the system was built correctly. | Tests, inspections, static checks, schema checks, simulations, or reports cover requirements. |
 | Validation | `docs/vtrace/VALIDATION.md` | Prove the right thing was built for the intended use. | User workflows, acceptance scenarios, demos, or operator review cover mission success criteria. |
 | Trace Matrix | `docs/vtrace/TRACE.md` | Connect the whole chain. | Rows link need, requirement, design, implementation, verification, validation, and evidence. |
@@ -57,8 +59,9 @@ slice should produce:
 4. `docs/vtrace/VERIFICATION.md`
 5. `docs/vtrace/REVIEW.md`
 
-Add CONOPS, architecture, interfaces, detailed design, code rigor, and
-validation depth as the repo's risk and maturity justify it.
+Add CONOPS, architecture, package boundaries, interfaces, detailed design, code rigor,
+implementation planning, and validation depth as the repo's risk and maturity
+justify it.
 
 ## Stage Rules
 
@@ -169,6 +172,30 @@ The right side of this stage is code-rigor verification: lint, static analysis,
 review findings, complexity checks, unit/component tests, and evidence ledger
 entries.
 
+### Implementation Planning
+
+Implementation should start only after the relevant baseline is understood.
+For non-trivial work, create `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md`.
+
+Each work package should name:
+
+- objective,
+- parent requirement/design/interface/code-rigor IDs,
+- affected files or modules,
+- entry criteria,
+- exit criteria,
+- verification commands,
+- validation impact,
+- risk,
+- review gate.
+
+Use `CHANGE_CONTROL.md` when implementation changes requirements, public
+interfaces, architecture boundaries, validation claims, verification methods,
+accepted risks, or code-rigor constraints.
+
+Use `INTEGRATION_PLAN.md` when multiple components, generated artifacts,
+schemas, public interfaces, or downstream consumers are involved.
+
 ### Verification
 
 Verification proves "built correctly." Methods include:
@@ -208,10 +235,12 @@ gate can pass with accepted risks, but accepted risks must be explicit.
 1. Run `vtrace-assess` to inspect current docs, tests, architecture, and gaps.
 2. Run `vtrace-adopt` to create the minimum VTRACE deliverables under
    `docs/vtrace/`.
-3. Implement or document the smallest missing evidence slice.
-4. Run the repo's normal validation commands.
-5. Run `vtrace-gate` to record the readiness decision.
-6. Commit the repo-local VTRACE artifacts with the implementation or evidence
+3. Establish the implementation baseline and write work packages.
+4. Implement one work package at a time.
+5. Run the work package verification commands.
+6. Update trace rows and evidence pointers.
+7. Run `vtrace-gate` to record the scoped readiness decision.
+8. Commit the repo-local VTRACE artifacts with the implementation or evidence
    they control.
 
 ## Definition of Done
@@ -221,6 +250,7 @@ A VTRACE adoption slice is done when:
 - a scope is named,
 - requirements are testable,
 - verification commands are listed,
+- implementation work packages have entry and exit criteria,
 - validation scenarios are listed or explicitly deferred,
 - trace rows connect intent to evidence,
 - review findings are recorded,
