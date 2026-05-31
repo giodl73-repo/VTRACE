@@ -26,7 +26,7 @@ Implementation baseline: self-adoption and DCR planning
 
 | Source IDs | Work Package | Disposition | Notes |
 |---|---|---|---|
-| DCR-001 / REQ-VAL-001 / CR-001..CR-003 | WP-001 | implement later | Validator candidate pulse. |
+| DCR-001 / REQ-VAL-001 / SPEC-007 / CR-001..CR-003 | WP-001 | implemented | Validator candidate pulse complete. |
 | DCR-002 / REQ-PROFILE-001 / CR-004 | WP-002 | implement later | Profiles should follow real adoption needs. |
 | DCR-003 / CON-001 / SPEC-004 / SPEC-005 | WP-003 | implement later | Realistic migration example. |
 | DCR-004 / IF-003 / SPEC-005 | WP-004 | implement later | Evidence ledger. |

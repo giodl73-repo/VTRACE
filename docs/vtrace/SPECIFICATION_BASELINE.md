@@ -18,6 +18,7 @@ Baseline date: 2026-05-31
 | SPEC-004 | REQ-004 | product | current | Specification baselines classify current, target, deprecated, and unknown behavior before non-trivial implementation planning. | inspection | existing-repo scenario | VTRACE | medium | accepted |
 | SPEC-005 | REQ-005 | product | current | Work packages require parent IDs, V closure rows, L0/L1/L2 validation levels, review lanes, Git execution, and pulse linkage. | inspection | work-package scenario | VTRACE | medium | accepted |
 | SPEC-006 | REQ-006 | roadmap | target | Remaining gaps are recorded as `DCR-*` change requests and mapped to future work packages. | inspection | roadmap review | VTRACE | low | accepted |
+| SPEC-007 | REQ-VAL-001 | software | current | `tools/vtrace_check.py` validates required VTRACE artifacts, requirement/spec trace visibility, evidence pointers, work-package shape, and required review-lane closure. | automated test / local command | self-adoption scenario | VTRACE | medium | accepted |
 
 ## Requirement-To-Spec Coverage
 
@@ -29,10 +30,11 @@ Baseline date: 2026-05-31
 | REQ-004 | SPEC-004 | covered | Spec baseline process exists. |
 | REQ-005 | SPEC-005 | covered | Implementation management exists. |
 | REQ-006 | SPEC-006 | covered | DCRs defined in change control. |
+| REQ-VAL-001 | SPEC-007 | covered | Lightweight validator exists. |
 
 ## Specification Gate
 
 Decision: pass_with_risk
 
-Rationale: VTRACE now has a self-baseline. Remaining risks are enforcement,
-language-specific tailoring, and larger adoption evidence.
+Rationale: VTRACE now has a self-baseline and a lightweight local validator.
+Remaining risks are language-specific tailoring and larger adoption evidence.

@@ -25,7 +25,8 @@ objective evidence repeatable across codebases.
 | 07 | Implementation management | complete | Add baseline, work-package, change-control, and integration planning procedure. |
 | 08 | Specification baselines | complete | Add NASA specificity map and spec-baseline controls for existing repos. |
 | 09 | VTRACE self-trace | complete | Add `docs/vtrace/` as VTRACE's source-of-truth proof package. |
-| 10 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
+| 10 | Validator candidates | complete | Add a lightweight local VTRACE artifact checker and tests. |
+| 11 | Language/package profiles | pending | Add concrete validation profiles for common repo types. |
 
 ## Success Criteria
 
@@ -39,5 +40,6 @@ objective evidence repeatable across codebases.
   requirements, and work packages.
 - `docs/vtrace/` proves VTRACE itself with requirements, specs, DCRs, work
   packages, trace, evidence, validation, and review posture.
+- Lightweight validator checks the self-trace package.
 - Repo-local wave, pulse, and research skills exist.
 - `git diff --check` passes.

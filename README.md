@@ -63,6 +63,8 @@ software assurance, and V&V into repo-local controls.
 docs/research/        Source-grounded research notes.
 docs/framework/       VTRACE framework maps and encoding guidance.
 schemas/              Machine-readable local artifact schemas.
+tools/                Local validation tools.
+tests/                Validator tests.
 sources/              Source registries and rights posture metadata.
 skills/               Reusable public skills for codebase rigor.
 templates/            Adoption templates for codebases.
@@ -127,15 +129,22 @@ against docs-only, Rust CLI, generated-code, and high-risk-control cases.
 
 ## Validation
 
-The foundation repo is documentation-first. Until executable tooling exists,
-the required validation command is:
+The foundation repo is documentation-first with a lightweight local validator.
+Run:
 
 ```powershell
 git diff --check
+py tools\vtrace_check.py .
 ```
 
-Future waves may add schemas, checklists, trace matrix validators, and generated
-evidence reports.
+When touching the validator, run:
+
+```powershell
+py -m unittest discover -s tests -p "test_*.py"
+```
+
+Future waves may add schemas, checklists, CI packaging, and generated evidence
+reports.
 
 ## License
 

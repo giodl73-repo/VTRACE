@@ -16,6 +16,7 @@ Repo: VTRACE
 | PKG-006 | `sources/` and `schemas/` | JSON / schema | VTRACE | Track source custody, rights posture, and encoding contracts. | IF-004 | Framework docs, source custody reviewers. |
 | PKG-007 | `context/waves/` | docs | VTRACE | Record VTRACE repo execution history and pulse outcomes. | IF-003 | Future agents and maintainers. |
 | PKG-008 | `docs/vtrace/` | docs | VTRACE | Prove VTRACE with VTRACE and control DCRs. | IF-003 | VTRACE maintainers and adopters. |
+| PKG-009 | `tools/` and `tests/` | Python stdlib | VTRACE | Validate VTRACE artifact contracts without network or third-party dependencies. | IF-005 | Maintainers, agents, target repos. |
 
 ## Dependency Direction
 
@@ -27,6 +28,7 @@ Repo: VTRACE
 | `docs/framework/` | `templates/adoption/` | limited | Framework may name required artifacts but should avoid copying template details. | docs review |
 | `examples/` | `templates/adoption/`, `docs/framework/` | yes | Examples demonstrate adoption. | scenario review |
 | `sources/` | external public/citation sources | yes | Source custody points to references. | JSON/source review |
+| `tools/` | `docs/vtrace/`, `templates/adoption/` | yes | Validator checks current artifact contracts. | unittest / validator run |
 
 ## Boundary Rules
 
@@ -39,6 +41,7 @@ Repo: VTRACE
 | PKG-005 | Add scenarios and realistic examples. | Let examples contradict templates or process. | Any public example claim. |
 | PKG-006 | Add metadata and schemas. | Commit restricted standards text without custody decision. | Any source rights or schema change. |
 | PKG-008 | Update self-trace for VTRACE changes. | Leave DCRs/work packages stale after process changes. | Any VTRACE behavior claim change. |
+| PKG-009 | Add deterministic stdlib checks and tests. | Add network or third-party dependency requirements for the core validator. | Any validation contract or CLI behavior change. |
 
 ## Language Tailoring
 
@@ -48,8 +51,9 @@ Repo: VTRACE
 | PKG-003 | skill Markdown | `git diff --check` | frontmatter/workflow inspection | skill execution on example |
 | PKG-005 | docs + Python | `git diff --check`; Python compile/run when touched | scenario inspection | realistic adoption scenario |
 | PKG-006 | JSON/schema | JSON parse | schema/source custody inspection | source-custody review |
+| PKG-009 | Python stdlib | `py -m py_compile tools\vtrace_check.py` | `py -m unittest discover -s tests -p "test_*.py"`; `py tools\vtrace_check.py .` | run on target repo examples |
 
 ## Open Boundary Questions
 
-- Should validators live in `tools/`, `scripts/`, or a future package boundary?
+- Should validators later be packaged as a CLI, GitHub Action, or reusable skill helper?
 - Should schemas become authoritative for all VTRACE templates or only machine-checkable subsets?

@@ -14,8 +14,8 @@ Decision: pass_with_risk
 |---|---|---|---|
 | Systems engineering | yes | pass | Mission, CONOPS, requirements, specs, architecture, and trace exist. |
 | Requirements traceability | yes | pass | `REQ-*` maps to `SPEC-*`, evidence, validation, and DCRs. |
-| V&V | yes | pass_with_risk | Verification and validation artifacts exist; automated validator remains open. |
-| Software assurance | yes | pass_with_risk | Code-rigor rules exist for future validators; no validator code yet. |
+| V&V | yes | pass_with_risk | Verification and validation artifacts exist; lightweight validator passes; realistic existing-repo adoption remains open. |
+| Software assurance | yes | pass_with_risk | Validator is dependency-free and tested; language-specific profiles remain open. |
 | Security/privacy | no | not_required | Current change is documentation/process only. |
 | Safety/mission impact | no | not_required | No safety-critical runtime behavior. |
 | Source custody | yes | pass | Source custody remains pointer-first. |
@@ -29,7 +29,7 @@ Decision: pass_with_risk
 
 | ID | Severity | Finding | Disposition |
 |---|---|---|---|
-| FIND-001 | major | VTRACE lacks executable validation tooling. | Accepted as `DCR-001` / `WP-001`. |
+| FIND-001 | major | VTRACE lacked executable validation tooling. | Fixed by `tools/vtrace_check.py`; further hardening can follow future validator work. |
 | FIND-002 | major | VTRACE lacks language/package profiles. | Accepted as `DCR-002` / `WP-002`. |
 | FIND-003 | major | VTRACE lacks a realistic existing-repo migration example. | Accepted as `DCR-003` / `WP-003`. |
 | FIND-004 | minor | Evidence ledger exists for VTRACE self-trace, but reusable target-repo template/schema and automation remain open. | Accepted as `DCR-004` / `WP-004`. |
