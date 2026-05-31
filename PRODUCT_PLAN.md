@@ -75,6 +75,13 @@ Prototype lightweight validators only after the document contracts stabilize.
 Candidates include Markdown checks, trace matrix consistency checks, and evidence
 ledger completeness checks.
 
+### Wave 3A: VTRACE Self-Trace
+
+Apply VTRACE to VTRACE itself and maintain `docs/vtrace/` as the repo's
+source-of-truth proof package. This package owns the current readiness claim,
+the DCR backlog, work-package candidates, trace coverage, validation evidence,
+and review posture.
+
 ## Dependency Posture
 
 VTRACE is a standards/protocols repo. It may later use PROOF for Markdown and

@@ -67,6 +67,7 @@ sources/              Source registries and rights posture metadata.
 skills/               Reusable public skills for codebase rigor.
 templates/            Adoption templates for codebases.
 examples/             End-to-end examples and process scenario tests.
+docs/vtrace/          VTRACE's own source-of-truth self-trace package.
 .roles/               Review lenses for VTRACE process and adoption quality.
 context/waves/        Local development wave and pulse records.
 .claude/skills/       Repo-local execution skills.
@@ -113,6 +114,10 @@ Use staged execution and role recommendation guidance to drive completeness and
 create ROLES-conformant review panels in target repos.
 For portfolio repos that already use waves and pulses, record each VTRACE work
 package inside the active repo-local pulse using `PULSE_EXECUTION.md`.
+
+VTRACE also applies itself to itself. Use `docs/vtrace/README.md` as the
+source-of-truth proof package for current VTRACE requirements, specifications,
+DCRs, work packages, evidence, validation, and review posture.
 
 ## Examples
 

@@ -24,7 +24,8 @@ objective evidence repeatable across codebases.
 | 06 | Role panel | complete | Add VTRACE review lenses for process, traceability, V&V, assurance, custody, adoption, and agent continuity. |
 | 07 | Implementation management | complete | Add baseline, work-package, change-control, and integration planning procedure. |
 | 08 | Specification baselines | complete | Add NASA specificity map and spec-baseline controls for existing repos. |
-| 09 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
+| 09 | VTRACE self-trace | complete | Add `docs/vtrace/` as VTRACE's source-of-truth proof package. |
+| 10 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
 
 ## Success Criteria
 
@@ -36,5 +37,7 @@ objective evidence repeatable across codebases.
 - Stage templates exist for repo-local `docs/vtrace/` adoption.
 - Specification baselines are explicit enough to connect existing behavior,
   requirements, and work packages.
+- `docs/vtrace/` proves VTRACE itself with requirements, specs, DCRs, work
+  packages, trace, evidence, validation, and review posture.
 - Repo-local wave, pulse, and research skills exist.
 - `git diff --check` passes.
