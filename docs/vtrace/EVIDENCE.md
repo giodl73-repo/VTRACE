@@ -22,6 +22,7 @@ Command receipts should be updated when validation is run.
 | EVID-009 | executable example | `py -m py_compile examples\hello-world\src\hello_world.py` | Hello-world compiles. | Passed on 2026-05-31. | passed |
 | EVID-010 | executable example | `py examples\hello-world\src\hello_world.py` | Prints `Hello, VTRACE!`. | Printed `Hello, VTRACE!` on 2026-05-31. | passed |
 | EVID-011 | review | `docs/vtrace/REVIEW.md` | Self-adoption gate records decision and findings. | `pass_with_risk`. | passed |
+| EVID-012 | role review | `.roles/` against `docs/vtrace/` | Required review lanes are represented and deferred requirements remain trace-visible. | Role-lane fixes recorded in `REVIEW.md` and `TRACE.md` on 2026-05-31. | passed |
 
 ## Evidence Rules
 

@@ -58,7 +58,8 @@ Status: pass_with_risk
 
 Evidence: `docs/vtrace/` package plus validation command receipts.
 
-Open risks: validator, language profiles, realistic migration example, evidence
-ledger, gate checklists, deeper NASA specificity encoding.
+Open risks: validator, language profiles, realistic migration example, reusable
+target-repo evidence template/schema automation, gate checklists, deeper NASA
+specificity encoding.
 
 Next pulse: implement one proposed DCR work package.
