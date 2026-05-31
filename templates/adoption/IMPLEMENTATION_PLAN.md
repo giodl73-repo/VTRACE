@@ -15,6 +15,7 @@ Implementation baseline:
 | `ROLE_RECOMMENDATIONS.md` | accepted / pending / not required |  |
 | `CONOPS.md` | accepted / pending / not required |  |
 | `REQUIREMENTS.md` | accepted / pending |  |
+| `SPECIFICATION_BASELINE.md` | accepted / pending |  |
 | `ARCHITECTURE.md` | accepted / pending / not required |  |
 | `PACKAGE_BOUNDARIES.md` | accepted / pending / not required |  |
 | `INTERFACES.md` | accepted / pending / not required |  |
@@ -40,7 +41,7 @@ disposition.
 
 | Source IDs | Work Package | Disposition | Notes |
 |---|---|---|---|
-| REQ-001 / DES-001 / IF-001 / CR-001 | WP-001 | implement |  |
+| REQ-001 / SPEC-001 / DES-001 / IF-001 / CR-001 | WP-001 | implement |  |
 
 Disposition values: `implement`, `defer`, `block`, `discovery`, `already_satisfied`.
 

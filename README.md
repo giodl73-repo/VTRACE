@@ -52,6 +52,11 @@ The repo translates those ideas for ordinary software engineering work. It does
 not copy NASA process wholesale, assert NASA endorsement, or require a
 spaceflight lifecycle.
 
+VTRACE also includes a NASA specificity map:
+`docs/framework/nasa-specificity-map.md`. Use it to translate NASA-style
+baselines, technical reviews, configuration control, technical data management,
+software assurance, and V&V into repo-local controls.
+
 ## Repository Shape
 
 ```text
@@ -81,12 +86,15 @@ repo, start with the minimum first slice under `docs/vtrace/`:
 
 - `MISSION.md`
 - `REQUIREMENTS.md`
+- `SPECIFICATION_BASELINE.md`
 - `TRACE.md`
 - `VERIFICATION.md`
 - `REVIEW.md`
 
 Add CONOPS, architecture, interfaces, detailed design, and validation artifacts
-as the repo's risk and maturity require.
+as the repo's risk and maturity require. For existing repos, the spec baseline
+should classify observed behavior as `current`, `target`, `deprecated`, or
+`unknown` before non-trivial implementation starts.
 
 Use `CODE_RIGOR.md` before implementation when a repo needs explicit coding
 constraints for function size, complexity, assertions, error handling, static

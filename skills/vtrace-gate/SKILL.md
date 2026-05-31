@@ -22,18 +22,21 @@ Use this skill to run a scoped review gate.
 4. Compare claims against evidence.
 5. For readiness gates, check code-rigor constraints and evidence when
    `docs/vtrace/CODE_RIGOR.md` exists or critical implementation is in scope.
-6. For implementation readiness or work-package close gates, check
+6. For specification gates, check `SPECIFICATION_BASELINE.md` for current vs
+   target behavior, `REQ-*` to `SPEC-*` coverage, public contract ownership,
+   unknown dispositions, and credible verification/validation methods.
+7. For implementation readiness or work-package close gates, check
    `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md` for parent IDs, entry
    criteria, exit criteria, L0/L1/L2 validation requirements, verification
    commands, V closure rows, package/crate/module boundaries, Git/worktree
    scope, wave/pulse records, and trace updates.
-7. Check required role-review lanes: systems engineering, traceability, V&V,
+8. Check required role-review lanes: systems engineering, traceability, V&V,
    software assurance, security/privacy, safety/risk, source custody, and
    configuration/change control.
-8. Record findings by severity.
-9. Choose one decision:
+9. Record findings by severity.
+10. Choose one decision:
    `pass`, `pass_with_risk`, `blocked`, or `deferred`.
-10. Update or create `docs/vtrace/REVIEW.md`.
+11. Update or create `docs/vtrace/REVIEW.md`.
 
 ## Decision Rules
 

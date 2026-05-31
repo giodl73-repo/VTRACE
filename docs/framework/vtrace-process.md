@@ -14,6 +14,8 @@ Mission / Need                         Validation
       \                       /
        Requirements      System verification
         \                 /
+       Specifications Product verification
+         \               /
          Architecture  Integration verification
           \             /
            Interfaces Interface verification
@@ -36,6 +38,7 @@ evidence that will prove it.
 | Mission / Need | `docs/vtrace/MISSION.md` | Define why the repo exists and what success means. | Users, operating context, constraints, non-goals, and success criteria are explicit. |
 | CONOPS | `docs/vtrace/CONOPS.md` | Define how the system is used in real workflows. | Actors, scenarios, inputs, outputs, failure paths, and handoffs are recorded. |
 | Requirements | `docs/vtrace/REQUIREMENTS.md` | Turn mission and CONOPS into testable statements. | Each requirement has an ID, rationale, priority, owner, and verification method. |
+| Specification Baseline | `docs/vtrace/SPECIFICATION_BASELINE.md` | Define controlled behavior, product contracts, constraints, and acceptance basis for an existing repo or feature. | Current/as-planned behavior, public contracts, nonfunctional limits, assumptions, and derived specs are baselined or explicitly deferred. |
 | Architecture | `docs/vtrace/ARCHITECTURE.md` | Define components, boundaries, data flows, and dependency posture. | Requirements map to system elements and known risks. |
 | Package Boundaries | `docs/vtrace/PACKAGE_BOUNDARIES.md` | Define crate/package/module/language ownership, dependency direction, and validation profiles. | Work packages know which boundaries they may touch and which commands apply. |
 | Interfaces | `docs/vtrace/INTERFACES.md` | Control APIs, CLIs, schemas, file formats, config, and external boundaries. | Interfaces have owners, compatibility rules, and verification methods. |
@@ -55,9 +58,10 @@ slice should produce:
 
 1. `docs/vtrace/MISSION.md`
 2. `docs/vtrace/REQUIREMENTS.md`
-3. `docs/vtrace/TRACE.md`
-4. `docs/vtrace/VERIFICATION.md`
-5. `docs/vtrace/REVIEW.md`
+3. `docs/vtrace/SPECIFICATION_BASELINE.md`
+4. `docs/vtrace/TRACE.md`
+5. `docs/vtrace/VERIFICATION.md`
+6. `docs/vtrace/REVIEW.md`
 
 Add CONOPS, architecture, package boundaries, interfaces, detailed design, code rigor,
 implementation planning, and validation depth as the repo's risk and maturity
@@ -101,6 +105,31 @@ Every requirement should be:
 
 Avoid requirements that merely say "support", "handle", or "be robust" unless
 the measurable condition is explicit.
+
+### Specification Baseline
+
+Specification comes into play after mission, CONOPS, and requirements are
+understood, and before architecture, detailed design, or implementation
+planning is treated as ready.
+
+NASA-style rigor does not rely on a single magic "spec" file. It controls
+technical products: system requirements, interface requirements, software
+requirements, expected results, verification procedures, validation plans,
+technical data, and configuration baselines. VTRACE translates that into
+`SPECIFICATION_BASELINE.md` plus narrower derived specs when risk requires
+them.
+
+For existing repos, start with an observed-current specification. Do not invent
+an aspirational spec and pretend the repo already satisfies it. Separate:
+
+- `current`: behavior observed in docs, tests, releases, examples, or
+  downstream consumers,
+- `target`: behavior accepted for this scope,
+- `deprecated`: behavior intentionally kept or removed through change control,
+- `unknown`: behavior requiring discovery before implementation.
+
+Implementation planning should not start for non-trivial work until every
+accepted `REQ-*` maps to a `SPEC-*` item or an explicit deferral.
 
 ### Architecture
 
@@ -181,6 +210,7 @@ Each work package should name:
 
 - objective,
 - parent requirement/design/interface/code-rigor IDs,
+- parent specification IDs,
 - affected files or modules,
 - entry criteria,
 - exit criteria,
@@ -189,9 +219,9 @@ Each work package should name:
 - risk,
 - review gate.
 
-Use `CHANGE_CONTROL.md` when implementation changes requirements, public
-interfaces, architecture boundaries, validation claims, verification methods,
-accepted risks, or code-rigor constraints.
+Use `CHANGE_CONTROL.md` when implementation changes requirements,
+specifications, public interfaces, architecture boundaries, validation claims,
+verification methods, accepted risks, or code-rigor constraints.
 
 Use `INTEGRATION_PLAN.md` when multiple components, generated artifacts,
 schemas, public interfaces, or downstream consumers are involved.
@@ -232,7 +262,8 @@ gate can pass with accepted risks, but accepted risks must be explicit.
 
 ## Applying VTRACE To A Repo
 
-1. Run `vtrace-assess` to inspect current docs, tests, architecture, and gaps.
+1. Run `vtrace-assess` to inspect current docs, tests, specifications,
+   architecture, and gaps.
 2. Run `vtrace-adopt` to create the minimum VTRACE deliverables under
    `docs/vtrace/`.
 3. Establish the implementation baseline and write work packages.
@@ -249,6 +280,7 @@ A VTRACE adoption slice is done when:
 
 - a scope is named,
 - requirements are testable,
+- specifications baseline current and target behavior,
 - verification commands are listed,
 - implementation work packages have entry and exit criteria,
 - validation scenarios are listed or explicitly deferred,

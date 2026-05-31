@@ -14,22 +14,25 @@ Assess the target repo before adding or changing process artifacts.
 2. Inspect the target repo's README, product plan, architecture docs, tests,
    CI, validation commands, issue/wave history, and release claims.
 3. Identify existing artifacts for each VTRACE stage:
-   mission, CONOPS, requirements, architecture, interfaces, design,
-   package boundaries, code rigor, implementation plan, work packages,
-   implementation, verification, validation, trace, review.
+   mission, CONOPS, requirements, specification baseline, architecture,
+   interfaces, design, package boundaries, code rigor, implementation plan,
+   work packages, implementation, verification, validation, trace, review.
 4. Record evidence, gaps, and risk by stage.
-5. Check whether critical code needs explicit size, complexity, assertion,
+5. Check whether current behavior, public contracts, tests, examples,
+   releases, schemas, or downstream consumers should be captured as `SPEC-*`
+   items before implementation.
+6. Check whether critical code needs explicit size, complexity, assertion,
    error-handling, warning, or static-analysis constraints before new code is
    written.
-6. Check whether implementation needs Git branch/worktree rules and L0/L1/L2
+7. Check whether implementation needs Git branch/worktree rules and L0/L1/L2
    validation levels.
-7. Check whether implementation crosses package/crate/module/language
+8. Check whether implementation crosses package/crate/module/language
    boundaries or needs explicit dependency-direction rules.
-8. Check whether security/privacy, safety/risk, source-custody, software
+9. Check whether security/privacy, safety/risk, source-custody, software
    assurance, or configuration/change-control role lanes are required.
-9. Check whether the repo has `.roles/ROLE.md` and whether its panel matches
+10. Check whether the repo has `.roles/ROLE.md` and whether its panel matches
    required VTRACE role lanes.
-10. Recommend the smallest adoption slice.
+11. Recommend the smallest adoption slice.
 
 ## Output
 
@@ -38,6 +41,7 @@ Write or return an assessment with these sections:
 - `Scope`
 - `Existing Stage Artifacts`
 - `Traceability Gaps`
+- `Specification Baseline Need`
 - `Verification Evidence`
 - `Validation Evidence`
 - `Code Rigor Need`

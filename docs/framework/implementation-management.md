@@ -49,6 +49,7 @@ Before implementation starts, establish the baseline:
 
 - accepted mission/CONOPS scope,
 - accepted requirement IDs,
+- accepted specification IDs,
 - accepted architecture/interface/design IDs,
 - accepted package/crate/module boundary IDs,
 - code-rigor constraints,
@@ -67,6 +68,7 @@ package has:
 - ID,
 - objective,
 - parent requirement IDs,
+- parent specification IDs,
 - package/crate/module boundary IDs,
 - design/interface IDs,
 - files or modules likely affected,
@@ -136,6 +138,7 @@ The mapping should be visible in `IMPLEMENTATION_PLAN.md` before coding starts.
 | Mission need | Which user or operational outcome does this support? | Do not create a work package from mission text alone; require at least one `REQ-*`. |
 | CONOPS scenario | Which workflow must be enabled or protected? | Create validation or integration work packages when scenarios need end-to-end proof. |
 | Requirement | What must be built or changed? | Every accepted `REQ-*` is assigned to at least one work package or explicitly deferred. |
+| Specification item | What exact behavior, contract, constraint, or expected result is controlled? | Every build work package names the relevant `SPEC-*` IDs or records discovery status. |
 | Architecture element | Which component owns the behavior? | Work package names the affected component and boundary. |
 | Package boundary | Which crate, package, module, adapter, schema, or generated artifact owns the behavior? | Work package names `PKG-*` IDs and allowed touches. |
 | Interface | Which contract must be created or preserved? | Interface-changing work packages require compatibility and fixture evidence. |
@@ -144,9 +147,9 @@ The mapping should be visible in `IMPLEMENTATION_PLAN.md` before coding starts.
 | Verification item | How will the slice close? | Work package exit criteria include the command or inspection. |
 | Validation scenario | What user-facing proof is affected? | Work package records validation impact and updates `VALIDATION.md`. |
 
-If a proposed implementation slice has no parent `REQ-*`, `IF-*`, `DES-*`, or
-`CR-*`, it is not ready to implement. Either add the missing left-side control
-item or classify the work as discovery.
+If a proposed implementation slice has no parent `REQ-*`, `SPEC-*`, `IF-*`,
+`DES-*`, or `CR-*`, it is not ready to implement. Either add the missing
+left-side control item or classify the work as discovery.
 
 ## Entry And Exit Criteria
 
@@ -175,6 +178,7 @@ During implementation, changes are normal. Uncontrolled changes are the problem.
 Create or update `CHANGE_CONTROL.md` when implementation changes:
 
 - requirement meaning,
+- specification meaning,
 - public interface,
 - architecture boundary,
 - validation claim,

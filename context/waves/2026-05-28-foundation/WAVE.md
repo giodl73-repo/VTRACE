@@ -23,7 +23,8 @@ objective evidence repeatable across codebases.
 | 05 | End-to-end example and scenarios | complete | Add hello-world VTRACE package and scenario tests. |
 | 06 | Role panel | complete | Add VTRACE review lenses for process, traceability, V&V, assurance, custody, adoption, and agent continuity. |
 | 07 | Implementation management | complete | Add baseline, work-package, change-control, and integration planning procedure. |
-| 08 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
+| 08 | Specification baselines | complete | Add NASA specificity map and spec-baseline controls for existing repos. |
+| 09 | Validator candidates | pending | Decide whether lightweight automated checks are warranted. |
 
 ## Success Criteria
 
@@ -33,5 +34,7 @@ objective evidence repeatable across codebases.
 - First reusable skill exists under `skills/`.
 - Focused assessment, adoption, and gate-review skills exist.
 - Stage templates exist for repo-local `docs/vtrace/` adoption.
+- Specification baselines are explicit enough to connect existing behavior,
+  requirements, and work packages.
 - Repo-local wave, pulse, and research skills exist.
 - `git diff --check` passes.

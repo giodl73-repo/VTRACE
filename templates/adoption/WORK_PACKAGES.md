@@ -8,7 +8,7 @@ Repo or feature:
 
 | ID | Objective | Parent IDs | Affected Surfaces | Entry Criteria | Exit Criteria | L0 / L1 / L2 | Status |
 |---|---|---|---|---|---|---|---|
-| WP-001 |  | REQ-001 / DES-001 / IF-001 |  |  |  | L0: / L1: / L2: | proposed |
+| WP-001 |  | REQ-001 / SPEC-001 / DES-001 / IF-001 |  |  |  | L0: / L1: / L2: | proposed |
 
 ## Work Package Details
 
@@ -17,6 +17,8 @@ Repo or feature:
 Objective:
 
 Parent requirement IDs:
+
+Parent specification IDs:
 
 Boundary/package IDs:
 
@@ -54,6 +56,7 @@ V closure:
 |---|---|---|---|
 | Need / CONOPS |  | pending |  |
 | Requirements |  | pending |  |
+| Specification |  | pending |  |
 | Architecture / Interface |  | pending |  |
 | Design / Code Rigor |  | pending |  |
 | Implementation |  | pending |  |
@@ -108,6 +111,7 @@ Status:
 Before implementation starts, confirm:
 
 - [ ] Every accepted `REQ-*` is assigned to a work package or dispositioned.
+- [ ] Every accepted `SPEC-*` is assigned to a work package, verification item, or dispositioned.
 - [ ] Every interface-changing work package names `IF-*` IDs.
 - [ ] Every package/crate/module-changing work package names `PKG-*` boundary IDs.
 - [ ] Every critical-code work package names `CR-*` IDs.

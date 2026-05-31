@@ -9,7 +9,7 @@ review, and a decision.
 | Stage | Purpose | Required Artifacts | Minimum Validation | Gate |
 |---|---|---|---|---|
 | S0 Intake | Decide whether VTRACE applies and what scope is controlled. | Assessment notes or `MISSION.md` draft. | None or docs sanity. | Intake decision. |
-| S1 Specification Baseline | Control mission, CONOPS, and requirements. | `MISSION.md`, `CONOPS.md` if needed, `REQUIREMENTS.md`. | Requirement quality review. | Specification review. |
+| S1 Specification Baseline | Control mission, CONOPS, requirements, and current/target behavior. | `MISSION.md`, `CONOPS.md` if needed, `REQUIREMENTS.md`, `SPECIFICATION_BASELINE.md`. | Requirement and specification quality review. | Specification review. |
 | S2 Design Baseline | Control architecture, package boundaries, interfaces, design, and code rigor. | `ARCHITECTURE.md`, `PACKAGE_BOUNDARIES.md`, `INTERFACES.md`, `DESIGN.md`, `CODE_RIGOR.md` as needed. | Design inspection; interface/schema checks if present. | Design review. |
 | S3 Implementation Planning | Convert accepted left-side items into work packages. | `IMPLEMENTATION_PLAN.md`, `WORK_PACKAGES.md`; optional `CHANGE_CONTROL.md`, `INTEGRATION_PLAN.md`. | Orphan check; source-to-WP mapping check. | Implementation readiness review. |
 | S4 Work Package Execution | Implement one controlled package. | Active `WP-*`, code/docs/artifacts, trace updates. | L0 before commit; L1 before push. | Work package close review. |
@@ -70,3 +70,10 @@ Stop when: WP-002 V closure rows are complete or a blocker is found.
 
 If the agent discovers missing left-side control, it should stop and recommend
 a change-control or design-baseline update instead of patching around the gap.
+
+## Existing Repo Spec Rule
+
+For existing repos, S1 is not complete until current behavior is classified as
+`current`, `target`, `deprecated`, or `unknown` in
+`SPECIFICATION_BASELINE.md`. Unknown behavior that affects implementation must
+be resolved or converted into a discovery work package before S3 passes.
