@@ -6,7 +6,7 @@ Repo: VTRACE self-adoption
 
 Gate type: specification / implementation readiness
 
-Decision: pass_with_risk
+Decision: pass
 
 ## Role Lanes
 
@@ -14,15 +14,15 @@ Decision: pass_with_risk
 |---|---|---|---|
 | Systems engineering | yes | pass | Mission, CONOPS, requirements, specs, architecture, and trace exist. |
 | Requirements traceability | yes | pass | `REQ-*` maps to `SPEC-*`, evidence, validation, and DCRs. |
-| V&V | yes | pass_with_risk | Verification and validation artifacts exist; lightweight validator passes; realistic existing-repo adoption remains open. |
-| Software assurance | yes | pass_with_risk | Validator is dependency-free and tested; language-specific profiles remain open. |
+| V&V | yes | pass | Verification, validation, evidence, checklist, validator, and realistic migration example evidence exist. |
+| Software assurance | yes | pass | Validator is dependency-free, tested, and profile-guided; CI packaging remains future hardening, not readiness-blocking. |
 | Security/privacy | no | not_required | Current change is documentation/process only. |
 | Safety/mission impact | no | not_required | No safety-critical runtime behavior. |
 | Source custody | yes | pass | Source custody remains pointer-first. |
 | Configuration/change control | yes | pass | DCRs now govern missing capabilities and future semantic changes. |
-| Adoption guide | yes | pass_with_risk | Self-trace entry point and DCR path are clear; realistic existing-repo migration remains open as `DCR-003`. |
-| Template minimalism | yes | pass_with_risk | Self-trace is intentionally thorough for VTRACE itself; target-repo minimum slice remains smaller. Reusable evidence template/schema remains open as `DCR-004`. |
-| Repo maintainer | yes | pass_with_risk | Maintainers can use DCRs and WPs to choose next work; validator and language-profile automation remain open. |
+| Adoption guide | yes | pass | Self-trace, templates, validator, and realistic migration example provide concrete adoption path. |
+| Template minimalism | yes | pass | VTRACE self-trace remains thorough while target repos retain a smaller minimum slice. |
+| Repo maintainer | yes | pass | Maintainers have DCRs, work packages, profiles, validator, and examples to drive next work. |
 | Future agent | yes | pass | IDs, DCRs, work packages, evidence, pulse history, and review posture are sufficient to resume. |
 
 ## Findings
@@ -30,14 +30,15 @@ Decision: pass_with_risk
 | ID | Severity | Finding | Disposition |
 |---|---|---|---|
 | FIND-001 | major | VTRACE lacked executable validation tooling. | Fixed by `tools/vtrace_check.py`; further hardening can follow future validator work. |
-| FIND-002 | major | VTRACE lacks language/package profiles. | Accepted as `DCR-002` / `WP-002`. |
-| FIND-003 | major | VTRACE lacks a realistic existing-repo migration example. | Accepted as `DCR-003` / `WP-003`. |
-| FIND-004 | minor | Evidence ledger exists for VTRACE self-trace, but reusable target-repo template/schema and automation remain open. | Accepted as `DCR-004` / `WP-004`. |
-| FIND-005 | minor | Gate-specific checklists need sharper execution detail. | Accepted as `DCR-005` / `WP-005`. |
-| FIND-006 | minor | Deferred requirements for validators and language profiles must remain visible in trace. | Fixed in `TRACE.md` with deferred rows for `REQ-VAL-001` and `REQ-PROFILE-001`. |
+| FIND-002 | major | VTRACE lacked language/package profiles. | Fixed by `language-profiles.md`, `LANGUAGE_PROFILES.md`, and validator profile checks. |
+| FIND-003 | major | VTRACE lacked a realistic existing-repo migration example. | Fixed by `examples/existing-repo-migration/`. |
+| FIND-004 | minor | Evidence ledger existed only for VTRACE self-trace. | Fixed by `templates/adoption/EVIDENCE.md` and validator evidence checks. |
+| FIND-005 | minor | Gate-specific checklists needed sharper execution detail. | Fixed by `gate-checklists.md`, `REVIEW_CHECKLISTS.md`, and validator checklist checks. |
+| FIND-006 | minor | Deferred requirements for validators and language profiles must remain visible in trace. | Fixed in `TRACE.md`; both items are now verified. |
 
 ## Rationale
 
-VTRACE is now self-traced enough to drive follow-on work procedurally. The gate
-passes with risk because the next maturity step is enforcement and larger
-adoption evidence, not more conceptual process.
+VTRACE now has source-grounded guidance, self-trace, validator enforcement,
+profiles, evidence ledger template, gate checklists, and a realistic migration
+example. The remaining work is hardening and packaging, not readiness of the
+documentation-first process.

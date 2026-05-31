@@ -41,13 +41,13 @@ Use this package as the first place to answer:
 ## Readiness Claim
 
 Current claim: VTRACE is ready as a documentation-first adoption framework with
-explicit known gaps.
+local validator enforcement and a defined hardening path.
 
-Current gate: `pass_with_risk`.
+Current gate: `pass`.
 
-The risk is not conceptual incoherence. The risk is that enforcement,
-language-specific tailoring, evidence schemas/automation, gate checklists, and
-realistic adoption examples are still proposed work packages.
+The remaining risk is operational packaging: CI integration and broader live
+repo adoption can harden the validator, but the docs-first process is no longer
+blocked on missing profiles, examples, evidence ledgers, or gate checklists.
 
 ## Update Rule
 

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/giodl73-repo/VTRACE/schemas/evidence-ledger.schema.json",
+  "title": "VTRACE Evidence Ledger Row",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "type",
+    "source_or_command",
+    "expected_result",
+    "actual_result",
+    "status"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^EVID(-[A-Z]+)*-[0-9]{3}$"
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_or_command": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_result": {
+      "type": "string"
+    },
+    "actual_result": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "passed",
+        "failed",
+        "blocked",
+        "deferred",
+        "accepted_risk"
+      ]
+    }
+  }
+}

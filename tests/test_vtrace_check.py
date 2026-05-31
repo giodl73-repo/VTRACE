@@ -76,9 +76,9 @@ class VTraceCheckTests(unittest.TestCase):
             """
             # Evidence
 
-            | Evidence ID | Status |
-            |---|---|
-            | EVID-001 | passed |
+            | Evidence ID | Source / Command | Status |
+            |---|---|---|
+            | EVID-001 | command | passed |
             """,
         )
 
@@ -137,6 +137,57 @@ class VTraceCheckTests(unittest.TestCase):
         findings = run_checks(self.tmp)
 
         self.assertTrue(any("EVID-001 is not defined in EVIDENCE.md" in item.message for item in findings))
+
+    def test_evidence_status_must_be_complete(self) -> None:
+        self.write_minimal_valid_package()
+        self.write(
+            "EVIDENCE.md",
+            """
+            # Evidence
+
+            | Evidence ID | Source / Command | Status |
+            |---|---|---|
+            | EVID-001 | command | pending |
+            """,
+        )
+
+        findings = run_checks(self.tmp)
+
+        self.assertTrue(any("EVID-001 has incomplete evidence status" in item.message for item in findings))
+
+    def test_review_checklist_required_item_must_close(self) -> None:
+        self.write_minimal_valid_package()
+        self.write(
+            "REVIEW_CHECKLISTS.md",
+            """
+            # Review Checklists
+
+            | Gate | Item | Required | Decision |
+            |---|---|---|---|
+            | Specification Review | Requirements are testable. | yes | pending |
+            """,
+        )
+
+        findings = run_checks(self.tmp)
+
+        self.assertTrue(any("required checklist item is not closed" in item.message for item in findings))
+
+    def test_language_profiles_need_validation_levels(self) -> None:
+        self.write_minimal_valid_package()
+        self.write(
+            "LANGUAGE_PROFILES.md",
+            """
+            # Language Profiles
+
+            | Profile ID | Applicability | L0 | L1 | L2 |
+            |---|---|---|---|---|
+            | PROFILE-PYTHON-001 | Python package | py_compile | unittest |  |
+            """,
+        )
+
+        findings = run_checks(self.tmp)
+
+        self.assertTrue(any("PROFILE-PYTHON-001 has blank L2" in item.message for item in findings))
 
 
 if __name__ == "__main__":

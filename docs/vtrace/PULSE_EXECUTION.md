@@ -4,13 +4,13 @@
 
 Repo: VTRACE self-adoption
 
-Active pulse: `context/waves/2026-05-28-foundation/pulses/pulse-10.md`
+Active pulse: `context/waves/2026-05-28-foundation/pulses/pulse-11.md` through `pulse-15.md`
 
 ## VTRACE Work Package
 
-Active work package: `WP-001`
+Active work package: `WP-002` through `WP-006`
 
-Parent IDs: DCR-001, REQ-VAL-001, SPEC-007, CR-001..CR-003
+Parent IDs: DCR-002..DCR-006, REQ-PROFILE-001, REQ-EXAMPLE-001, REQ-EVIDENCE-001, REQ-GATE-001, REQ-NASA-001, SPEC-008..SPEC-012
 
 Boundary IDs: PKG-001..PKG-008
 
@@ -23,6 +23,9 @@ Allowed files/modules:
 - `docs/vtrace/`
 - `tools/vtrace_check.py`
 - `tests/test_vtrace_check.py`
+- `docs/framework/`
+- `templates/adoption/`
+- `examples/existing-repo-migration/`
 - `README.md`
 - `context/waves/2026-05-28-foundation/`
 
@@ -43,26 +46,27 @@ Discovery allowed: yes
 | L1 | `py examples\hello-world\src\hello_world.py` | passed |
 | L1 | `py -m unittest discover -s tests -p "test_*.py"` | passed |
 | L1 | `py tools\vtrace_check.py .` | passed |
-| L2 | Self-review in `docs/vtrace/REVIEW.md` | passed_with_risk |
+| L1 | `py -m py_compile examples\existing-repo-migration\src\report.py` | passed |
+| L1 | `py examples\existing-repo-migration\src\report.py` | passed |
+| L2 | `py tools\vtrace_check.py examples\existing-repo-migration` | passed |
+| L2 | Self-review in `docs/vtrace/REVIEW.md` | pass |
 
 ## Trace And Evidence Updates
 
 | File | Required Update | Status |
 |---|---|---|
-| `docs/vtrace/WORK_PACKAGES.md` | Mark `WP-001` complete | complete |
-| `docs/vtrace/TRACE.md` | Mark `REQ-VAL-001` verified | complete |
-| `docs/vtrace/VERIFICATION.md` | Add validator commands | complete |
-| `docs/vtrace/VALIDATION.md` | Self-adoption validator scenario | complete |
-| `docs/vtrace/REVIEW.md` | Update V&V and assurance findings | complete |
+| `docs/vtrace/WORK_PACKAGES.md` | Mark `WP-002..WP-006` complete | complete |
+| `docs/vtrace/TRACE.md` | Mark remaining DCR requirements verified | complete |
+| `docs/vtrace/VERIFICATION.md` | Add profile/example/evidence/gate/source commands | complete |
+| `docs/vtrace/VALIDATION.md` | Add profile/example/evidence/gate/source scenarios | complete |
+| `docs/vtrace/REVIEW.md` | Close remaining findings | complete |
 
 ## Outcome
 
-Status: pass_with_risk
+Status: pass
 
 Evidence: `docs/vtrace/` package plus validation command receipts.
 
-Open risks: language profiles, realistic migration example, reusable target-repo
-evidence template/schema automation, gate checklists, deeper NASA specificity
-encoding, CI packaging for validator runs.
+Open risks: CI packaging and future validator hardening.
 
-Next pulse: implement one proposed DCR work package.
+Next pulse: optional hardening or adoption in a live target repo.

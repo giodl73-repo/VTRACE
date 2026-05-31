@@ -6,6 +6,9 @@ Examples prove the VTRACE model before it is applied to larger repos.
 
 - `hello-world/` - a complete tiny implementation traced from mission through
   review.
+- `existing-repo-migration/` - a small retrofit example that separates current
+  behavior from target behavior, implements one work package, and closes trace
+  with evidence.
 - `scenario-tests/` - scenario cards that stress the model against different
   repo types and risk levels.
 

@@ -27,7 +27,10 @@ repo.
    to `SPEC-*` before non-trivial implementation planning.
 9. Add `CODE_RIGOR.md` before implementation when code size, complexity,
    assertions, error handling, static analysis, or reviewability matter.
-10. Add `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md` before non-trivial
+10. Add `LANGUAGE_PROFILES.md` when the target repo needs language/package
+    validation tailoring for Rust, Python, TypeScript/frontend, generated code,
+    docs-only, or multi-language boundaries.
+11. Add `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md` before non-trivial
    implementation.
    Map every accepted `REQ-*` and `SPEC-*` to a work package or explicit
    disposition before coding starts.
@@ -37,15 +40,19 @@ repo.
    validation commands.
    If the target repo uses waves/pulses, map each work package to pulse files
    and use `PULSE_EXECUTION.md` inside those pulse records.
-11. Add `CHANGE_CONTROL.md` if implementation changes controlled requirements,
+11. Add `EVIDENCE.md` when trace rows need durable command, review, CI, fixture,
+    or artifact receipts.
+12. Add `REVIEW_CHECKLISTS.md` when a scoped gate needs repeatable checklist
+    closure.
+13. Add `CHANGE_CONTROL.md` if implementation changes controlled requirements,
     specifications, interfaces, design, validation claims, verification
     methods, or risks.
-12. Add `INTEGRATION_PLAN.md` if multiple components, generated artifacts,
+14. Add `INTEGRATION_PLAN.md` if multiple components, generated artifacts,
     schemas, or downstream consumers are involved.
-13. Link requirements and specifications to work packages, implementation surfaces, verification
+15. Link requirements and specifications to work packages, implementation surfaces, verification
     commands, and evidence.
-14. Run the target repo's validation commands.
-15. Update the review record with command results and open risks.
+16. Run the target repo's validation commands.
+17. Update the review record with command results and open risks.
 
 ## Stage Order
 
@@ -70,6 +77,9 @@ MISSION -> CONOPS -> REQUIREMENTS -> SPECIFICATION_BASELINE -> ARCHITECTURE
   boundaries and allowed dependency direction.
 - Every work package should state L0, L1, and L2 validation requirements, even
   when a level is not required.
+- Every profile used by a work package should define applicability and L0/L1/L2.
+- Every trace evidence pointer should resolve to an evidence ledger row when
+  `EVIDENCE.md` exists.
 - Every validation claim should name a user need or scenario.
 - Recommend ROLES-conformant `.roles` files when role-review lanes are required.
 - Preserve the repo's wave/pulse operating model; VTRACE work packages should

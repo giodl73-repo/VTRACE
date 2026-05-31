@@ -15,9 +15,14 @@ Repo: VTRACE
 | REQ-005 | VTRACE shall map implementation work to work packages with parent IDs, V closure, L0/L1/L2 checks, and review lanes. | NEED-001 / CON-002 | Converts files into procedural execution. | must | VTRACE | inspection | accepted |
 | REQ-006 | VTRACE shall define future change requests for missing validators, language profiles, evidence ledgers, gate checklists, and realistic adoption scenarios. | NEED-001 / NEED-003 | Makes remaining gaps explicit. | should | VTRACE | inspection | accepted |
 | REQ-VAL-001 | VTRACE shall provide a lightweight local validator for repo-local `docs/vtrace/` packages. | NEED-001 / NEED-003 | Enforces the current artifact contracts without external dependencies. | must | VTRACE | automated test / local command | accepted |
+| REQ-PROFILE-001 | VTRACE shall define language/package validation profiles for common repo types. | NEED-001 / NEED-003 | Lets target repos choose concrete L0/L1/L2 commands. | must | VTRACE | inspection / validator | accepted |
+| REQ-EXAMPLE-001 | VTRACE shall include a realistic existing-repo migration example with current and target behavior. | NEED-001 / CON-001 | Proves VTRACE retrofit adoption beyond hello-world. | must | VTRACE | example command / validator | accepted |
+| REQ-EVIDENCE-001 | VTRACE shall provide reusable evidence ledger artifacts and validation checks. | NEED-001 / NEED-003 | Makes objective evidence durable and traceable. | must | VTRACE | validator tests | accepted |
+| REQ-GATE-001 | VTRACE shall provide gate-specific review checklist artifacts. | NEED-001 / CON-003 | Makes review gates repeatable. | must | VTRACE | inspection / validator | accepted |
+| REQ-NASA-001 | VTRACE shall encode deeper NASA-inspired technical controls as derived guidance. | NEED-002 | Preserves source-grounded rigor without compliance overclaiming. | should | VTRACE | source-custody inspection | accepted |
 
 ## Deferred Requirements
 
 | ID | Reason Deferred | Revisit Trigger |
 |---|---|---|
-| REQ-PROFILE-001 | Language/package profiles need evidence from real target repos. | Start `DCR-002`. |
+| none | n/a | n/a |

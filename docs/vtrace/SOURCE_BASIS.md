@@ -21,6 +21,13 @@ The canonical source metadata remains `sources/source-registry.json`.
 | `jpl-power-of-ten` | Coding-verifiability constraints, small functions, bounded control flow, assertions, static analysis. | VTRACE code-rigor guidance includes reviewable size, static checks, assertion/error-handling expectations. | Source registry inspection. |
 | `iso-iec-ieee-15288` / `iso-iec-ieee-29148` | Citation-only comparison points for lifecycle and requirements engineering language. | VTRACE records these as background comparison only, not source text. | Source custody inspection. |
 
+## Derived Control Evidence
+
+`docs/framework/nasa-technical-controls.md` is the current derived control map
+for technical requirements, technical assessment, technical data management,
+configuration management, interface management, V&V, assurance, and
+safety/security review lanes.
+
 ## Source Custody Rules
 
 - Public NASA web references may be cited and summarized.

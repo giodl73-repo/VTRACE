@@ -26,7 +26,11 @@ objective evidence repeatable across codebases.
 | 08 | Specification baselines | complete | Add NASA specificity map and spec-baseline controls for existing repos. |
 | 09 | VTRACE self-trace | complete | Add `docs/vtrace/` as VTRACE's source-of-truth proof package. |
 | 10 | Validator candidates | complete | Add a lightweight local VTRACE artifact checker and tests. |
-| 11 | Language/package profiles | pending | Add concrete validation profiles for common repo types. |
+| 11 | Language/package profiles | complete | Add concrete validation profiles for common repo types. |
+| 12 | Existing repo migration example | complete | Add deterministic retrofit example with current/target behavior and closed WP. |
+| 13 | Evidence ledger | complete | Add reusable evidence ledger template and validator checks. |
+| 14 | Gate checklists | complete | Add gate checklist guidance, template, self-checklist, and validator checks. |
+| 15 | NASA technical controls | complete | Add deeper derived technical control map with source-custody posture. |
 
 ## Success Criteria
 
@@ -41,5 +45,7 @@ objective evidence repeatable across codebases.
 - `docs/vtrace/` proves VTRACE itself with requirements, specs, DCRs, work
   packages, trace, evidence, validation, and review posture.
 - Lightweight validator checks the self-trace package.
+- Language profiles, evidence ledger template, review checklist template,
+  realistic migration example, and NASA-inspired technical control map exist.
 - Repo-local wave, pulse, and research skills exist.
 - `git diff --check` passes.

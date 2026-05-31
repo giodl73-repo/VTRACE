@@ -124,8 +124,10 @@ DCRs, work packages, evidence, validation, and review posture.
 ## Examples
 
 Start with `examples/hello-world/` to see the complete process on a tiny
-runnable program. Use `examples/scenario-tests/` to sanity-check the model
-against docs-only, Rust CLI, generated-code, and high-risk-control cases.
+runnable program. Use `examples/existing-repo-migration/` to see current
+behavior baselined, target behavior implemented, and one work package closed.
+Use `examples/scenario-tests/` to sanity-check the model against docs-only,
+Rust CLI, generated-code, and high-risk-control cases.
 
 ## Validation
 
@@ -135,6 +137,7 @@ Run:
 ```powershell
 git diff --check
 py tools\vtrace_check.py .
+py tools\vtrace_check.py examples\existing-repo-migration
 ```
 
 When touching the validator, run:

@@ -9,12 +9,12 @@ Repo: VTRACE self-adoption
 | Stage | Status | Gate Decision | Required Next Action |
 |---|---|---|---|
 | S0 Intake | pass | pass | none |
-| S1 Specification Baseline | pass_with_risk | pass_with_risk | Keep DCRs current. |
-| S2 Design Baseline | pass_with_risk | pass_with_risk | Add profiles and gate checklists through DCRs. |
-| S3 Implementation Planning | pass_with_risk | pass_with_risk | Start one DCR work package at a time. |
-| S4 Work Package Execution | pass_with_risk | pass_with_risk | `WP-001` complete; next start `WP-002` or `WP-003`. |
-| S5 Integration | not_started |  | Integrate validators/profiles into examples when implemented. |
-| S6 Readiness / Transition | pass_with_risk | pass_with_risk | VTRACE is usable as docs-first process with known gaps. |
+| S1 Specification Baseline | pass | pass | DCRs are current and implemented. |
+| S2 Design Baseline | pass | pass | Profiles, evidence, gates, and source controls are baselined. |
+| S3 Implementation Planning | pass | pass | Work packages WP-001..WP-006 are closed. |
+| S4 Work Package Execution | pass | pass | WP-001..WP-006 complete. |
+| S5 Integration | pass | pass | Validator runs on VTRACE and migration example. |
+| S6 Readiness / Transition | pass | pass | VTRACE is usable as docs-first process with local validator and known hardening path. |
 
 ## Stage Evidence
 

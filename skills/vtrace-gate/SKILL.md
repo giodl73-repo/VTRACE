@@ -33,10 +33,16 @@ Use this skill to run a scoped review gate.
 8. Check required role-review lanes: systems engineering, traceability, V&V,
    software assurance, security/privacy, safety/risk, source custody, and
    configuration/change control.
-9. Record findings by severity.
-10. Choose one decision:
+9. If `REVIEW_CHECKLISTS.md` exists, verify required checklist rows for the
+   scoped gate are closed or explicitly dispositioned.
+10. If `LANGUAGE_PROFILES.md` exists, verify active work packages use
+   applicable profile commands.
+11. If `EVIDENCE.md` exists, verify trace evidence pointers resolve to ledger
+   rows.
+12. Record findings by severity.
+13. Choose one decision:
    `pass`, `pass_with_risk`, `blocked`, or `deferred`.
-11. Update or create `docs/vtrace/REVIEW.md`.
+14. Update or create `docs/vtrace/REVIEW.md`.
 
 ## Decision Rules
 

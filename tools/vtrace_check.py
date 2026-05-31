@@ -139,6 +139,26 @@ def check_evidence_pointers(vtrace_dir: Path, findings: list[Finding]) -> None:
                 add(findings, "ERROR", trace_path, line_no, f"{evid_id} is not defined in EVIDENCE.md")
 
 
+def check_evidence_ledger(vtrace_dir: Path, findings: list[Finding]) -> None:
+    evidence_path = vtrace_dir / "EVIDENCE.md"
+    if not evidence_path.exists():
+        return
+
+    saw_evidence = False
+    for line_no, row in table_rows(evidence_path):
+        evidence_id = row.get("Evidence ID", "")
+        if not evidence_id.startswith("EVID-"):
+            continue
+        saw_evidence = True
+        status = row.get("Status", "").lower()
+        if status in {"", "pending", "planned"}:
+            add(findings, "ERROR", evidence_path, line_no, f"{evidence_id} has incomplete evidence status")
+        if not row.get("Source / Command", row.get("Pointer", "")).strip():
+            add(findings, "ERROR", evidence_path, line_no, f"{evidence_id} is missing evidence source or command")
+    if not saw_evidence:
+        add(findings, "ERROR", evidence_path, 1, "EVIDENCE.md has no EVID-* rows")
+
+
 def check_work_packages(vtrace_dir: Path, findings: list[Finding]) -> None:
     wp_path = vtrace_dir / "WORK_PACKAGES.md"
     if not wp_path.exists():
@@ -176,6 +196,46 @@ def check_review_lanes(vtrace_dir: Path, findings: list[Finding]) -> None:
         add(findings, "ERROR", review_path, 1, "review lane table is missing")
 
 
+def check_review_checklists(vtrace_dir: Path, findings: list[Finding]) -> None:
+    checklist_path = vtrace_dir / "REVIEW_CHECKLISTS.md"
+    if not checklist_path.exists():
+        return
+
+    saw_required = False
+    for line_no, row in table_rows(checklist_path):
+        if not {"Gate", "Item", "Required", "Decision"}.issubset(row):
+            continue
+        if row.get("Required", "").lower() != "yes":
+            continue
+        saw_required = True
+        decision = row.get("Decision", "").lower()
+        if decision in {"", "pending", "blocked"}:
+            add(findings, "ERROR", checklist_path, line_no, f"required checklist item is not closed for {row.get('Gate', 'unknown gate')}")
+    if not saw_required:
+        add(findings, "ERROR", checklist_path, 1, "REVIEW_CHECKLISTS.md has no required checklist rows")
+
+
+def check_language_profiles(vtrace_dir: Path, findings: list[Finding]) -> None:
+    profile_path = vtrace_dir / "LANGUAGE_PROFILES.md"
+    if not profile_path.exists():
+        return
+
+    saw_profile = False
+    required_columns = ("Profile ID", "Applicability", "L0", "L1", "L2")
+    for line_no, row in table_rows(profile_path):
+        if not set(required_columns).issubset(row):
+            continue
+        profile_id = row.get("Profile ID", "")
+        if not profile_id.startswith("PROFILE-"):
+            continue
+        saw_profile = True
+        for column in required_columns:
+            if not row.get(column, "").strip():
+                add(findings, "ERROR", profile_path, line_no, f"{profile_id} has blank {column}")
+    if not saw_profile:
+        add(findings, "ERROR", profile_path, 1, "LANGUAGE_PROFILES.md has no PROFILE-* rows")
+
+
 def run_checks(root: Path) -> list[Finding]:
     root = root.resolve()
     vtrace_dir = root / "docs" / "vtrace"
@@ -189,8 +249,11 @@ def run_checks(root: Path) -> list[Finding]:
     check_requirements_trace(vtrace_dir, findings)
     check_spec_trace(vtrace_dir, findings)
     check_evidence_pointers(vtrace_dir, findings)
+    check_evidence_ledger(vtrace_dir, findings)
     check_work_packages(vtrace_dir, findings)
     check_review_lanes(vtrace_dir, findings)
+    check_review_checklists(vtrace_dir, findings)
+    check_language_profiles(vtrace_dir, findings)
     return findings
 
 
