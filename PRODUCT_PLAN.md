@@ -72,8 +72,9 @@ step is applying it to a real repo and tightening the artifacts based on use.
 ### Wave 4: Tooling Candidates
 
 Prototype lightweight validators only after the document contracts stabilize.
-Candidates include Markdown checks, trace matrix consistency checks, and evidence
-ledger completeness checks.
+The current validator is a std-only Rust CLI that checks Markdown artifact
+presence, trace matrix consistency, evidence ledger completeness, work-package
+shape, language profiles, and review checklist closure.
 
 ### Wave 3A: VTRACE Self-Trace
 

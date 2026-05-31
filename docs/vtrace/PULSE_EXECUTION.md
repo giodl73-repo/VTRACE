@@ -21,8 +21,9 @@ Review gate: specification / implementation readiness
 Allowed files/modules:
 
 - `docs/vtrace/`
-- `tools/vtrace_check.py`
-- `tests/test_vtrace_check.py`
+- `src/`
+- `Cargo.toml`
+- `Cargo.lock`
 - `docs/framework/`
 - `templates/adoption/`
 - `examples/existing-repo-migration/`
@@ -44,11 +45,11 @@ Discovery allowed: yes
 | L1 | `py -m json.tool sources\source-registry.json` | passed |
 | L1 | `py -m py_compile examples\hello-world\src\hello_world.py` | passed |
 | L1 | `py examples\hello-world\src\hello_world.py` | passed |
-| L1 | `py -m unittest discover -s tests -p "test_*.py"` | passed |
-| L1 | `py tools\vtrace_check.py .` | passed |
+| L1 | `cargo test` | passed |
+| L1 | `cargo run -- .` | passed |
 | L1 | `py -m py_compile examples\existing-repo-migration\src\report.py` | passed |
 | L1 | `py examples\existing-repo-migration\src\report.py` | passed |
-| L2 | `py tools\vtrace_check.py examples\existing-repo-migration` | passed |
+| L2 | `cargo run -- examples\existing-repo-migration` | passed |
 | L2 | Self-review in `docs/vtrace/REVIEW.md` | pass |
 
 ## Trace And Evidence Updates

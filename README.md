@@ -63,8 +63,7 @@ software assurance, and V&V into repo-local controls.
 docs/research/        Source-grounded research notes.
 docs/framework/       VTRACE framework maps and encoding guidance.
 schemas/              Machine-readable local artifact schemas.
-tools/                Local validation tools.
-tests/                Validator tests.
+src/                  Rust validator library and CLI.
 sources/              Source registries and rights posture metadata.
 skills/               Reusable public skills for codebase rigor.
 templates/            Adoption templates for codebases.
@@ -131,19 +130,20 @@ Rust CLI, generated-code, and high-risk-control cases.
 
 ## Validation
 
-The foundation repo is documentation-first with a lightweight local validator.
+The foundation repo is documentation-first with a lightweight Rust validator.
 Run:
 
 ```powershell
 git diff --check
-py tools\vtrace_check.py .
-py tools\vtrace_check.py examples\existing-repo-migration
+cargo run -- .
+cargo run -- examples\existing-repo-migration
 ```
 
 When touching the validator, run:
 
 ```powershell
-py -m unittest discover -s tests -p "test_*.py"
+cargo fmt --check
+cargo test
 ```
 
 Future waves may add schemas, checklists, CI packaging, and generated evidence

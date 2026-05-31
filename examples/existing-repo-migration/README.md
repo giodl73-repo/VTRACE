@@ -18,5 +18,5 @@ leading/trailing whitespace before formatting.
 ```powershell
 py -m py_compile examples\existing-repo-migration\src\report.py
 py examples\existing-repo-migration\src\report.py
-py tools\vtrace_check.py examples\existing-repo-migration
+cargo run -- examples\existing-repo-migration
 ```

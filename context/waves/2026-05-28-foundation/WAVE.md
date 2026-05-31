@@ -31,6 +31,7 @@ objective evidence repeatable across codebases.
 | 13 | Evidence ledger | complete | Add reusable evidence ledger template and validator checks. |
 | 14 | Gate checklists | complete | Add gate checklist guidance, template, self-checklist, and validator checks. |
 | 15 | NASA technical controls | complete | Add deeper derived technical control map with source-custody posture. |
+| 16 | Rust validator | complete | Port local validator to std-only Rust crate and update self-trace evidence. |
 
 ## Success Criteria
 
@@ -47,5 +48,6 @@ objective evidence repeatable across codebases.
 - Lightweight validator checks the self-trace package.
 - Language profiles, evidence ledger template, review checklist template,
   realistic migration example, and NASA-inspired technical control map exist.
+- Rust validator crate exists and validates VTRACE plus the migration example.
 - Repo-local wave, pulse, and research skills exist.
 - `git diff --check` passes.

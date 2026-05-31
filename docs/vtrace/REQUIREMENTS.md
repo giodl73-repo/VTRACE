@@ -20,6 +20,7 @@ Repo: VTRACE
 | REQ-EVIDENCE-001 | VTRACE shall provide reusable evidence ledger artifacts and validation checks. | NEED-001 / NEED-003 | Makes objective evidence durable and traceable. | must | VTRACE | validator tests | accepted |
 | REQ-GATE-001 | VTRACE shall provide gate-specific review checklist artifacts. | NEED-001 / CON-003 | Makes review gates repeatable. | must | VTRACE | inspection / validator | accepted |
 | REQ-NASA-001 | VTRACE shall encode deeper NASA-inspired technical controls as derived guidance. | NEED-002 | Preserves source-grounded rigor without compliance overclaiming. | should | VTRACE | source-custody inspection | accepted |
+| REQ-RUST-001 | VTRACE shall implement the local validator as a Rust CLI. | NEED-001 / NEED-003 | Keeps validator implementation aligned with portfolio language rigor and supports future packaging. | must | VTRACE | cargo test / local command | accepted |
 
 ## Deferred Requirements
 

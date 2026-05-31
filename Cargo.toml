@@ -1,0 +1,14 @@
+[package]
+name = "vtrace"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Validate VTRACE traceability packages."
+
+[lib]
+name = "vtrace"
+path = "src/lib.rs"
+
+[[bin]]
+name = "vtrace"
+path = "src/main.rs"

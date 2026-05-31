@@ -29,7 +29,7 @@ Decision: pass
 
 | ID | Severity | Finding | Disposition |
 |---|---|---|---|
-| FIND-001 | major | VTRACE lacked executable validation tooling. | Fixed by `tools/vtrace_check.py`; further hardening can follow future validator work. |
+| FIND-001 | major | VTRACE lacked executable validation tooling. | Fixed by the Rust `vtrace` validator; further hardening can follow future validator work. |
 | FIND-002 | major | VTRACE lacked language/package profiles. | Fixed by `language-profiles.md`, `LANGUAGE_PROFILES.md`, and validator profile checks. |
 | FIND-003 | major | VTRACE lacked a realistic existing-repo migration example. | Fixed by `examples/existing-repo-migration/`. |
 | FIND-004 | minor | Evidence ledger existed only for VTRACE self-trace. | Fixed by `templates/adoption/EVIDENCE.md` and validator evidence checks. |

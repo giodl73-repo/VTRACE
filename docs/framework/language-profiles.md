@@ -18,7 +18,7 @@ shape a work package should consider before it closes.
 
 | Profile ID | Applicability | L0 | L1 | L2 |
 |---|---|---|---|---|
-| PROFILE-DOCS-001 | Docs-only standards/process repos. | `git diff --check`; source-custody inspection when sources change. | `py tools\vtrace_check.py .` when VTRACE package exists. | Role/gate review for public process claims. |
+| PROFILE-DOCS-001 | Docs-only standards/process repos. | `git diff --check`; source-custody inspection when sources change. | `cargo run -- .` when VTRACE package exists and the validator is available. | Role/gate review for public process claims. |
 | PROFILE-PYTHON-001 | Python packages, scripts, CLIs, or examples. | `py -m py_compile <files>` or import smoke check. | Unit tests or CLI smoke command. | Integration scenario or downstream consumer check. |
 | PROFILE-RUST-001 | Rust workspaces, crates, binaries, or libraries. | `cargo fmt --check`; `cargo check`. | `cargo clippy --all-targets -- -D warnings`; `cargo test`. | Feature/release/integration tests and unsafe/panic review when relevant. |
 | PROFILE-TS-001 | TypeScript/JavaScript apps, packages, routes, or components. | package manager install status known; typecheck or syntax check. | unit/component tests and lint when available. | build, route/API integration, or browser/user workflow evidence. |
