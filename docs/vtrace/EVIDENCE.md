@@ -35,6 +35,8 @@ Command receipts should be updated when validation is run.
 | EVID-022 | automated test | `cargo fmt --check`; `cargo clippy --all-targets -- -D warnings`; `cargo test` | Rust validator is formatted, lint-clean, and tested. | Passed on 2026-05-31. | passed |
 | EVID-023 | local command | `cargo run -- .` | Rust validator validates VTRACE self-package. | Printed `VTRACE validation passed` on 2026-05-31. | passed |
 | EVID-024 | local command | `cargo run -- examples\existing-repo-migration` | Rust validator validates migration example package. | Printed `VTRACE validation passed` on 2026-05-31. | passed |
+| EVID-025 | workflow inspection | `.github/workflows/ci.yml` | CI runs Rust formatting, clippy, tests, self-validation, and migration-example validation. | Workflow file added on 2026-05-31. | passed |
+| EVID-026 | local command parity | `git diff --check`; `cargo fmt --check`; `cargo clippy --all-targets -- -D warnings`; `cargo test`; `cargo run -- .`; `cargo run -- examples\existing-repo-migration` | Local validation commands mirror CI command intent. | Passed on 2026-05-31. | passed |
 
 ## Evidence Rules
 

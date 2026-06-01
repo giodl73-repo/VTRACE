@@ -17,6 +17,7 @@ Repo: VTRACE
 | PKG-007 | `context/waves/` | docs | VTRACE | Record VTRACE repo execution history and pulse outcomes. | IF-003 | Future agents and maintainers. |
 | PKG-008 | `docs/vtrace/` | docs | VTRACE | Prove VTRACE with VTRACE and control DCRs. | IF-003 | VTRACE maintainers and adopters. |
 | PKG-009 | `src/`, `Cargo.toml`, `Cargo.lock` | Rust std | VTRACE | Validate VTRACE artifact contracts without network or third-party dependencies. | IF-005 | Maintainers, agents, target repos. |
+| PKG-010 | `.github/workflows/` | GitHub Actions YAML | VTRACE | Run repeatable validation for VTRACE pushes and pull requests. | IF-006 | Maintainers, agents, target repos. |
 
 ## Dependency Direction
 
@@ -29,6 +30,7 @@ Repo: VTRACE
 | `examples/` | `templates/adoption/`, `docs/framework/` | yes | Examples demonstrate adoption. | scenario review |
 | `sources/` | external public/citation sources | yes | Source custody points to references. | JSON/source review |
 | `src/` | `docs/vtrace/`, `templates/adoption/` | yes | Validator checks current artifact contracts. | cargo test / validator run |
+| `.github/workflows/` | `src/`, `docs/vtrace/`, `examples/` | yes | CI executes the same validator commands recorded in evidence. | workflow inspection |
 
 ## Boundary Rules
 
@@ -42,6 +44,7 @@ Repo: VTRACE
 | PKG-006 | Add metadata and schemas. | Commit restricted standards text without custody decision. | Any source rights or schema change. |
 | PKG-008 | Update self-trace for VTRACE changes. | Leave DCRs/work packages stale after process changes. | Any VTRACE behavior claim change. |
 | PKG-009 | Add deterministic std-only Rust checks and tests. | Add network or third-party dependency requirements for the core validator. | Any validation contract or CLI behavior change. |
+| PKG-010 | Add validation jobs that mirror local evidence commands. | Add deploy or release permissions without a DCR and security review. | Any CI permission or validation-scope change. |
 
 ## Language Tailoring
 
@@ -52,6 +55,7 @@ Repo: VTRACE
 | PKG-005 | docs + Python | `git diff --check`; Python compile/run when touched | scenario inspection | realistic adoption scenario |
 | PKG-006 | JSON/schema | JSON parse | schema/source custody inspection | source-custody review |
 | PKG-009 | Rust std | `cargo fmt --check` | `cargo test`; `cargo run -- .` | `cargo run -- examples\existing-repo-migration` |
+| PKG-010 | GitHub Actions | YAML inspection | workflow command parity with `VERIFICATION.md` | first remote CI run after push |
 
 ## Open Boundary Questions
 

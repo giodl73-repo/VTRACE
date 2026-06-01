@@ -32,6 +32,7 @@ objective evidence repeatable across codebases.
 | 14 | Gate checklists | complete | Add gate checklist guidance, template, self-checklist, and validator checks. |
 | 15 | NASA technical controls | complete | Add deeper derived technical control map with source-custody posture. |
 | 16 | Rust validator | complete | Port local validator to std-only Rust crate and update self-trace evidence. |
+| 17 | CI validation | complete | Add GitHub Actions workflow for Rust validator checks. |
 
 ## Success Criteria
 
@@ -49,5 +50,6 @@ objective evidence repeatable across codebases.
 - Language profiles, evidence ledger template, review checklist template,
   realistic migration example, and NASA-inspired technical control map exist.
 - Rust validator crate exists and validates VTRACE plus the migration example.
+- GitHub Actions workflow runs the Rust validator path on push and pull request.
 - Repo-local wave, pulse, and research skills exist.
 - `git diff --check` passes.

@@ -143,11 +143,13 @@ When touching the validator, run:
 
 ```powershell
 cargo fmt --check
+cargo clippy --all-targets -- -D warnings
 cargo test
 ```
 
-Future waves may add schemas, checklists, CI packaging, and generated evidence
-reports.
+The GitHub Actions workflow in `.github/workflows/ci.yml` runs the Rust
+validation path on pushes and pull requests. Future waves may add generated
+evidence reports.
 
 ## License
 

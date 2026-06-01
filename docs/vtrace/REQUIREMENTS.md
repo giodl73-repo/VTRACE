@@ -21,6 +21,7 @@ Repo: VTRACE
 | REQ-GATE-001 | VTRACE shall provide gate-specific review checklist artifacts. | NEED-001 / CON-003 | Makes review gates repeatable. | must | VTRACE | inspection / validator | accepted |
 | REQ-NASA-001 | VTRACE shall encode deeper NASA-inspired technical controls as derived guidance. | NEED-002 | Preserves source-grounded rigor without compliance overclaiming. | should | VTRACE | source-custody inspection | accepted |
 | REQ-RUST-001 | VTRACE shall implement the local validator as a Rust CLI. | NEED-001 / NEED-003 | Keeps validator implementation aligned with portfolio language rigor and supports future packaging. | must | VTRACE | cargo test / local command | accepted |
+| REQ-CI-001 | VTRACE shall run the Rust validation path in CI on push and pull request. | NEED-001 / NEED-003 | Makes validator evidence repeatable outside a local workstation. | should | VTRACE | workflow inspection / local command parity | accepted |
 
 ## Deferred Requirements
 

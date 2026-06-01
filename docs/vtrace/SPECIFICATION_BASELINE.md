@@ -25,6 +25,7 @@ Baseline date: 2026-05-31
 | SPEC-011 | REQ-GATE-001 | product | current | `docs/framework/gate-checklists.md`, `templates/adoption/REVIEW_CHECKLISTS.md`, and `docs/vtrace/REVIEW_CHECKLISTS.md` define gate-specific checklist closure. | inspection / validator | gate scenario | VTRACE | medium | accepted |
 | SPEC-012 | REQ-NASA-001 | product | current | `docs/framework/nasa-technical-controls.md` encodes NASA-inspired technical controls as locally authored derived guidance. | source-custody inspection | source review | VTRACE | low | accepted |
 | SPEC-013 | REQ-RUST-001 | software | current | The validator is provided as a std-only Rust crate with `vtrace` binary, unit tests, and no runtime network or third-party dependency requirement. | cargo test / local command | validator packaging scenario | VTRACE | medium | accepted |
+| SPEC-014 | REQ-CI-001 | workflow | current | `.github/workflows/ci.yml` runs Cargo formatting, clippy, tests, self-validation, and migration-example validation on push and pull request. | workflow inspection / local command parity | CI validation scenario | VTRACE | medium | accepted |
 
 ## Requirement-To-Spec Coverage
 
@@ -43,6 +44,7 @@ Baseline date: 2026-05-31
 | REQ-GATE-001 | SPEC-011 | covered | Gate checklist guidance and template exist. |
 | REQ-NASA-001 | SPEC-012 | covered | NASA-inspired technical control guidance exists. |
 | REQ-RUST-001 | SPEC-013 | covered | Rust validator crate exists. |
+| REQ-CI-001 | SPEC-014 | covered | GitHub Actions workflow exists. |
 
 ## Specification Gate
 

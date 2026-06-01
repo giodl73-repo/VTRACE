@@ -15,6 +15,7 @@ Repo: VTRACE
 | ARCH-005 | `sources/` and `schemas/` | Preserve source custody and encoding structure. | SPEC-001 |
 | ARCH-006 | `context/waves/` | Record VTRACE repo execution history. | SPEC-006 |
 | ARCH-007 | `src/`, `Cargo.toml`, `Cargo.lock` | Provide std-only Rust local validation and regression tests for VTRACE artifact contracts. | SPEC-007, SPEC-013 |
+| ARCH-008 | `.github/workflows/` | Run repeatable CI validation for VTRACE artifact and Rust validator changes. | SPEC-014 |
 
 ## Risks
 

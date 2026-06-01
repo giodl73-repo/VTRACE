@@ -21,6 +21,7 @@ Repo: VTRACE
 | REQ-GATE-001 | automated test / inspection | Validator unit tests and review checklist inspection. | Required checklist rows close. | passed | EVID-020 |
 | REQ-NASA-001 | source-custody inspection | Inspect derived control map and source basis. | No compliance or endorsement overclaim. | passed | EVID-021 |
 | REQ-RUST-001 | automated test / local command | `cargo fmt --check`; `cargo clippy --all-targets -- -D warnings`; `cargo test`; `cargo run -- .` | Rust validator is formatted, lint-clean, tested, and validates VTRACE. | passed | EVID-022, EVID-023 |
+| REQ-CI-001 | workflow inspection / command parity | Inspect `.github/workflows/ci.yml` and run local validation commands. | CI mirrors the Rust validation path. | passed | EVID-025, EVID-026 |
 
 ## Validation Commands
 
@@ -37,6 +38,7 @@ Repo: VTRACE
 | L1 | `py -m py_compile examples\existing-repo-migration\src\report.py` | passed |
 | L1 | `py examples\existing-repo-migration\src\report.py` | passed |
 | L2 | `cargo run -- examples\existing-repo-migration` | passed |
+| L2 | inspect `.github/workflows/ci.yml` command parity | passed |
 
 ## Evidence Ledger
 
@@ -64,3 +66,5 @@ Repo: VTRACE
 | EVID-022 | command | `cargo fmt --check`; `cargo clippy --all-targets -- -D warnings`; `cargo test` | passed |
 | EVID-023 | command | `cargo run -- .` | passed |
 | EVID-024 | command | `cargo run -- examples\existing-repo-migration` | passed |
+| EVID-025 | workflow inspection | `.github/workflows/ci.yml` | passed |
+| EVID-026 | local command parity | local commands mirrored by CI workflow | passed |

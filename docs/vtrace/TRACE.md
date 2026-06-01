@@ -15,9 +15,10 @@
 | REQ-GATE-001 | NEED-001 / CON-003 | Provide gate-specific review checklist artifacts. | SPEC-011 | ARCH-001 / ARCH-002 | WP-005 | `docs/framework/gate-checklists.md`, `templates/adoption/REVIEW_CHECKLISTS.md` | validator tests and self-checklist | VAL-007 | EVID-020 | verified |
 | REQ-NASA-001 | NEED-002 | Encode deeper NASA-inspired technical controls as derived guidance. | SPEC-012 | DES-004 | WP-006 | `docs/framework/nasa-technical-controls.md` | source-custody inspection | VAL-008 | EVID-021 | verified |
 | REQ-RUST-001 | NEED-001 / NEED-003 | Implement local validator as Rust CLI. | SPEC-013 | ARCH-007 / IF-005 | WP-007 | `src/`, `Cargo.toml`, `Cargo.lock` | cargo fmt/test/run | VAL-002 / validator packaging scenario | EVID-022, EVID-023, EVID-024 | verified |
+| REQ-CI-001 | NEED-001 / NEED-003 | Run Rust validation path in CI. | SPEC-014 | ARCH-008 / IF-006 | WP-008 | `.github/workflows/ci.yml` | workflow inspection and local command parity | CI validation scenario | EVID-025, EVID-026 | verified |
 
 ## Open Trace Risks
 
 | Risk | Disposition |
 |---|---|
-| Automated trace checking exists for core Markdown contracts but not yet as a reusable CI workflow. | Future validator hardening. |
+| Remote CI run evidence is not yet linked to a specific GitHub run ID. | Capture after first workflow execution on GitHub. |
