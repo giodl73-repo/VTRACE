@@ -16,9 +16,12 @@
 | REQ-NASA-001 | NEED-002 | Encode deeper NASA-inspired technical controls as derived guidance. | SPEC-012 | DES-004 | WP-006 | `docs/framework/nasa-technical-controls.md` | source-custody inspection | VAL-008 | EVID-021 | verified |
 | REQ-RUST-001 | NEED-001 / NEED-003 | Implement local validator as Rust CLI. | SPEC-013 | ARCH-007 / IF-005 | WP-007 | `src/`, `Cargo.toml`, `Cargo.lock` | cargo fmt/test/run | VAL-002 / validator packaging scenario | EVID-022, EVID-023, EVID-024 | verified |
 | REQ-CI-001 | NEED-001 / NEED-003 | Run Rust validation path in CI. | SPEC-014 | ARCH-008 / IF-006 | WP-008 | `.github/workflows/ci.yml` | workflow inspection, local command parity, and remote CI run | CI validation scenario | EVID-025, EVID-026, EVID-027 | verified |
+| REQ-CLI-001 | NEED-001 / NEED-003 / CON-004 | Define and implement the first CLI orchestrator slice for VTRACE procedural execution. | SPEC-015 | ARCH-009 / DES-005 / IF-007 | WP-009 | `docs/framework/cli-orchestrator.md`, `src/` commands | design inspection and CLI commands | VAL-009 | EVID-028 / EVID-029 | verified |
+| REQ-AI-001 | NEED-003 / CON-002 / CON-004 | Define optional LLM provider and agent/worktree boundaries. | SPEC-016 | ARCH-009 / DES-006 / IF-008 | WP-009 | `docs/framework/cli-orchestrator.md`, provider boundaries, agent brief command | design inspection and role review | VAL-009 | EVID-028 / EVID-029 | verified |
 
 ## Open Trace Risks
 
 | Risk | Disposition |
 |---|---|
 | Remote CI run evidence depends on GitHub Actions retention. | Durable evidence row records run URL, run ID, commit SHA, and conclusion. |
+| LLM provider adapters are designed but not implemented. | Provider support remains optional and advisory until a later DCR adds adapter code. |

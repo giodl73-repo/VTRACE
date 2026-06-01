@@ -19,6 +19,36 @@ pub struct Finding {
     pub message: String,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct PackageSummary {
+    pub requirements: usize,
+    pub specs: usize,
+    pub work_packages: usize,
+    pub evidence_rows: usize,
+    pub open_work_packages: Vec<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct WorkPackage {
+    pub id: String,
+    pub objective: String,
+    pub parent_ids: String,
+    pub affected_surfaces: String,
+    pub entry_criteria: String,
+    pub exit_criteria: String,
+    pub validation_levels: String,
+    pub status: String,
+    pub line: usize,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ReviewLane {
+    pub lane: String,
+    pub required: String,
+    pub decision: String,
+    pub evidence: String,
+}
+
 impl Finding {
     pub fn render(&self, root: &Path) -> String {
         let shown = self
@@ -476,9 +506,86 @@ fn check_language_profiles(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
+fn vtrace_dir(root: &Path) -> PathBuf {
+    root.join("docs").join("vtrace")
+}
+
+pub fn package_summary(root: &Path) -> PackageSummary {
+    let vtrace_dir = vtrace_dir(root);
+    let requirements = collect_ids(&vtrace_dir.join("REQUIREMENTS.md"), "REQ").len();
+    let specs = collect_ids(&vtrace_dir.join("SPECIFICATION_BASELINE.md"), "SPEC").len();
+    let evidence_rows = collect_ids(&vtrace_dir.join("EVIDENCE.md"), "EVID").len();
+
+    let mut work_packages = 0;
+    let mut open_work_packages = Vec::new();
+    for (_, row) in table_rows(&vtrace_dir.join("WORK_PACKAGES.md")) {
+        let id = row.get("ID").map(String::as_str).unwrap_or("");
+        if !id.starts_with("WP-") {
+            continue;
+        }
+        work_packages += 1;
+        let status = row
+            .get("Status")
+            .map(|value| value.to_ascii_lowercase())
+            .unwrap_or_default();
+        if !matches!(status.as_str(), "complete" | "closed" | "passed") {
+            open_work_packages.push(id.to_string());
+        }
+    }
+
+    PackageSummary {
+        requirements,
+        specs,
+        work_packages,
+        evidence_rows,
+        open_work_packages,
+    }
+}
+
+pub fn work_package(root: &Path, wanted_id: &str) -> Option<WorkPackage> {
+    let wp_path = vtrace_dir(root).join("WORK_PACKAGES.md");
+    table_rows(&wp_path).into_iter().find_map(|(line, row)| {
+        let id = row.get("ID")?;
+        if id != wanted_id {
+            return None;
+        }
+        Some(WorkPackage {
+            id: id.to_string(),
+            objective: row.get("Objective").cloned().unwrap_or_default(),
+            parent_ids: row.get("Parent IDs").cloned().unwrap_or_default(),
+            affected_surfaces: row.get("Affected Surfaces").cloned().unwrap_or_default(),
+            entry_criteria: row.get("Entry Criteria").cloned().unwrap_or_default(),
+            exit_criteria: row.get("Exit Criteria").cloned().unwrap_or_default(),
+            validation_levels: row.get("L0 / L1 / L2").cloned().unwrap_or_default(),
+            status: row.get("Status").cloned().unwrap_or_default(),
+            line,
+        })
+    })
+}
+
+pub fn review_lanes(root: &Path) -> Vec<ReviewLane> {
+    let review_path = vtrace_dir(root).join("REVIEW.md");
+    table_rows(&review_path)
+        .into_iter()
+        .filter_map(|(_, row)| {
+            let lane = row.get("Lane")?;
+            Some(ReviewLane {
+                lane: lane.to_string(),
+                required: row.get("Required").cloned().unwrap_or_default(),
+                decision: row.get("Decision").cloned().unwrap_or_default(),
+                evidence: row
+                    .get("Evidence / Rationale")
+                    .or_else(|| row.get("Evidence"))
+                    .cloned()
+                    .unwrap_or_default(),
+            })
+        })
+        .collect()
+}
+
 pub fn run_checks(root: &Path) -> Vec<Finding> {
     let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
-    let vtrace_dir = root.join("docs").join("vtrace");
+    let vtrace_dir = vtrace_dir(&root);
     let mut findings = Vec::new();
 
     if !vtrace_dir.exists() {

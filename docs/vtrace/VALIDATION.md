@@ -16,10 +16,10 @@ Repo: VTRACE
 | VAL-006 | Evidence reviewer | Adopt an evidence ledger in a target repo. | Trace evidence IDs resolve to ledger rows with complete status. | `templates/adoption/EVIDENCE.md`, validator tests | passed |
 | VAL-007 | Gate reviewer | Use gate-specific checklist rows for a review. | Required checklist rows cannot remain pending. | `REVIEW_CHECKLISTS.md`, validator tests | passed |
 | VAL-008 | Source custody reviewer | Review deeper NASA-inspired control guidance. | Guidance is derived and pointer-first, without compliance claim. | `docs/framework/nasa-technical-controls.md` | passed |
+| VAL-009 | CLI operator / agent operator | Use VTRACE procedurally instead of filling disconnected files. | CLI commands cover init/status/validate/work start/check/close/review/agent brief boundaries, with provider output advisory until accepted. | `docs/framework/cli-orchestrator.md`, `DCR-009`, `WP-009`, `EVID-029` | passed |
 
 ## Open Validation Gaps
 
 | Gap | Disposition |
 |---|---|
-| No realistic existing-repo migration example yet. | `DCR-003` / `WP-003`. |
-| Validator is not packaged as CI yet. | Future validator hardening. |
+| LLM provider adapters need security, source-custody, and role-review hardening before implementation. | Keep providers optional and advisory until a later DCR closes the adapter contract. |

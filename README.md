@@ -151,6 +151,14 @@ The GitHub Actions workflow in `.github/workflows/ci.yml` runs the Rust
 validation path on pushes and pull requests. Future waves may add generated
 evidence reports.
 
+## CLI Direction
+
+The Rust CLI now has a first orchestration slice. `vtrace validate` remains
+deterministic, while `init`, `status`, `work start/check/close`, `roles
+review`, and `agent brief` help maintainers run the process procedurally. LLM
+provider integrations remain future optional helpers; they may draft or review,
+but they do not replace canonical VTRACE artifacts or objective evidence.
+
 ## License
 
 MIT. See `LICENSE`.

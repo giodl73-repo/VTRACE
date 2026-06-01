@@ -32,6 +32,7 @@ Implementation baseline: self-adoption and DCR planning
 | DCR-004 / IF-003 / SPEC-005 | WP-004 | implement later | Evidence ledger. |
 | DCR-005 / SPEC-001 / SPEC-005 | WP-005 | implement later | Gate checklists. |
 | DCR-006 / NEED-002 / SPEC-001 | WP-006 | implement later | NASA specificity encoding. |
+| DCR-009 / REQ-CLI-001 / REQ-AI-001 / SPEC-015 / SPEC-016 | WP-009 | implemented | First CLI orchestrator slice and optional provider/agent boundary. |
 
 ## Branch / Change Control
 

@@ -22,6 +22,8 @@ Repo: VTRACE
 | REQ-NASA-001 | VTRACE shall encode deeper NASA-inspired technical controls as derived guidance. | NEED-002 | Preserves source-grounded rigor without compliance overclaiming. | should | VTRACE | source-custody inspection | accepted |
 | REQ-RUST-001 | VTRACE shall implement the local validator as a Rust CLI. | NEED-001 / NEED-003 | Keeps validator implementation aligned with portfolio language rigor and supports future packaging. | must | VTRACE | cargo test / local command | accepted |
 | REQ-CI-001 | VTRACE shall run the Rust validation path in CI on push and pull request. | NEED-001 / NEED-003 | Makes validator evidence repeatable outside a local workstation. | should | VTRACE | workflow inspection / local command parity | accepted |
+| REQ-CLI-001 | VTRACE shall define a CLI orchestrator contract for initialization, status, validation, work-package execution, evidence recording, review preparation, and closeout. | NEED-001 / NEED-003 / CON-004 | Converts VTRACE from static artifacts into a procedural adoption runner. | must | VTRACE | design inspection / future CLI tests | accepted |
+| REQ-AI-001 | VTRACE shall define optional LLM provider and agent/worktree boundaries that keep generated output advisory until accepted into controlled artifacts. | NEED-003 / CON-002 / CON-004 | Allows AI assistance without weakening traceability, evidence, source custody, or human/agent review gates. | should | VTRACE | design inspection / role review | accepted |
 
 ## Deferred Requirements
 

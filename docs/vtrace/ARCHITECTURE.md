@@ -16,6 +16,7 @@ Repo: VTRACE
 | ARCH-006 | `context/waves/` | Record VTRACE repo execution history. | SPEC-006 |
 | ARCH-007 | `src/`, `Cargo.toml`, `Cargo.lock` | Provide std-only Rust local validation and regression tests for VTRACE artifact contracts. | SPEC-007, SPEC-013 |
 | ARCH-008 | `.github/workflows/` | Run repeatable CI validation for VTRACE artifact and Rust validator changes. | SPEC-014 |
+| ARCH-009 | future CLI orchestrator in `src/` | Guide init/status/validate/work-package execution/evidence closeout and optional agent/provider workflows without replacing canonical artifacts. | SPEC-015, SPEC-016 |
 
 ## Risks
 
@@ -24,3 +25,4 @@ Repo: VTRACE
 | RISK-001 | Framework drift if templates, skills, and process docs evolve separately. | Self-trace and future validators. |
 | RISK-002 | Adoption remains subjective without automated checks. | `DCR-001` validator work package. |
 | RISK-003 | Guidance may be too generic for language-specific repos. | `DCR-002` language/package profiles. |
+| RISK-004 | AI/provider integrations could create unreviewed or non-reproducible process changes. | Keep providers optional, advisory, and bounded by trace/evidence/review gates. |

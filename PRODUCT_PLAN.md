@@ -84,6 +84,19 @@ source-of-truth proof package. This package owns the current readiness claim,
 the DCR backlog, work-package candidates, trace coverage, validation evidence,
 and review posture.
 
+### Wave 5: CLI Orchestration
+
+Extend the Rust validator into a deterministic VTRACE process runner. The CLI
+should help maintainers initialize VTRACE packages, inspect trace gaps, start
+and close work packages, record evidence, prepare role reviews, and generate
+bounded agent/worktree briefs. Optional LLM providers can assist with drafts and
+reviews later, but canonical VTRACE artifacts remain Markdown files with
+traceable evidence.
+
+The first slice is implemented as local, dependency-free commands for
+initialization, status, validation, work-package start/check/close,
+role-review preparation, and agent briefs.
+
 ## Dependency Posture
 
 VTRACE is a standards/protocols repo. It may later use PROOF for Markdown and

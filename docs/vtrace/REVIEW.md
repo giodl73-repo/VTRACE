@@ -35,10 +35,13 @@ Decision: pass
 | FIND-004 | minor | Evidence ledger existed only for VTRACE self-trace. | Fixed by `templates/adoption/EVIDENCE.md` and validator evidence checks. |
 | FIND-005 | minor | Gate-specific checklists needed sharper execution detail. | Fixed by `gate-checklists.md`, `REVIEW_CHECKLISTS.md`, and validator checklist checks. |
 | FIND-006 | minor | Deferred requirements for validators and language profiles must remain visible in trace. | Fixed in `TRACE.md`; both items are now verified. |
+| FIND-007 | minor | Users need procedural CLI help to run VTRACE work packages and agent handoffs. | Fixed by first-slice CLI orchestration commands; provider adapters remain future optional work. |
 
 ## Rationale
 
 VTRACE now has source-grounded guidance, self-trace, validator enforcement,
 profiles, evidence ledger template, gate checklists, and a realistic migration
-example. The remaining work is hardening and packaging, not readiness of the
-documentation-first process.
+example. The CLI now also guides initialization, status, work-package execution,
+role-review preparation, and agent briefs. The remaining work is provider
+adapter hardening and packaging, not readiness of the documentation-first
+process.
