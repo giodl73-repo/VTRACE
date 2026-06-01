@@ -43,7 +43,7 @@ Repo: VTRACE
 | L1 | `py examples\existing-repo-migration\src\report.py` | passed |
 | L2 | `cargo run -- examples\existing-repo-migration` | passed |
 | L2 | inspect `.github/workflows/ci.yml` command parity | passed |
-| L2 | `cargo run -- work start WP-009 .`; `cargo run -- work check WP-009 .`; `cargo run -- roles review WP-009 .`; `cargo run -- agent brief WP-009 .`; `cargo run -- evidence receipt WP-009 .`; `cargo run -- init <temp>` | passed |
+| L2 | `cargo run -- plan .`; `cargo run -- work start WP-009 .`; `cargo run -- work check WP-009 .`; `cargo run -- roles review WP-009 .`; `cargo run -- agent brief WP-009 .`; `cargo run -- evidence receipt WP-009 .`; `cargo run -- init <temp>` | passed |
 
 ## Evidence Ledger
 
@@ -78,3 +78,4 @@ Repo: VTRACE
 | EVID-029 | CLI command receipts | `cargo fmt --check`; `cargo clippy --all-targets -- -D warnings`; `cargo test`; `cargo run -- validate .`; `cargo run -- status .`; `cargo run -- work start WP-009 .`; `cargo run -- work check WP-009 .`; `cargo run -- roles review WP-009 .`; `cargo run -- agent brief WP-009 .`; `cargo run -- init <temp>` | passed |
 | EVID-030 | CLI integration tests | `tests/cli.rs`; `cargo test`; `cargo clippy --all-targets -- -D warnings` | passed |
 | EVID-031 | CLI evidence receipt | `cargo run -- evidence receipt WP-009 .`; `tests/cli.rs` | passed |
+| EVID-032 | CLI plan command | `cargo run -- plan .`; `tests/cli.rs` | passed |

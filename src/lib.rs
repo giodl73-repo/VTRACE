@@ -543,24 +543,33 @@ pub fn package_summary(root: &Path) -> PackageSummary {
 }
 
 pub fn work_package(root: &Path, wanted_id: &str) -> Option<WorkPackage> {
+    work_packages(root)
+        .into_iter()
+        .find(|work_package| work_package.id == wanted_id)
+}
+
+pub fn work_packages(root: &Path) -> Vec<WorkPackage> {
     let wp_path = vtrace_dir(root).join("WORK_PACKAGES.md");
-    table_rows(&wp_path).into_iter().find_map(|(line, row)| {
-        let id = row.get("ID")?;
-        if id != wanted_id {
-            return None;
-        }
-        Some(WorkPackage {
-            id: id.to_string(),
-            objective: row.get("Objective").cloned().unwrap_or_default(),
-            parent_ids: row.get("Parent IDs").cloned().unwrap_or_default(),
-            affected_surfaces: row.get("Affected Surfaces").cloned().unwrap_or_default(),
-            entry_criteria: row.get("Entry Criteria").cloned().unwrap_or_default(),
-            exit_criteria: row.get("Exit Criteria").cloned().unwrap_or_default(),
-            validation_levels: row.get("L0 / L1 / L2").cloned().unwrap_or_default(),
-            status: row.get("Status").cloned().unwrap_or_default(),
-            line,
+    table_rows(&wp_path)
+        .into_iter()
+        .filter_map(|(line, row)| {
+            let id = row.get("ID")?;
+            if !id.starts_with("WP-") {
+                return None;
+            }
+            Some(WorkPackage {
+                id: id.to_string(),
+                objective: row.get("Objective").cloned().unwrap_or_default(),
+                parent_ids: row.get("Parent IDs").cloned().unwrap_or_default(),
+                affected_surfaces: row.get("Affected Surfaces").cloned().unwrap_or_default(),
+                entry_criteria: row.get("Entry Criteria").cloned().unwrap_or_default(),
+                exit_criteria: row.get("Exit Criteria").cloned().unwrap_or_default(),
+                validation_levels: row.get("L0 / L1 / L2").cloned().unwrap_or_default(),
+                status: row.get("Status").cloned().unwrap_or_default(),
+                line,
+            })
         })
-    })
+        .collect()
 }
 
 pub fn review_lanes(root: &Path) -> Vec<ReviewLane> {

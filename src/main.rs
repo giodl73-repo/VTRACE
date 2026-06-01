@@ -13,6 +13,7 @@ fn main() {
         Some("validate") => validate(path_arg(&args, 1)),
         Some("status") => status(path_arg(&args, 1)),
         Some("init") => init(path_arg(&args, 1)),
+        Some("plan") => plan(path_arg(&args, 1)),
         Some("work") => work(&args[1..]),
         Some("evidence") => evidence(&args[1..]),
         Some("roles") => roles(&args[1..]),
@@ -50,6 +51,7 @@ fn print_usage() {
   vtrace [validate] [repo]
   vtrace status [repo]
   vtrace init [repo]
+  vtrace plan [repo]
   vtrace work start <WP-ID> [repo]
   vtrace work check <WP-ID> [repo]
   vtrace work close <WP-ID> [repo]
@@ -142,6 +144,45 @@ fn init(root: &Path) -> Result<(), String> {
     println!("VTRACE init complete");
     println!("created: {}", list_or_none(&created));
     println!("kept existing: {}", list_or_none(&kept));
+    Ok(())
+}
+
+fn plan(root: &Path) -> Result<(), String> {
+    let findings = vtrace::run_checks(root);
+    let work_packages = vtrace::work_packages(root);
+    let open: Vec<_> = work_packages
+        .iter()
+        .filter(|wp| {
+            !matches!(
+                wp.status.to_ascii_lowercase().as_str(),
+                "complete" | "closed" | "passed"
+            )
+        })
+        .collect();
+
+    println!("VTRACE plan");
+    println!("validator findings: {}", findings.len());
+    if !findings.is_empty() {
+        println!("next: fix validator findings before starting new work packages");
+        let display_root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
+        for finding in findings {
+            println!("{}", finding.render(&display_root));
+        }
+        std::process::exit(1);
+    }
+
+    if open.is_empty() {
+        println!("open work packages: none");
+        println!("next: define a DCR and proposed WP before implementation, or run `vtrace status` for readiness.");
+        return Ok(());
+    }
+
+    println!("open work packages:");
+    for wp in open {
+        println!("- {} [{}] {}", wp.id, wp.status, wp.objective);
+        println!("  parents: {}", wp.parent_ids);
+        println!("  next: vtrace work start {}", wp.id);
+    }
     Ok(())
 }
 

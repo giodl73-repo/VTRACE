@@ -56,6 +56,16 @@ fn status_reports_counts_and_decision() {
 }
 
 #[test]
+fn plan_reports_no_open_self_work_packages() {
+    let output = run(&["plan", "."]);
+    assert!(output.status.success(), "{}", stdout(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE plan"));
+    assert!(out.contains("validator findings: 0"));
+    assert!(out.contains("open work packages: none"));
+}
+
+#[test]
 fn work_start_reports_selected_work_package() {
     let output = run(&["work", "start", "WP-009", "."]);
     assert!(output.status.success(), "{}", stdout(&output));
