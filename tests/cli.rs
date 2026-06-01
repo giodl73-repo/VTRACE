@@ -74,6 +74,16 @@ fn roles_review_reports_required_lanes() {
 }
 
 #[test]
+fn evidence_receipt_reports_draft_row() {
+    let output = run(&["evidence", "receipt", "WP-009", "."]);
+    assert!(output.status.success(), "{}", stdout(&output));
+    let out = stdout(&output);
+    assert!(out.contains("# VTRACE Evidence Receipt"));
+    assert!(out.contains("Work package: WP-009"));
+    assert!(out.contains("Evidence row draft:"));
+}
+
+#[test]
 fn agent_brief_reports_stop_conditions() {
     let output = run(&["agent", "brief", "WP-009", "."]);
     assert!(output.status.success(), "{}", stdout(&output));

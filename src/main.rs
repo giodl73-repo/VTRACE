@@ -14,6 +14,7 @@ fn main() {
         Some("status") => status(path_arg(&args, 1)),
         Some("init") => init(path_arg(&args, 1)),
         Some("work") => work(&args[1..]),
+        Some("evidence") => evidence(&args[1..]),
         Some("roles") => roles(&args[1..]),
         Some("agent") => agent(&args[1..]),
         Some(path_or_command) if looks_like_path(path_or_command) => {
@@ -52,6 +53,7 @@ fn print_usage() {
   vtrace work start <WP-ID> [repo]
   vtrace work check <WP-ID> [repo]
   vtrace work close <WP-ID> [repo]
+  vtrace evidence receipt <WP-ID> [repo]
   vtrace roles review <WP-ID> [repo]
   vtrace agent brief <WP-ID> [repo]"
     );
@@ -224,6 +226,49 @@ fn roles(args: &[String]) -> Result<(), String> {
             lane.lane, lane.required, lane.decision, lane.evidence
         );
     }
+    Ok(())
+}
+
+fn evidence(args: &[String]) -> Result<(), String> {
+    let action = args
+        .first()
+        .map(String::as_str)
+        .ok_or("missing evidence action")?;
+    if action != "receipt" {
+        return Err(format!("unknown evidence action `{action}`"));
+    }
+    let wp_id = args.get(1).ok_or("missing work package ID")?;
+    let root = args.get(2).map(Path::new).unwrap_or_else(|| Path::new("."));
+    let wp = vtrace::work_package(root, wp_id)
+        .ok_or_else(|| format!("{wp_id} was not found in docs/vtrace/WORK_PACKAGES.md"))?;
+    let findings = vtrace::run_checks(root);
+
+    println!("# VTRACE Evidence Receipt");
+    println!();
+    println!("Work package: {}", wp.id);
+    println!("Objective: {}", wp.objective);
+    println!("Parent IDs: {}", wp.parent_ids);
+    println!("Status: {}", wp.status);
+    println!("Validation expectation: {}", wp.validation_levels);
+    println!("Validator findings: {}", findings.len());
+    println!();
+    println!("Evidence row draft:");
+    println!(
+        "| Evidence ID | Type | Source / Command | Expected Result | Actual Result | Status |"
+    );
+    println!("|---|---|---|---|---|---|");
+    println!(
+        "| EVID-TBD | command/review | vtrace work check {} | Required package checks and trace validation complete. | validator findings: {} | TBD |",
+        wp.id,
+        findings.len()
+    );
+    println!();
+    println!("Closeout targets:");
+    println!("- WORK_PACKAGES.md status");
+    println!("- VERIFICATION.md status and evidence pointer");
+    println!("- VALIDATION.md scenario impact");
+    println!("- EVIDENCE.md command/review receipt");
+    println!("- REVIEW.md required role lanes");
     Ok(())
 }
 
