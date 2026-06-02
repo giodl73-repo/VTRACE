@@ -160,6 +160,7 @@ fn worktree_create_creates_isolated_worktree() {
     assert!(status_out.contains("VTRACE worktree status"));
     assert!(status_out.contains("record: present"));
     assert!(status_out.contains("wp: WP-001"));
+    assert!(status_out.contains("duplicate: no"));
 
     let duplicate = root.with_file_name(format!(
         "{}-wp-001-duplicate",
@@ -187,6 +188,14 @@ fn worktree_create_creates_isolated_worktree() {
     let duplicate_record =
         fs::read_to_string(duplicate.join(".vtrace").join("worktree.md")).unwrap();
     assert!(duplicate_record.contains("Duplicate ownership allowed: yes"));
+
+    let duplicate_status = run(&["worktree", "status", &root_arg]);
+    assert!(
+        duplicate_status.status.success(),
+        "{}",
+        command_output(&duplicate_status)
+    );
+    assert!(stdout(&duplicate_status).contains("duplicate: yes"));
 
     let duplicate_remove = run(&["worktree", "remove", &duplicate_arg]);
     assert!(

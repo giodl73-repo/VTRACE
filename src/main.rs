@@ -362,7 +362,7 @@ fn existing_worktree_for_wp(root: &Path, wp_id: &str) -> Result<Option<String>, 
             continue;
         };
         let record = Path::new(path).join(".vtrace").join("worktree.md");
-        if worktree_ownership(&record).as_deref() == Some(wp_id) {
+        if worktree_ownership(&record).work_package.as_deref() == Some(wp_id) {
             return Ok(Some(path.to_string()));
         }
     }
@@ -405,25 +405,47 @@ fn print_worktree_status_row(path: Option<String>, branch: Option<String>) {
     };
     let record = Path::new(&path).join(".vtrace").join("worktree.md");
     let ownership = worktree_ownership(&record);
-    let record_status = if ownership.is_some() {
+    let record_status = if ownership.work_package.is_some() {
         "present"
     } else {
         "absent"
     };
     println!(
-        "- path: {} | branch: {} | record: {} | wp: {}",
+        "- path: {} | branch: {} | record: {} | wp: {} | duplicate: {}",
         path,
         branch.unwrap_or_else(|| "detached".to_string()),
         record_status,
-        ownership.unwrap_or_else(|| "unknown".to_string())
+        ownership
+            .work_package
+            .unwrap_or_else(|| "unknown".to_string()),
+        ownership
+            .duplicate_allowed
+            .unwrap_or_else(|| "unknown".to_string())
     );
 }
 
-fn worktree_ownership(record: &Path) -> Option<String> {
-    let text = fs::read_to_string(record).ok()?;
-    text.lines()
-        .find_map(|line| line.strip_prefix("Work package: "))
-        .map(ToOwned::to_owned)
+struct WorktreeOwnership {
+    work_package: Option<String>,
+    duplicate_allowed: Option<String>,
+}
+
+fn worktree_ownership(record: &Path) -> WorktreeOwnership {
+    let Ok(text) = fs::read_to_string(record) else {
+        return WorktreeOwnership {
+            work_package: None,
+            duplicate_allowed: None,
+        };
+    };
+    WorktreeOwnership {
+        work_package: text
+            .lines()
+            .find_map(|line| line.strip_prefix("Work package: "))
+            .map(ToOwned::to_owned),
+        duplicate_allowed: text
+            .lines()
+            .find_map(|line| line.strip_prefix("Duplicate ownership allowed: "))
+            .map(ToOwned::to_owned),
+    }
 }
 
 struct WorktreeSpec {

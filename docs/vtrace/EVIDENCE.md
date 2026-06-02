@@ -52,6 +52,7 @@ Command receipts should be updated when validation is run.
 | EVID-039 | Worktree ownership status | `tests/cli.rs`; `cargo test` | `vtrace worktree status` reports the owning `WP-*` from `.vtrace/worktree.md` when a record is present. | Integration test verifies status output includes `wp: WP-001` for a temporary owned worktree. | passed |
 | EVID-040 | Duplicate worktree ownership guard | `tests/cli.rs`; `cargo test` | `vtrace worktree create` refuses a second active worktree for the same `WP-*` unless explicitly allowed. | Integration test creates an owned `WP-001` worktree, attempts a duplicate `WP-001` worktree, verifies the command fails with `already has active worktree`, and verifies the duplicate target is not created. | passed |
 | EVID-041 | Duplicate worktree override record | `tests/cli.rs`; `cargo test` | When `--allow-duplicate` is used, the duplicate worktree is created on a duplicate branch and the ownership record states that duplicate ownership was allowed. | Integration test creates a duplicate `WP-001` worktree with `--allow-duplicate` and verifies `.vtrace/worktree.md` contains `Duplicate ownership allowed: yes`. | passed |
+| EVID-042 | Duplicate worktree status reporting | `tests/cli.rs`; `cargo test` | `vtrace worktree status` reports whether duplicate worktree ownership was explicitly allowed. | Integration test verifies normal worktrees report `duplicate: no` and override worktrees report `duplicate: yes`. | passed |
 
 ## Evidence Rules
 
