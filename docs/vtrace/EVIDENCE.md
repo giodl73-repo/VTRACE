@@ -49,6 +49,7 @@ Command receipts should be updated when validation is run.
 | EVID-036 | CLI worktree status command | `tests/cli.rs`; `cargo test` | CLI can list git worktrees and identify whether a VTRACE ownership record is present. | Integration test creates a temporary worktree and verifies `vtrace worktree status <repo>` reports `record: present`. | passed |
 | EVID-037 | CLI worktree remove command | `tests/cli.rs`; `cargo test` | CLI can remove a VTRACE-owned worktree while refusing unowned targets unless forced. | Integration test removes the temporary worktree through `vtrace worktree remove <target>` and verifies the target no longer exists. | passed |
 | EVID-038 | Worktree agent brief record | `tests/cli.rs`; `cargo test` | Created worktrees receive a local `.vtrace/agent-brief.md` handoff brief with WP context and stop conditions. | Integration test verified the generated brief contains `# VTRACE Agent Brief: WP-001` and `Stop conditions:`. | passed |
+| EVID-039 | Worktree ownership status | `tests/cli.rs`; `cargo test` | `vtrace worktree status` reports the owning `WP-*` from `.vtrace/worktree.md` when a record is present. | Integration test verifies status output includes `wp: WP-001` for a temporary owned worktree. | passed |
 
 ## Evidence Rules
 

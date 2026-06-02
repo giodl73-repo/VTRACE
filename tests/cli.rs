@@ -159,6 +159,7 @@ fn worktree_create_creates_isolated_worktree() {
     let status_out = stdout(&status);
     assert!(status_out.contains("VTRACE worktree status"));
     assert!(status_out.contains("record: present"));
+    assert!(status_out.contains("wp: WP-001"));
 
     let remove = run(&["worktree", "remove", &target_arg]);
     assert!(remove.status.success(), "{}", command_output(&remove));

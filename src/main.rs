@@ -358,13 +358,26 @@ fn print_worktree_status_row(path: Option<String>, branch: Option<String>) {
         return;
     };
     let record = Path::new(&path).join(".vtrace").join("worktree.md");
-    let record_status = if record.exists() { "present" } else { "absent" };
+    let ownership = worktree_ownership(&record);
+    let record_status = if ownership.is_some() {
+        "present"
+    } else {
+        "absent"
+    };
     println!(
-        "- path: {} | branch: {} | record: {}",
+        "- path: {} | branch: {} | record: {} | wp: {}",
         path,
         branch.unwrap_or_else(|| "detached".to_string()),
-        record_status
+        record_status,
+        ownership.unwrap_or_else(|| "unknown".to_string())
     );
+}
+
+fn worktree_ownership(record: &Path) -> Option<String> {
+    let text = fs::read_to_string(record).ok()?;
+    text.lines()
+        .find_map(|line| line.strip_prefix("Work package: "))
+        .map(ToOwned::to_owned)
 }
 
 struct WorktreeSpec {
