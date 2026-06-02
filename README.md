@@ -156,9 +156,10 @@ evidence reports.
 The Rust CLI now has a first orchestration slice. `vtrace validate` remains
 deterministic, while `init`, `status`, `work start/check/close`, `roles
 review`, `agent brief`, `worktree plan`, and guarded `worktree create` help
-maintainers run the process procedurally. LLM provider integrations remain
-future optional helpers; they may draft or review, but they do not replace
-canonical VTRACE artifacts or objective evidence.
+maintainers run the process procedurally. Created worktrees receive a local
+`.vtrace/worktree.md` ownership record with closeout commands. LLM provider
+integrations remain future optional helpers; they may draft or review, but they
+do not replace canonical VTRACE artifacts or objective evidence.
 
 ## License
 

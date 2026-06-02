@@ -22,7 +22,7 @@ Repo: VTRACE
 | REQ-NASA-001 | source-custody inspection | Inspect derived control map and source basis. | No compliance or endorsement overclaim. | passed | EVID-021 |
 | REQ-RUST-001 | automated test / local command | `cargo fmt --check`; `cargo clippy --all-targets -- -D warnings`; `cargo test`; `cargo run -- .` | Rust validator is formatted, lint-clean, tested, and validates VTRACE. | passed | EVID-022, EVID-023 |
 | REQ-CI-001 | workflow inspection / command parity / remote run | Inspect `.github/workflows/ci.yml`, run local validation commands, and inspect GitHub Actions run `26728521454`. | CI mirrors the Rust validation path and completed successfully on GitHub. | passed | EVID-025, EVID-026, EVID-027 |
-| REQ-CLI-001 | design inspection / CLI commands / integration tests | Inspect `docs/framework/cli-orchestrator.md`, run first-slice CLI commands, and run CLI integration tests. | CLI command surface maps to VTRACE artifacts and work-package closure. | passed | EVID-028, EVID-029, EVID-030, EVID-031, EVID-034 |
+| REQ-CLI-001 | design inspection / CLI commands / integration tests | Inspect `docs/framework/cli-orchestrator.md`, run first-slice CLI commands, and run CLI integration tests. | CLI command surface maps to VTRACE artifacts and work-package closure. | passed | EVID-028, EVID-029, EVID-030, EVID-031, EVID-034, EVID-035 |
 | REQ-AI-001 | design inspection / role review / agent brief | Inspect provider and agent boundaries and run `vtrace agent brief`. | Provider output remains advisory and agent handoffs are bounded by work-package trace. | passed | EVID-028, EVID-029 |
 
 ## Validation Commands
@@ -81,3 +81,4 @@ Repo: VTRACE
 | EVID-032 | CLI plan command | `cargo run -- plan .`; `tests/cli.rs` | passed |
 | EVID-033 | CLI worktree plan command | `cargo run -- worktree plan WP-009 .`; `tests/cli.rs` | passed |
 | EVID-034 | CLI worktree create command | `tests/cli.rs`; `cargo test` | passed |
+| EVID-035 | Worktree ownership record | `tests/cli.rs`; `cargo test` | passed |

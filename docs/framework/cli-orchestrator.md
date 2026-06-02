@@ -33,7 +33,7 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 | `vtrace roles review WP-###` | Run or prepare the required `.roles` review lanes. | review record draft. |
 | `vtrace agent brief WP-###` | Produce a bounded agent brief for one work package. | brief file or stdout. |
 | `vtrace worktree plan WP-###` | Derive the branch, path, and command for isolated worktree execution. | none by default. |
-| `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean and the target path does not exist. | local worktree. |
+| `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean and the target path does not exist. | local worktree plus `.vtrace/worktree.md` ownership record. |
 
 ## Work-Package Execution Contract
 
@@ -100,6 +100,11 @@ include:
 Worktrees are appropriate when parallel agents are implementing separate
 work packages. The CLI should prevent two active worktrees from claiming the
 same `WP-*` unless a maintainer explicitly allows it.
+
+Created worktrees should contain a local `.vtrace/worktree.md` ownership record
+that names the source repo, worktree path, branch, `WP-*`, and closeout
+commands. This record is local execution context, not objective evidence by
+itself.
 
 ## MVP Boundary
 

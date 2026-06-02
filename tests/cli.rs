@@ -139,6 +139,9 @@ fn worktree_create_creates_isolated_worktree() {
         .join("vtrace")
         .join("WORK_PACKAGES.md")
         .exists());
+    let record = fs::read_to_string(target.join(".vtrace").join("worktree.md")).unwrap();
+    assert!(record.contains("Work package: WP-001"));
+    assert!(record.contains("Closeout commands:"));
 
     let _ = git(&root, &["worktree", "remove", "--force", &target_arg]);
     let _ = fs::remove_dir_all(&target);

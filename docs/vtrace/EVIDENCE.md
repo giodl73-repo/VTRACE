@@ -45,6 +45,7 @@ Command receipts should be updated when validation is run.
 | EVID-032 | CLI plan command | `cargo run -- plan .`; `tests/cli.rs` | CLI can summarize next procedural action from validator and work-package state. | Command passed on 2026-06-01 and reported no open self work packages; CLI integration tests cover the plan output. | passed |
 | EVID-033 | CLI worktree plan command | `cargo run -- worktree plan WP-009 .`; `tests/cli.rs` | CLI can derive an isolated worktree branch/path/command for a work package without mutating the repo. | Command passed on 2026-06-01 and printed branch `vtrace/wp-009`; CLI integration tests cover the worktree plan output. | passed |
 | EVID-034 | CLI worktree create command | `tests/cli.rs`; `cargo test` | CLI can create an isolated worktree for a work package from a clean git repo and refuse unsafe targets through guard checks. | Integration test created a temporary git repo, committed a minimal work package, ran `vtrace worktree create WP-001 <repo> <target>`, verified the worktree files, and removed the worktree. | passed |
+| EVID-035 | Worktree ownership record | `tests/cli.rs`; `cargo test` | Created worktrees receive a local `.vtrace/worktree.md` record with WP, branch, source repo, worktree path, and closeout commands. | Integration test verified the generated record contains `Work package: WP-001` and `Closeout commands:`. | passed |
 
 ## Evidence Rules
 

@@ -293,9 +293,14 @@ fn worktree(args: &[String]) -> Result<(), String> {
         "create" => {
             let target = args.get(3).map(Path::new).unwrap_or(&spec.path);
             create_worktree(root, &spec.branch, target)?;
+            write_worktree_record(target, root, &wp, &spec.branch)?;
             println!("VTRACE worktree created: {}", wp.id);
             println!("branch: {}", spec.branch);
             println!("path: {}", target.display());
+            println!(
+                "record: {}",
+                target.join(".vtrace").join("worktree.md").display()
+            );
             Ok(())
         }
         other => Err(format!("unknown worktree action `{other}`")),
@@ -389,6 +394,37 @@ fn create_worktree(root: &Path, branch: &str, target: &Path) -> Result<(), Strin
         return Err(String::from_utf8_lossy(&output.stderr).trim().to_string());
     }
     Ok(())
+}
+
+fn write_worktree_record(
+    target: &Path,
+    source_root: &Path,
+    wp: &vtrace::WorkPackage,
+    branch: &str,
+) -> Result<(), String> {
+    let record_dir = target.join(".vtrace");
+    fs::create_dir_all(&record_dir)
+        .map_err(|err| format!("failed to create worktree record directory: {err}"))?;
+    let source = source_root
+        .canonicalize()
+        .unwrap_or_else(|_| source_root.to_path_buf());
+    let target_path = target
+        .canonicalize()
+        .unwrap_or_else(|_| target.to_path_buf());
+    let content = format!(
+        "# VTRACE Worktree\n\nWork package: {}\nObjective: {}\nBranch: {}\nSource repo: {}\nWorktree path: {}\n\nCloseout commands:\n\n```powershell\nvtrace work check {} {}\nvtrace evidence receipt {} {}\n```\n",
+        wp.id,
+        wp.objective,
+        branch,
+        source.display(),
+        target_path.display(),
+        wp.id,
+        quote_arg(&target_path.display().to_string()),
+        wp.id,
+        quote_arg(&target_path.display().to_string())
+    );
+    fs::write(record_dir.join("worktree.md"), content)
+        .map_err(|err| format!("failed to write worktree record: {err}"))
 }
 
 fn quote_arg(value: &str) -> String {
