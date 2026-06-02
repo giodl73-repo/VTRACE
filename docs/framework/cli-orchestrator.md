@@ -32,6 +32,7 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 | `vtrace work close WP-###` | Require exit criteria, evidence rows, validation status, review lanes, and git scope. | `WORK_PACKAGES.md`, `VERIFICATION.md`, `VALIDATION.md`, `EVIDENCE.md`, `REVIEW.md`. |
 | `vtrace roles review WP-###` | Run or prepare the required `.roles` review lanes. | review record draft. |
 | `vtrace agent brief WP-###` | Produce a bounded agent brief for one work package. | brief file or stdout. |
+| `vtrace worktree status` | List git worktrees and whether each has a VTRACE ownership record. | none. |
 | `vtrace worktree plan WP-###` | Derive the branch, path, and command for isolated worktree execution. | none by default. |
 | `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean and the target path does not exist. | local worktree plus `.vtrace/worktree.md` ownership record. |
 

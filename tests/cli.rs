@@ -143,6 +143,12 @@ fn worktree_create_creates_isolated_worktree() {
     assert!(record.contains("Work package: WP-001"));
     assert!(record.contains("Closeout commands:"));
 
+    let status = run(&["worktree", "status", &root_arg]);
+    assert!(status.status.success(), "{}", stdout(&status));
+    let status_out = stdout(&status);
+    assert!(status_out.contains("VTRACE worktree status"));
+    assert!(status_out.contains("record: present"));
+
     let _ = git(&root, &["worktree", "remove", "--force", &target_arg]);
     let _ = fs::remove_dir_all(&target);
     let _ = fs::remove_dir_all(&root);

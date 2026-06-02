@@ -57,6 +57,7 @@ fn print_usage() {
   vtrace work start <WP-ID> [repo]
   vtrace work check <WP-ID> [repo]
   vtrace work close <WP-ID> [repo]
+  vtrace worktree status [repo]
   vtrace worktree plan <WP-ID> [repo]
   vtrace worktree create <WP-ID> [repo] [path]
   vtrace evidence receipt <WP-ID> [repo]
@@ -279,6 +280,10 @@ fn worktree(args: &[String]) -> Result<(), String> {
         .first()
         .map(String::as_str)
         .ok_or("missing worktree action")?;
+    if action == "status" {
+        let root = args.get(1).map(Path::new).unwrap_or_else(|| Path::new("."));
+        return worktree_status(root);
+    }
     let wp_id = args.get(1).ok_or("missing work package ID")?;
     let root = args.get(2).map(Path::new).unwrap_or_else(|| Path::new("."));
     let wp = vtrace::work_package(root, wp_id)
@@ -305,6 +310,50 @@ fn worktree(args: &[String]) -> Result<(), String> {
         }
         other => Err(format!("unknown worktree action `{other}`")),
     }
+}
+
+fn worktree_status(root: &Path) -> Result<(), String> {
+    let output = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .arg("worktree")
+        .arg("list")
+        .arg("--porcelain")
+        .output()
+        .map_err(|err| format!("failed to inspect git worktrees: {err}"))?;
+    if !output.status.success() {
+        return Err(String::from_utf8_lossy(&output.stderr).trim().to_string());
+    }
+
+    println!("VTRACE worktree status");
+    let text = String::from_utf8_lossy(&output.stdout);
+    let mut current_path: Option<String> = None;
+    let mut current_branch: Option<String> = None;
+    for line in text.lines().chain([""]) {
+        if let Some(path) = line.strip_prefix("worktree ") {
+            print_worktree_status_row(current_path.take(), current_branch.take());
+            current_path = Some(path.to_string());
+        } else if let Some(branch) = line.strip_prefix("branch ") {
+            current_branch = Some(branch.trim_start_matches("refs/heads/").to_string());
+        } else if line.is_empty() {
+            print_worktree_status_row(current_path.take(), current_branch.take());
+        }
+    }
+    Ok(())
+}
+
+fn print_worktree_status_row(path: Option<String>, branch: Option<String>) {
+    let Some(path) = path else {
+        return;
+    };
+    let record = Path::new(&path).join(".vtrace").join("worktree.md");
+    let record_status = if record.exists() { "present" } else { "absent" };
+    println!(
+        "- path: {} | branch: {} | record: {}",
+        path,
+        branch.unwrap_or_else(|| "detached".to_string()),
+        record_status
+    );
 }
 
 struct WorktreeSpec {
