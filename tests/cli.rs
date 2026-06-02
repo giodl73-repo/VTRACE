@@ -119,6 +119,26 @@ fn work_start_reports_selected_work_package() {
 }
 
 #[test]
+fn work_close_reports_readiness_before_blocking() {
+    let root = committed_worktree_repo();
+    let root_arg = root.to_string_lossy().to_string();
+
+    let output = run(&["work", "close", "WP-001", &root_arg]);
+    assert!(!output.status.success());
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE work close: WP-001"));
+    assert!(out.contains("closure readiness:"));
+    assert!(out.contains("validator findings:"));
+    assert!(out.contains("work-package status: proposed"));
+    assert!(out.contains("required review lanes:"));
+    assert!(out.contains("git scope:"));
+    assert!(out.contains("expected evidence:"));
+    assert!(out.contains("closure blocked:"));
+
+    let _ = fs::remove_dir_all(&root);
+}
+
+#[test]
 fn worktree_plan_reports_branch_and_command() {
     let output = run(&["worktree", "plan", "WP-009", "."]);
     assert!(output.status.success(), "{}", stdout(&output));

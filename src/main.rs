@@ -224,6 +224,19 @@ fn work(args: &[String]) -> Result<(), String> {
         "close" => {
             print_work_package("close", &wp);
             let findings = vtrace::run_checks(root);
+            let required_lanes = vtrace::review_lanes(root)
+                .into_iter()
+                .filter(|lane| lane.required.eq_ignore_ascii_case("yes"))
+                .count();
+            let git_scope = git_scope_status(root);
+
+            println!("closure readiness:");
+            println!("- validator findings: {}", findings.len());
+            println!("- work-package status: {}", wp.status);
+            println!("- required review lanes: {required_lanes}");
+            println!("- git scope: {git_scope}");
+            println!("- expected evidence: verification, validation, evidence, review, and work-package status updates");
+
             if !findings.is_empty() {
                 println!("closure blocked: validator findings must be fixed or accepted with risk");
                 let display_root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
@@ -244,6 +257,31 @@ fn work(args: &[String]) -> Result<(), String> {
             Ok(())
         }
         other => Err(format!("unknown work action `{other}`")),
+    }
+}
+
+fn git_scope_status(root: &Path) -> String {
+    let output = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .arg("status")
+        .arg("--short")
+        .output();
+    let Ok(output) = output else {
+        return "not inspected: git status failed to run".to_string();
+    };
+    if !output.status.success() {
+        return "not a git worktree or git status unavailable".to_string();
+    }
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let changed = stdout
+        .lines()
+        .filter(|line| !line.trim().is_empty())
+        .count();
+    if changed == 0 {
+        "clean".to_string()
+    } else {
+        format!("dirty ({changed} changed path(s))")
     }
 }
 
