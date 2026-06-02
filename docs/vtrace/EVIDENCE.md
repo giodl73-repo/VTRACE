@@ -47,6 +47,7 @@ Command receipts should be updated when validation is run.
 | EVID-034 | CLI worktree create command | `tests/cli.rs`; `cargo test` | CLI can create an isolated worktree for a work package from a clean git repo and refuse unsafe targets through guard checks. | Integration test created a temporary git repo, committed a minimal work package, ran `vtrace worktree create WP-001 <repo> <target>`, verified the worktree files, and removed the worktree. | passed |
 | EVID-035 | Worktree ownership record | `tests/cli.rs`; `cargo test` | Created worktrees receive a local `.vtrace/worktree.md` record with WP, branch, source repo, worktree path, and closeout commands. | Integration test verified the generated record contains `Work package: WP-001` and `Closeout commands:`. | passed |
 | EVID-036 | CLI worktree status command | `tests/cli.rs`; `cargo test` | CLI can list git worktrees and identify whether a VTRACE ownership record is present. | Integration test creates a temporary worktree and verifies `vtrace worktree status <repo>` reports `record: present`. | passed |
+| EVID-037 | CLI worktree remove command | `tests/cli.rs`; `cargo test` | CLI can remove a VTRACE-owned worktree while refusing unowned targets unless forced. | Integration test removes the temporary worktree through `vtrace worktree remove <target>` and verifies the target no longer exists. | passed |
 
 ## Evidence Rules
 

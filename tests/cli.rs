@@ -23,6 +23,14 @@ fn stdout(output: &std::process::Output) -> String {
     String::from_utf8_lossy(&output.stdout).to_string()
 }
 
+fn command_output(output: &std::process::Output) -> String {
+    format!(
+        "stdout:\n{}\nstderr:\n{}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    )
+}
+
 fn unique_temp_repo() -> PathBuf {
     let unique = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -131,7 +139,7 @@ fn worktree_create_creates_isolated_worktree() {
     let target_arg = target.to_string_lossy().to_string();
 
     let output = run(&["worktree", "create", "WP-001", &root_arg, &target_arg]);
-    assert!(output.status.success(), "{}", stdout(&output));
+    assert!(output.status.success(), "{}", command_output(&output));
     let out = stdout(&output);
     assert!(out.contains("VTRACE worktree created: WP-001"));
     assert!(target
@@ -144,13 +152,16 @@ fn worktree_create_creates_isolated_worktree() {
     assert!(record.contains("Closeout commands:"));
 
     let status = run(&["worktree", "status", &root_arg]);
-    assert!(status.status.success(), "{}", stdout(&status));
+    assert!(status.status.success(), "{}", command_output(&status));
     let status_out = stdout(&status);
     assert!(status_out.contains("VTRACE worktree status"));
     assert!(status_out.contains("record: present"));
 
-    let _ = git(&root, &["worktree", "remove", "--force", &target_arg]);
-    let _ = fs::remove_dir_all(&target);
+    let remove = run(&["worktree", "remove", &target_arg]);
+    assert!(remove.status.success(), "{}", command_output(&remove));
+    assert!(stdout(&remove).contains("VTRACE worktree removed:"));
+    assert!(!target.exists());
+
     let _ = fs::remove_dir_all(&root);
 }
 

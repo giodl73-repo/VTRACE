@@ -60,6 +60,7 @@ fn print_usage() {
   vtrace worktree status [repo]
   vtrace worktree plan <WP-ID> [repo]
   vtrace worktree create <WP-ID> [repo] [path]
+  vtrace worktree remove <path> [--force]
   vtrace evidence receipt <WP-ID> [repo]
   vtrace roles review <WP-ID> [repo]
   vtrace agent brief <WP-ID> [repo]"
@@ -284,6 +285,11 @@ fn worktree(args: &[String]) -> Result<(), String> {
         let root = args.get(1).map(Path::new).unwrap_or_else(|| Path::new("."));
         return worktree_status(root);
     }
+    if action == "remove" {
+        let target = args.get(1).map(Path::new).ok_or("missing worktree path")?;
+        let force = args.iter().any(|arg| arg == "--force");
+        return remove_worktree(target, force);
+    }
     let wp_id = args.get(1).ok_or("missing work package ID")?;
     let root = args.get(2).map(Path::new).unwrap_or_else(|| Path::new("."));
     let wp = vtrace::work_package(root, wp_id)
@@ -443,6 +449,50 @@ fn create_worktree(root: &Path, branch: &str, target: &Path) -> Result<(), Strin
         return Err(String::from_utf8_lossy(&output.stderr).trim().to_string());
     }
     Ok(())
+}
+
+fn remove_worktree(target: &Path, force: bool) -> Result<(), String> {
+    if !target.exists() {
+        return Err(format!(
+            "worktree target does not exist: {}",
+            target.display()
+        ));
+    }
+    let record = target.join(".vtrace").join("worktree.md");
+    if !record.exists() && !force {
+        return Err(format!(
+            "refusing to remove worktree without VTRACE ownership record: {}",
+            record.display()
+        ));
+    }
+
+    let source_root =
+        source_root_from_worktree_record(&record).unwrap_or_else(|| target.to_path_buf());
+    let mut command = Command::new("git");
+    command
+        .arg("-C")
+        .arg(source_root)
+        .arg("worktree")
+        .arg("remove");
+    if force || record.exists() {
+        command.arg("--force");
+    }
+    let output = command
+        .arg(target)
+        .output()
+        .map_err(|err| format!("failed to remove worktree: {err}"))?;
+    if !output.status.success() {
+        return Err(String::from_utf8_lossy(&output.stderr).trim().to_string());
+    }
+    println!("VTRACE worktree removed: {}", target.display());
+    Ok(())
+}
+
+fn source_root_from_worktree_record(record: &Path) -> Option<std::path::PathBuf> {
+    let text = fs::read_to_string(record).ok()?;
+    text.lines()
+        .find_map(|line| line.strip_prefix("Source repo: "))
+        .map(std::path::PathBuf::from)
 }
 
 fn write_worktree_record(
