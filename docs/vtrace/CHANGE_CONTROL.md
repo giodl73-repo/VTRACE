@@ -17,6 +17,7 @@ Repo: VTRACE
 | DCR-007 | Port the local validator from Python to Rust. | User requested Rust implementation for stronger tooling posture. | REQ-RUST-001, REQ-VAL-001, SPEC-007, SPEC-013, IF-005 | implemented | WP-007 | Added std-only Rust crate and removed the Python validator/test implementation. |
 | DCR-008 | Add CI for the Rust validator path. | Validator evidence should run outside local agent sessions. | REQ-CI-001, REQ-RUST-001, SPEC-014, IF-006 | implemented | WP-008 | Added GitHub Actions workflow for formatting, clippy, tests, self-validation, and example validation. |
 | DCR-009 | Design and implement the first VTRACE CLI orchestrator slice with optional provider/agent boundaries. | Users need help running the VTRACE process, not just validating finished files. | REQ-CLI-001, REQ-AI-001, SPEC-015, SPEC-016, IF-007, IF-008 | implemented | WP-009 | CLI guides init/status/validate/work-package execution, role-review preparation, and agent briefs; provider integrations remain optional advisory helpers. |
+| DCR-010 | Implement later-boundary integrations for providers, roles, reports, GitHub helpers, and pulse sync. | Users need VTRACE to coordinate agent/provider/review execution while preserving canonical artifact control. | REQ-INTEGRATION-001, REQ-AI-001, REQ-CLI-001, SPEC-017 | implemented | WP-010 | Added provider-neutral Codex/Claude/Copilot command surfaces, advisory role packets, adoption reports, guarded GitHub helpers, and pulse sync dry-run/live boundaries. |
 
 ## Change-Control Rule
 

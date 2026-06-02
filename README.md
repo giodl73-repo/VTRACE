@@ -153,14 +153,15 @@ evidence reports.
 
 ## CLI Direction
 
-The Rust CLI now has a first orchestration slice. `vtrace validate` remains
+The Rust CLI now has an orchestration layer. `vtrace validate` remains
 deterministic, while `init`, `status`, `work start/check/close`, `roles
-review`, `agent brief`, `worktree status`, `worktree plan`, guarded `worktree
-create`, and guarded `worktree remove` help maintainers run the process
-procedurally. Created worktrees receive a local `.vtrace/worktree.md` ownership
-record with closeout commands and a `.vtrace/agent-brief.md` handoff brief. LLM
-provider integrations remain future optional helpers; they may draft or review,
-but they do not replace canonical VTRACE artifacts or objective evidence.
+review/run`, `agent brief`, `report adoption`, provider draft/review helpers,
+GitHub issue/PR packet helpers, pulse sync, and guarded worktree commands help
+maintainers run the process procedurally. Created worktrees receive a local
+`.vtrace/worktree.md` ownership record with closeout commands and a
+`.vtrace/agent-brief.md` handoff brief. Codex, Claude, and Copilot provider
+commands are advisory and live actions require explicit `--live`; they do not
+replace canonical VTRACE artifacts or objective evidence.
 
 ## License
 

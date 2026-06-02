@@ -337,6 +337,76 @@ fn roles_review_reports_required_lanes() {
 }
 
 #[test]
+fn roles_run_reports_advisory_packets() {
+    let output = run(&["roles", "run", "WP-009", "."]);
+    assert!(output.status.success(), "{}", stdout(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE roles run: WP-009"));
+    assert!(out.contains("advisory: role packets do not close REVIEW.md lanes"));
+    assert!(out.contains(".roles/parliament/systems-engineering-steward.md"));
+    assert!(out.contains("output: review_needed"));
+}
+
+#[test]
+fn provider_list_and_check_are_deterministic() {
+    let list = run(&["provider", "list"]);
+    assert!(list.status.success(), "{}", command_output(&list));
+    let list_out = stdout(&list);
+    assert!(list_out.contains("- codex"));
+    assert!(list_out.contains("- claude"));
+    assert!(list_out.contains("- copilot"));
+
+    let check = run(&["provider", "check", "codex"]);
+    assert!(check.status.success(), "{}", command_output(&check));
+    let check_out = stdout(&check);
+    assert!(check_out.contains("VTRACE provider check: codex"));
+    assert!(check_out.contains("mode: advisory"));
+}
+
+#[test]
+fn provider_draft_dry_run_reports_advisory_packet() {
+    let output = run(&["provider", "draft", "WP-009", "--provider", "codex", "."]);
+    assert!(output.status.success(), "{}", command_output(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE provider draft: WP-009"));
+    assert!(out.contains("provider: codex"));
+    assert!(out.contains("mode: dry-run"));
+    assert!(out.contains("canonical: false"));
+    assert!(out.contains("status: review_needed"));
+}
+
+#[test]
+fn adoption_report_summarizes_self_package() {
+    let output = run(&["report", "adoption", "."]);
+    assert!(output.status.success(), "{}", command_output(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE adoption report"));
+    assert!(out.contains("validator findings: 0"));
+    assert!(out.contains("readiness: ready_for_review"));
+}
+
+#[test]
+fn github_issue_dry_run_reports_work_package_packet() {
+    let output = run(&["github", "issue", "WP-009", "."]);
+    assert!(output.status.success(), "{}", command_output(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE GitHub issue dry-run: WP-009"));
+    assert!(out.contains("Affected surfaces:"));
+    assert!(out.contains("Evidence targets:"));
+}
+
+#[test]
+fn pulse_sync_dry_run_reports_target_and_packet() {
+    let output = run(&["pulse", "sync", "WP-009", "."]);
+    assert!(output.status.success(), "{}", command_output(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE pulse sync: WP-009"));
+    assert!(out.contains("mode: dry-run"));
+    assert!(out.contains("written: no"));
+    assert!(out.contains("Work package: WP-009"));
+}
+
+#[test]
 fn evidence_receipt_reports_draft_row() {
     let output = run(&["evidence", "receipt", "WP-009", "."]);
     assert!(output.status.success(), "{}", stdout(&output));

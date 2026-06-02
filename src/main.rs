@@ -20,6 +20,10 @@ fn main() {
         Some("evidence") => evidence(&args[1..]),
         Some("roles") => roles(&args[1..]),
         Some("agent") => agent(&args[1..]),
+        Some("provider") => provider(&args[1..]),
+        Some("report") => report(&args[1..]),
+        Some("github") => github(&args[1..]),
+        Some("pulse") => pulse(&args[1..]),
         Some(path_or_command) if looks_like_path(path_or_command) => {
             validate(Path::new(path_or_command))
         }
@@ -63,7 +67,16 @@ fn print_usage() {
   vtrace worktree remove <path> [--force]
   vtrace evidence receipt <WP-ID> [repo]
   vtrace roles review <WP-ID> [repo]
-  vtrace agent brief <WP-ID> [repo]"
+  vtrace roles run <WP-ID> [repo]
+  vtrace agent brief <WP-ID> [repo]
+  vtrace provider list
+  vtrace provider check <codex|claude|copilot>
+  vtrace provider draft <WP-ID> --provider <name> [repo] [--live]
+  vtrace provider review <WP-ID> --provider <name> [repo] [--live]
+  vtrace report adoption [repo]
+  vtrace github issue <WP-ID> [repo] [--dry-run|--live]
+  vtrace github pr-review <WP-ID> [repo] [--dry-run|--live]
+  vtrace pulse sync <WP-ID> [repo] [--dry-run|--live]"
     );
 }
 
@@ -328,28 +341,80 @@ fn roles(args: &[String]) -> Result<(), String> {
         .first()
         .map(String::as_str)
         .ok_or("missing roles action")?;
-    if action != "review" {
-        return Err(format!("unknown roles action `{action}`"));
-    }
     let wp_id = args.get(1).ok_or("missing work package ID")?;
     let root = args.get(2).map(Path::new).unwrap_or_else(|| Path::new("."));
     let wp = vtrace::work_package(root, wp_id)
         .ok_or_else(|| format!("{wp_id} was not found in docs/vtrace/WORK_PACKAGES.md"))?;
     let lanes = vtrace::review_lanes(root);
 
-    println!("VTRACE roles review: {}", wp.id);
-    println!("objective: {}", wp.objective);
-    if lanes.is_empty() {
-        println!("review lanes: none found");
-        return Ok(());
+    match action {
+        "review" => {
+            println!("VTRACE roles review: {}", wp.id);
+            println!("objective: {}", wp.objective);
+            if lanes.is_empty() {
+                println!("review lanes: none found");
+                return Ok(());
+            }
+            for lane in lanes {
+                println!(
+                    "- {} | required: {} | decision: {} | evidence: {}",
+                    lane.lane, lane.required, lane.decision, lane.evidence
+                );
+            }
+            Ok(())
+        }
+        "run" => {
+            println!("VTRACE roles run: {}", wp.id);
+            println!("objective: {}", wp.objective);
+            println!("advisory: role packets do not close REVIEW.md lanes");
+            if lanes.is_empty() {
+                println!("review packets: none");
+                return Ok(());
+            }
+            for lane in lanes {
+                println!(
+                    "- lane: {} | required: {} | decision: {} | role: {} | output: review_needed",
+                    lane.lane,
+                    lane.required,
+                    lane.decision,
+                    role_path_for_lane(&lane.lane)
+                );
+            }
+            Ok(())
+        }
+        other => Err(format!("unknown roles action `{other}`")),
     }
-    for lane in lanes {
-        println!(
-            "- {} | required: {} | decision: {} | evidence: {}",
-            lane.lane, lane.required, lane.decision, lane.evidence
-        );
+}
+
+fn role_path_for_lane(lane: &str) -> String {
+    let normalized = lane.to_ascii_lowercase();
+    let known = match normalized.as_str() {
+        "systems engineering" => Some(".roles/parliament/systems-engineering-steward.md"),
+        "requirements traceability" => {
+            Some(".roles/parliament/requirements-traceability-auditor.md")
+        }
+        "v&v" => Some(".roles/parliament/verification-validation-lead.md"),
+        "software assurance" => Some(".roles/parliament/software-assurance-guardian.md"),
+        "security/privacy" => Some(".roles/parliament/security-privacy-guardian.md"),
+        "safety/mission impact" => Some(".roles/parliament/safety-risk-officer.md"),
+        "source custody" => Some(".roles/parliament/source-custody-counsel.md"),
+        "adoption guide" => Some(".roles/editorial/adoption-guide-editor.md"),
+        "template minimalism" => Some(".roles/editorial/template-minimalism-editor.md"),
+        "repo maintainer" => Some(".roles/stakeholders/repo-maintainer.md"),
+        "future agent" => Some(".roles/stakeholders/future-agent.md"),
+        _ => None,
+    };
+    if let Some(path) = known {
+        return path.to_string();
     }
-    Ok(())
+    let slug = lane
+        .to_ascii_lowercase()
+        .replace('&', "")
+        .replace('/', "-")
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join("-");
+    format!(".roles/{slug}.md")
 }
 
 fn worktree(args: &[String]) -> Result<(), String> {
@@ -780,6 +845,266 @@ fn agent_brief_markdown(wp: &vtrace::WorkPackage) -> String {
         wp.status,
         wp.id
     )
+}
+
+fn provider(args: &[String]) -> Result<(), String> {
+    let action = args
+        .first()
+        .map(String::as_str)
+        .ok_or("missing provider action")?;
+    match action {
+        "list" => {
+            println!("VTRACE providers");
+            for name in provider_names() {
+                println!("- {name}");
+            }
+            Ok(())
+        }
+        "check" => {
+            let name = args.get(1).ok_or("missing provider name")?;
+            ensure_provider_name(name)?;
+            println!("VTRACE provider check: {name}");
+            println!("available: {}", provider_available(name));
+            println!("mode: advisory");
+            Ok(())
+        }
+        "draft" | "review" => {
+            let wp_id = args.get(1).ok_or("missing work package ID")?;
+            let provider_name = option_value(args, "--provider").ok_or("missing --provider")?;
+            ensure_provider_name(provider_name)?;
+            let live = has_flag(args, "--live");
+            let root = positional_repo_arg(args, 2);
+            let wp = vtrace::work_package(root, wp_id)
+                .ok_or_else(|| format!("{wp_id} was not found in docs/vtrace/WORK_PACKAGES.md"))?;
+            if live && !provider_available(provider_name) {
+                return Err(format!(
+                    "provider `{provider_name}` is not available for live mode"
+                ));
+            }
+            print_provider_packet(action, provider_name, &wp, live);
+            Ok(())
+        }
+        other => Err(format!("unknown provider action `{other}`")),
+    }
+}
+
+fn provider_names() -> [&'static str; 3] {
+    ["codex", "claude", "copilot"]
+}
+
+fn ensure_provider_name(name: &str) -> Result<(), String> {
+    if provider_names().contains(&name) {
+        Ok(())
+    } else {
+        Err(format!("unknown provider `{name}`"))
+    }
+}
+
+fn provider_available(name: &str) -> bool {
+    match name {
+        "codex" => command_available("codex"),
+        "claude" => command_available("claude"),
+        "copilot" => command_available("gh"),
+        _ => false,
+    }
+}
+
+fn command_available(name: &str) -> bool {
+    Command::new(name)
+        .arg("--version")
+        .output()
+        .map(|output| output.status.success())
+        .unwrap_or(false)
+}
+
+fn print_provider_packet(action: &str, provider_name: &str, wp: &vtrace::WorkPackage, live: bool) {
+    println!("VTRACE provider {action}: {}", wp.id);
+    println!("provider: {provider_name}");
+    println!("mode: {}", if live { "live" } else { "dry-run" });
+    println!("status: review_needed");
+    println!("canonical: false");
+    println!("objective: {}", wp.objective);
+    println!("parents: {}", wp.parent_ids);
+    println!("surfaces: {}", wp.affected_surfaces);
+    println!("checks: {}", wp.validation_levels);
+    println!("instruction: produce advisory output only; do not mark evidence passed or close work packages");
+}
+
+fn report(args: &[String]) -> Result<(), String> {
+    let action = args
+        .first()
+        .map(String::as_str)
+        .ok_or("missing report action")?;
+    if action != "adoption" {
+        return Err(format!("unknown report action `{action}`"));
+    }
+    let root = args.get(1).map(Path::new).unwrap_or_else(|| Path::new("."));
+    let findings = vtrace::run_checks(root);
+    let summary = vtrace::package_summary(root);
+    println!("VTRACE adoption report");
+    println!("requirements: {}", summary.requirements);
+    println!("specs: {}", summary.specs);
+    println!("work packages: {}", summary.work_packages);
+    println!("evidence rows: {}", summary.evidence_rows);
+    println!("validator findings: {}", findings.len());
+    println!(
+        "open work packages: {}",
+        if summary.open_work_packages.is_empty() {
+            "none".to_string()
+        } else {
+            summary.open_work_packages.join(", ")
+        }
+    );
+    println!(
+        "readiness: {}",
+        if findings.is_empty() {
+            "ready_for_review"
+        } else {
+            "blocked"
+        }
+    );
+    Ok(())
+}
+
+fn github(args: &[String]) -> Result<(), String> {
+    let action = args
+        .first()
+        .map(String::as_str)
+        .ok_or("missing github action")?;
+    if !matches!(action, "issue" | "pr-review") {
+        return Err(format!("unknown github action `{action}`"));
+    }
+    let wp_id = args.get(1).ok_or("missing work package ID")?;
+    let root = positional_repo_arg(args, 2);
+    let wp = vtrace::work_package(root, wp_id)
+        .ok_or_else(|| format!("{wp_id} was not found in docs/vtrace/WORK_PACKAGES.md"))?;
+    let live = has_flag(args, "--live");
+    let body = github_packet(action, &wp);
+    if !live {
+        println!("VTRACE GitHub {action} dry-run: {}", wp.id);
+        println!("{body}");
+        return Ok(());
+    }
+    ensure_gh_auth()?;
+    match action {
+        "issue" => run_gh(
+            root,
+            &["issue", "create", "--title", &wp.id, "--body", &body],
+        ),
+        "pr-review" => run_gh(root, &["pr", "comment", "--body", &body]),
+        _ => unreachable!(),
+    }
+}
+
+fn github_packet(action: &str, wp: &vtrace::WorkPackage) -> String {
+    format!(
+        "# VTRACE {action}: {}\n\nObjective: {}\nParent IDs: {}\nAffected surfaces: {}\nChecks: {}\nClose criteria: {}\nEvidence targets: WORK_PACKAGES.md, VERIFICATION.md, VALIDATION.md, EVIDENCE.md, REVIEW.md\n",
+        wp.id,
+        wp.objective,
+        wp.parent_ids,
+        wp.affected_surfaces,
+        wp.validation_levels,
+        wp.exit_criteria
+    )
+}
+
+fn ensure_gh_auth() -> Result<(), String> {
+    let output = Command::new("gh")
+        .arg("auth")
+        .arg("status")
+        .output()
+        .map_err(|err| format!("failed to run gh auth status: {err}"))?;
+    if output.status.success() {
+        Ok(())
+    } else {
+        Err(String::from_utf8_lossy(&output.stderr).trim().to_string())
+    }
+}
+
+fn run_gh(root: &Path, args: &[&str]) -> Result<(), String> {
+    let output = Command::new("gh")
+        .current_dir(root)
+        .args(args)
+        .output()
+        .map_err(|err| format!("failed to run gh: {err}"))?;
+    if output.status.success() {
+        print!("{}", String::from_utf8_lossy(&output.stdout));
+        Ok(())
+    } else {
+        Err(String::from_utf8_lossy(&output.stderr).trim().to_string())
+    }
+}
+
+fn pulse(args: &[String]) -> Result<(), String> {
+    let action = args
+        .first()
+        .map(String::as_str)
+        .ok_or("missing pulse action")?;
+    if action != "sync" {
+        return Err(format!("unknown pulse action `{action}`"));
+    }
+    let wp_id = args.get(1).ok_or("missing work package ID")?;
+    let root = positional_repo_arg(args, 2);
+    let wp = vtrace::work_package(root, wp_id)
+        .ok_or_else(|| format!("{wp_id} was not found in docs/vtrace/WORK_PACKAGES.md"))?;
+    let live = has_flag(args, "--live");
+    let target = pulse_target(root);
+    let content = pulse_packet(&wp);
+    println!("VTRACE pulse sync: {}", wp.id);
+    println!("mode: {}", if live { "live" } else { "dry-run" });
+    println!("target: {}", target.display());
+    if live {
+        if let Some(parent) = target.parent() {
+            fs::create_dir_all(parent)
+                .map_err(|err| format!("failed to create pulse directory: {err}"))?;
+        }
+        fs::write(&target, content)
+            .map_err(|err| format!("failed to write {}: {err}", target.display()))?;
+        println!("written: yes");
+    } else {
+        println!("written: no");
+        println!("{content}");
+    }
+    Ok(())
+}
+
+fn pulse_target(root: &Path) -> std::path::PathBuf {
+    let context = root.join("context").join("waves");
+    if context.exists() {
+        context.join("PULSE_EXECUTION.md")
+    } else {
+        root.join("waves").join("PULSE_EXECUTION.md")
+    }
+}
+
+fn pulse_packet(wp: &vtrace::WorkPackage) -> String {
+    format!(
+        "# VTRACE Pulse Execution\n\nWork package: {}\nObjective: {}\nParent IDs: {}\nAffected surfaces: {}\nChecks: {}\nStatus: {}\n",
+        wp.id,
+        wp.objective,
+        wp.parent_ids,
+        wp.affected_surfaces,
+        wp.validation_levels,
+        wp.status
+    )
+}
+
+fn option_value<'a>(args: &'a [String], name: &str) -> Option<&'a str> {
+    args.windows(2)
+        .find(|pair| pair[0] == name)
+        .map(|pair| pair[1].as_str())
+}
+
+fn has_flag(args: &[String], name: &str) -> bool {
+    args.iter().any(|arg| arg == name)
+}
+
+fn positional_repo_arg(args: &[String], start: usize) -> &Path {
+    args.iter()
+        .skip(start)
+        .find(|arg| !arg.starts_with("--") && provider_names().iter().all(|name| arg != name))
+        .map(Path::new)
+        .unwrap_or_else(|| Path::new("."))
 }
 
 fn print_work_package(action: &str, wp: &vtrace::WorkPackage) {

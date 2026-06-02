@@ -59,6 +59,7 @@ Command receipts should be updated when validation is run.
 | EVID-046 | Close review-lane name reporting | `tests/cli.rs`; `cargo test` | `vtrace work close` reports the names of required review lanes in the closure readiness output. | Integration test verifies close output includes the required lane-name line and reports `Systems engineering` for a close-ready package. | passed |
 | EVID-047 | Close affected-surface reporting | `tests/cli.rs`; `cargo test` | `vtrace work close` reports affected implementation surfaces in the closure readiness output. | Integration test verifies blocked and passing close output includes `affected surfaces: docs/vtrace`. | passed |
 | EVID-048 | Close changed-path reporting | `tests/cli.rs`; `cargo test` | `vtrace work close` reports changed git paths in the closure readiness output. | Integration test verifies dirty close output includes `?? uncommitted.txt` and clean close output reports `changed paths: none`. | passed |
+| EVID-049 | Later-boundary integration commands | `tests/cli.rs`; `cargo test`; `cargo run -- provider list`; `cargo run -- report adoption .` | VTRACE exposes provider, role packet, adoption report, GitHub dry-run, and pulse sync dry-run command surfaces while keeping generated output advisory. | CLI integration tests cover provider list/check/draft, `roles run`, adoption report, GitHub issue dry-run, and pulse sync dry-run. | passed |
 
 ## Evidence Rules
 

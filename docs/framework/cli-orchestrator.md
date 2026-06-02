@@ -36,6 +36,11 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 | `vtrace worktree plan WP-###` | Derive the branch, path, and command for isolated worktree execution. | none by default. |
 | `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean, the target path does not exist, and no active VTRACE-owned worktree already claims the same `WP-*` unless explicitly allowed. | local worktree plus `.vtrace/worktree.md` and `.vtrace/agent-brief.md`. |
 | `vtrace worktree remove <path>` | Remove a VTRACE-owned worktree after confirming its ownership record, or require `--force`. | removes local worktree. |
+| `vtrace provider list/check/draft/review` | List Codex, Claude, and Copilot adapters; check local availability; generate advisory draft/review packets; require `--live` for live provider use. | none by default. |
+| `vtrace roles run WP-###` | Emit role-review packets from repo review lanes and `.roles` conventions without closing review lanes. | none by default. |
+| `vtrace report adoption` | Summarize target-repo VTRACE readiness, open work packages, evidence rows, and validator findings. | none. |
+| `vtrace github issue/pr-review WP-###` | Generate GitHub issue or PR-review packets, with live GitHub actions only behind `--live` and `gh` auth checks. | none by default; GitHub side effect with `--live`. |
+| `vtrace pulse sync WP-###` | Generate or write repo-local pulse execution records for portfolio wave/pulse users. | none by default; pulse file with `--live`. |
 
 ## Work-Package Execution Contract
 
@@ -137,14 +142,10 @@ third-party runtime services.
 
 ## Later Boundary
 
-Later DCRs may add:
-
-- LLM provider adapters,
-- `.roles` execution integrations,
-- stronger worktree locking and active-package ownership records,
-- generated adoption reports,
-- GitHub issue/PR review helpers,
-- TRACKER wave/pulse synchronization.
+The later-boundary implementation includes provider adapters, `.roles`
+execution packets, generated adoption reports, GitHub issue/PR helpers, and
+TRACKER wave/pulse synchronization. Live provider/GitHub/pulse actions require
+explicit `--live`; dry-run output remains the default for deterministic use.
 
 ## Validation
 

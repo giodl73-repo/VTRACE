@@ -17,9 +17,10 @@ Repo: VTRACE
 | VAL-007 | Gate reviewer | Use gate-specific checklist rows for a review. | Required checklist rows cannot remain pending. | `REVIEW_CHECKLISTS.md`, validator tests | passed |
 | VAL-008 | Source custody reviewer | Review deeper NASA-inspired control guidance. | Guidance is derived and pointer-first, without compliance claim. | `docs/framework/nasa-technical-controls.md` | passed |
 | VAL-009 | CLI operator / agent operator | Use VTRACE procedurally instead of filling disconnected files. | CLI commands cover init/status/validate/work start/check/close/review/agent brief boundaries, with provider output advisory until accepted. | `docs/framework/cli-orchestrator.md`, `DCR-009`, `WP-009`, `EVID-029` | passed |
+| VAL-010 | Integration operator | Coordinate providers, roles, GitHub packets, reports, and pulse records from one work package. | Integration commands produce deterministic dry-run packets, guard live actions behind explicit flags, and keep provider output advisory. | `DCR-010`, `WP-010`, `EVID-049` | passed |
 
 ## Open Validation Gaps
 
 | Gap | Disposition |
 |---|---|
-| LLM provider adapters need security, source-custody, and role-review hardening before implementation. | Keep providers optional and advisory until a later DCR closes the adapter contract. |
+| Live provider and GitHub execution requires local auth/tooling. | Default to deterministic dry-run packets; require explicit `--live` plus availability checks for external side effects. |

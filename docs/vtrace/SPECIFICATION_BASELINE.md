@@ -27,7 +27,8 @@ Baseline date: 2026-05-31
 | SPEC-013 | REQ-RUST-001 | software | current | The validator is provided as a std-only Rust crate with `vtrace` binary, unit tests, and no runtime network or third-party dependency requirement. | cargo test / local command | validator packaging scenario | VTRACE | medium | accepted |
 | SPEC-014 | REQ-CI-001 | workflow | current | `.github/workflows/ci.yml` runs Cargo formatting, clippy, tests, self-validation, and migration-example validation on push and pull request. | workflow inspection / local command parity | CI validation scenario | VTRACE | medium | accepted |
 | SPEC-015 | REQ-CLI-001 | software | current | `docs/framework/cli-orchestrator.md` defines the CLI command surface and `src/` implements the first local commands for `init`, `status`, `validate`, `work start/check/close`, role-review preparation, and agent briefs. | design inspection / CLI commands | CLI operator scenario | VTRACE | medium | accepted |
-| SPEC-016 | REQ-AI-001 | software / assurance | target | Provider and agent integrations remain optional adapter layers; generated output is advisory until accepted into canonical VTRACE artifacts with trace IDs, evidence, and review status. | design inspection / role review | provider-assisted adoption scenario | VTRACE | high | accepted |
+| SPEC-016 | REQ-AI-001 | software / assurance | current | Provider and agent integrations remain optional adapter layers; generated output is advisory until accepted into canonical VTRACE artifacts with trace IDs, evidence, and review status. | design inspection / role review | provider-assisted adoption scenario | VTRACE | high | accepted |
+| SPEC-017 | REQ-INTEGRATION-001 / REQ-AI-001 / REQ-CLI-001 | software / assurance | current | The CLI exposes provider list/check/draft/review, roles run, adoption report, GitHub issue/PR dry-run/live helpers, and pulse sync commands with explicit live flags and advisory output boundaries. | CLI integration tests / local commands | integration operator scenario | VTRACE | high | accepted |
 
 ## Requirement-To-Spec Coverage
 
@@ -48,7 +49,8 @@ Baseline date: 2026-05-31
 | REQ-RUST-001 | SPEC-013 | covered | Rust validator crate exists. |
 | REQ-CI-001 | SPEC-014 | covered | GitHub Actions workflow exists. |
 | REQ-CLI-001 | SPEC-015 | covered | First CLI orchestrator slice is implemented. |
-| REQ-AI-001 | SPEC-016 | covered | Provider and agent boundaries are designed as next DCR. |
+| REQ-AI-001 | SPEC-016 / SPEC-017 | covered | Provider and agent boundaries are implemented as advisory command surfaces with explicit live guards. |
+| REQ-INTEGRATION-001 | SPEC-017 | covered | Later-boundary integration commands are implemented with guarded live paths and deterministic dry-run tests. |
 
 ## Specification Gate
 
