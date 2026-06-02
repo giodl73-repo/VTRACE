@@ -54,6 +54,7 @@ Command receipts should be updated when validation is run.
 | EVID-041 | Duplicate worktree override record | `tests/cli.rs`; `cargo test` | When `--allow-duplicate` is used, the duplicate worktree is created on a duplicate branch and the ownership record states that duplicate ownership was allowed. | Integration test creates a duplicate `WP-001` worktree with `--allow-duplicate` and verifies `.vtrace/worktree.md` contains `Duplicate ownership allowed: yes`. | passed |
 | EVID-042 | Duplicate worktree status reporting | `tests/cli.rs`; `cargo test` | `vtrace worktree status` reports whether duplicate worktree ownership was explicitly allowed. | Integration test verifies normal worktrees report `duplicate: no` and override worktrees report `duplicate: yes`. | passed |
 | EVID-043 | Work-package close readiness report | `tests/cli.rs`; `cargo test` | `vtrace work close` reports closure readiness dimensions before passing or blocking a work package. | Integration test verifies close output includes validator findings, work-package status, required review lanes, git scope, expected evidence, and closure block text for an incomplete package. | passed |
+| EVID-044 | Dirty git scope close block | `tests/cli.rs`; `cargo test` | `vtrace work close` blocks closure when validator checks pass but git scope is dirty. | Integration test creates a close-ready package, adds an uncommitted file, and verifies close output reports dirty git scope and blocks closure. | passed |
 
 ## Evidence Rules
 

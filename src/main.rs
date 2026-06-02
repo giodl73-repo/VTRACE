@@ -253,6 +253,10 @@ fn work(args: &[String]) -> Result<(), String> {
                 println!("update work-package status, evidence, verification, validation, and review before closure");
                 std::process::exit(1);
             }
+            if git_scope.starts_with("dirty ") {
+                println!("closure blocked: git scope must be clean before closure");
+                std::process::exit(1);
+            }
             println!("closure gate passed for {}", wp.id);
             Ok(())
         }

@@ -58,7 +58,9 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 - required role lanes are recorded,
 - evidence rows contain command/review receipts,
 - validation impact is recorded,
-- git status and commit scope are inspected.
+- git status and commit scope are inspected,
+- git scope is clean before closure or explicitly handled by a later
+  accepted-with-risk workflow.
 
 ## Provider Integration Contract
 

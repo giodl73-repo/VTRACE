@@ -75,6 +75,61 @@ fn committed_worktree_repo() -> PathBuf {
     root
 }
 
+fn committed_close_ready_repo() -> PathBuf {
+    let root = unique_temp_repo();
+    let vtrace_dir = root.join("docs").join("vtrace");
+    fs::create_dir_all(&vtrace_dir).unwrap();
+    fs::write(vtrace_dir.join("MISSION.md"), "# Mission\n").unwrap();
+    fs::write(
+        vtrace_dir.join("REQUIREMENTS.md"),
+        "# Requirements\n\n| ID | Requirement |\n|---|---|\n| REQ-001 | The repo shall do the thing. |\n",
+    )
+    .unwrap();
+    fs::write(
+        vtrace_dir.join("SPECIFICATION_BASELINE.md"),
+        "# Specification Baseline\n\n| Spec ID | Parent REQ IDs | Status |\n|---|---|---|\n| SPEC-001 | REQ-001 | accepted |\n",
+    )
+    .unwrap();
+    fs::write(
+        vtrace_dir.join("TRACE.md"),
+        "# Trace\n\n| Requirement ID | Specification Item | Work Package | Evidence Pointer | Status |\n|---|---|---|---|---|\n| REQ-001 | SPEC-001 | WP-001 | EVID-001 | verified |\n",
+    )
+    .unwrap();
+    fs::write(
+        vtrace_dir.join("WORK_PACKAGES.md"),
+        "# Work Packages\n\n| ID | Objective | Parent IDs | Affected Surfaces | Entry Criteria | Exit Criteria | L0 / L1 / L2 | Status |\n|---|---|---|---|---|---|---|---|\n| WP-001 | Close a ready package. | REQ-001 / SPEC-001 | docs/vtrace | ready | done | L0: check / L1: test / L2: review | complete |\n",
+    )
+    .unwrap();
+    fs::write(vtrace_dir.join("VERIFICATION.md"), "# Verification\n").unwrap();
+    fs::write(
+        vtrace_dir.join("REVIEW.md"),
+        "# Review\n\n| Lane | Required | Decision |\n|---|---|---|\n| Systems engineering | yes | pass |\n",
+    )
+    .unwrap();
+    fs::write(
+        vtrace_dir.join("EVIDENCE.md"),
+        "# Evidence\n\n| Evidence ID | Source / Command | Status |\n|---|---|---|\n| EVID-001 | command | passed |\n",
+    )
+    .unwrap();
+    assert!(git(&root, &["init"]).status.success());
+    assert!(git(&root, &["add", "."]).status.success());
+    assert!(git(
+        &root,
+        &[
+            "-c",
+            "user.name=VTRACE Test",
+            "-c",
+            "user.email=vtrace@example.invalid",
+            "commit",
+            "-m",
+            "seed",
+        ],
+    )
+    .status
+    .success());
+    root
+}
+
 #[test]
 fn explicit_validate_command_passes_self_package() {
     let output = run(&["validate", "."]);
@@ -134,6 +189,23 @@ fn work_close_reports_readiness_before_blocking() {
     assert!(out.contains("git scope:"));
     assert!(out.contains("expected evidence:"));
     assert!(out.contains("closure blocked:"));
+
+    let _ = fs::remove_dir_all(&root);
+}
+
+#[test]
+fn work_close_blocks_dirty_git_scope() {
+    let root = committed_close_ready_repo();
+    fs::write(root.join("uncommitted.txt"), "dirty\n").unwrap();
+    let root_arg = root.to_string_lossy().to_string();
+
+    let output = run(&["work", "close", "WP-001", &root_arg]);
+    assert!(!output.status.success());
+    let out = stdout(&output);
+    assert!(out.contains("validator findings: 0"));
+    assert!(out.contains("work-package status: complete"));
+    assert!(out.contains("git scope: dirty"));
+    assert!(out.contains("closure blocked: git scope must be clean before closure"));
 
     let _ = fs::remove_dir_all(&root);
 }
