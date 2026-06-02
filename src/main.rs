@@ -303,6 +303,7 @@ fn worktree(args: &[String]) -> Result<(), String> {
         }
         "create" => {
             let allow_duplicate = args.iter().any(|arg| arg == "--allow-duplicate");
+            let duplicate_existing = existing_worktree_for_wp(root, &wp.id)?.is_some();
             if !allow_duplicate {
                 if let Some(existing_path) = existing_worktree_for_wp(root, &wp.id)? {
                     return Err(format!(
@@ -311,17 +312,22 @@ fn worktree(args: &[String]) -> Result<(), String> {
                     ));
                 }
             }
+            let branch = if allow_duplicate && duplicate_existing {
+                format!("{}-duplicate", spec.branch)
+            } else {
+                spec.branch.clone()
+            };
             let target = args
                 .iter()
                 .skip(3)
                 .find(|arg| !arg.starts_with("--"))
                 .map(Path::new)
                 .unwrap_or(&spec.path);
-            create_worktree(root, &spec.branch, target)?;
-            write_worktree_record(target, root, &wp, &spec.branch)?;
+            create_worktree(root, &branch, target)?;
+            write_worktree_record(target, root, &wp, &branch, allow_duplicate)?;
             write_agent_brief_record(target, &wp)?;
             println!("VTRACE worktree created: {}", wp.id);
-            println!("branch: {}", spec.branch);
+            println!("branch: {}", branch);
             println!("path: {}", target.display());
             println!(
                 "record: {}",
@@ -558,6 +564,7 @@ fn write_worktree_record(
     source_root: &Path,
     wp: &vtrace::WorkPackage,
     branch: &str,
+    allow_duplicate: bool,
 ) -> Result<(), String> {
     let record_dir = target.join(".vtrace");
     fs::create_dir_all(&record_dir)
@@ -569,10 +576,11 @@ fn write_worktree_record(
         .canonicalize()
         .unwrap_or_else(|_| target.to_path_buf());
     let content = format!(
-        "# VTRACE Worktree\n\nWork package: {}\nObjective: {}\nBranch: {}\nSource repo: {}\nWorktree path: {}\n\nCloseout commands:\n\n```powershell\nvtrace work check {} {}\nvtrace evidence receipt {} {}\n```\n",
+        "# VTRACE Worktree\n\nWork package: {}\nObjective: {}\nBranch: {}\nDuplicate ownership allowed: {}\nSource repo: {}\nWorktree path: {}\n\nCloseout commands:\n\n```powershell\nvtrace work check {} {}\nvtrace evidence receipt {} {}\n```\n",
         wp.id,
         wp.objective,
         branch,
+        if allow_duplicate { "yes" } else { "no" },
         source.display(),
         target_path.display(),
         wp.id,

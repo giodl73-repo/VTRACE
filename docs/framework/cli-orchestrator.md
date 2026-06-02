@@ -116,6 +116,7 @@ accident.
 Worktree creation should refuse a duplicate active worktree for the same
 `WP-*` unless the operator passes an explicit duplicate override. Parallel
 worktrees are useful, but duplicate package ownership should be intentional.
+When a duplicate is explicitly allowed, the ownership record must say so.
 
 ## MVP Boundary
 

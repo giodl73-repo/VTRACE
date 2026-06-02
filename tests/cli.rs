@@ -171,6 +171,31 @@ fn worktree_create_creates_isolated_worktree() {
     assert!(command_output(&duplicate_output).contains("already has active worktree"));
     assert!(!duplicate.exists());
 
+    let allowed_duplicate = run(&[
+        "worktree",
+        "create",
+        "WP-001",
+        &root_arg,
+        &duplicate_arg,
+        "--allow-duplicate",
+    ]);
+    assert!(
+        allowed_duplicate.status.success(),
+        "{}",
+        command_output(&allowed_duplicate)
+    );
+    let duplicate_record =
+        fs::read_to_string(duplicate.join(".vtrace").join("worktree.md")).unwrap();
+    assert!(duplicate_record.contains("Duplicate ownership allowed: yes"));
+
+    let duplicate_remove = run(&["worktree", "remove", &duplicate_arg]);
+    assert!(
+        duplicate_remove.status.success(),
+        "{}",
+        command_output(&duplicate_remove)
+    );
+    assert!(!duplicate.exists());
+
     let remove = run(&["worktree", "remove", &target_arg]);
     assert!(remove.status.success(), "{}", command_output(&remove));
     assert!(stdout(&remove).contains("VTRACE worktree removed:"));
