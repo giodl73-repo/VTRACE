@@ -161,6 +161,16 @@ fn worktree_create_creates_isolated_worktree() {
     assert!(status_out.contains("record: present"));
     assert!(status_out.contains("wp: WP-001"));
 
+    let duplicate = root.with_file_name(format!(
+        "{}-wp-001-duplicate",
+        root.file_name().unwrap().to_string_lossy()
+    ));
+    let duplicate_arg = duplicate.to_string_lossy().to_string();
+    let duplicate_output = run(&["worktree", "create", "WP-001", &root_arg, &duplicate_arg]);
+    assert!(!duplicate_output.status.success());
+    assert!(command_output(&duplicate_output).contains("already has active worktree"));
+    assert!(!duplicate.exists());
+
     let remove = run(&["worktree", "remove", &target_arg]);
     assert!(remove.status.success(), "{}", command_output(&remove));
     assert!(stdout(&remove).contains("VTRACE worktree removed:"));

@@ -59,7 +59,7 @@ fn print_usage() {
   vtrace work close <WP-ID> [repo]
   vtrace worktree status [repo]
   vtrace worktree plan <WP-ID> [repo]
-  vtrace worktree create <WP-ID> [repo] [path]
+  vtrace worktree create <WP-ID> [repo] [path] [--allow-duplicate]
   vtrace worktree remove <path> [--force]
   vtrace evidence receipt <WP-ID> [repo]
   vtrace roles review <WP-ID> [repo]
@@ -302,7 +302,21 @@ fn worktree(args: &[String]) -> Result<(), String> {
             Ok(())
         }
         "create" => {
-            let target = args.get(3).map(Path::new).unwrap_or(&spec.path);
+            let allow_duplicate = args.iter().any(|arg| arg == "--allow-duplicate");
+            if !allow_duplicate {
+                if let Some(existing_path) = existing_worktree_for_wp(root, &wp.id)? {
+                    return Err(format!(
+                        "work package {} already has active worktree {}; pass --allow-duplicate to override",
+                        wp.id, existing_path
+                    ));
+                }
+            }
+            let target = args
+                .iter()
+                .skip(3)
+                .find(|arg| !arg.starts_with("--"))
+                .map(Path::new)
+                .unwrap_or(&spec.path);
             create_worktree(root, &spec.branch, target)?;
             write_worktree_record(target, root, &wp, &spec.branch)?;
             write_agent_brief_record(target, &wp)?;
@@ -321,6 +335,32 @@ fn worktree(args: &[String]) -> Result<(), String> {
         }
         other => Err(format!("unknown worktree action `{other}`")),
     }
+}
+
+fn existing_worktree_for_wp(root: &Path, wp_id: &str) -> Result<Option<String>, String> {
+    let output = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .arg("worktree")
+        .arg("list")
+        .arg("--porcelain")
+        .output()
+        .map_err(|err| format!("failed to inspect git worktrees: {err}"))?;
+    if !output.status.success() {
+        return Err(String::from_utf8_lossy(&output.stderr).trim().to_string());
+    }
+
+    let text = String::from_utf8_lossy(&output.stdout);
+    for line in text.lines() {
+        let Some(path) = line.strip_prefix("worktree ") else {
+            continue;
+        };
+        let record = Path::new(path).join(".vtrace").join("worktree.md");
+        if worktree_ownership(&record).as_deref() == Some(wp_id) {
+            return Ok(Some(path.to_string()));
+        }
+    }
+    Ok(None)
 }
 
 fn worktree_status(root: &Path) -> Result<(), String> {

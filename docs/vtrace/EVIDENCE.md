@@ -50,6 +50,7 @@ Command receipts should be updated when validation is run.
 | EVID-037 | CLI worktree remove command | `tests/cli.rs`; `cargo test` | CLI can remove a VTRACE-owned worktree while refusing unowned targets unless forced. | Integration test removes the temporary worktree through `vtrace worktree remove <target>` and verifies the target no longer exists. | passed |
 | EVID-038 | Worktree agent brief record | `tests/cli.rs`; `cargo test` | Created worktrees receive a local `.vtrace/agent-brief.md` handoff brief with WP context and stop conditions. | Integration test verified the generated brief contains `# VTRACE Agent Brief: WP-001` and `Stop conditions:`. | passed |
 | EVID-039 | Worktree ownership status | `tests/cli.rs`; `cargo test` | `vtrace worktree status` reports the owning `WP-*` from `.vtrace/worktree.md` when a record is present. | Integration test verifies status output includes `wp: WP-001` for a temporary owned worktree. | passed |
+| EVID-040 | Duplicate worktree ownership guard | `tests/cli.rs`; `cargo test` | `vtrace worktree create` refuses a second active worktree for the same `WP-*` unless explicitly allowed. | Integration test creates an owned `WP-001` worktree, attempts a duplicate `WP-001` worktree, verifies the command fails with `already has active worktree`, and verifies the duplicate target is not created. | passed |
 
 ## Evidence Rules
 

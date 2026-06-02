@@ -34,7 +34,7 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 | `vtrace agent brief WP-###` | Produce a bounded agent brief for one work package. | brief file or stdout. |
 | `vtrace worktree status` | List git worktrees, whether each has a VTRACE ownership record, and the claimed `WP-*` when available. | none. |
 | `vtrace worktree plan WP-###` | Derive the branch, path, and command for isolated worktree execution. | none by default. |
-| `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean and the target path does not exist. | local worktree plus `.vtrace/worktree.md` and `.vtrace/agent-brief.md`. |
+| `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean, the target path does not exist, and no active VTRACE-owned worktree already claims the same `WP-*` unless explicitly allowed. | local worktree plus `.vtrace/worktree.md` and `.vtrace/agent-brief.md`. |
 | `vtrace worktree remove <path>` | Remove a VTRACE-owned worktree after confirming its ownership record, or require `--force`. | removes local worktree. |
 
 ## Work-Package Execution Contract
@@ -112,6 +112,10 @@ local execution context, not objective evidence by themselves.
 Worktree removal should require the ownership record unless the operator passes
 `--force`; this prevents the CLI from deleting arbitrary git worktrees by
 accident.
+
+Worktree creation should refuse a duplicate active worktree for the same
+`WP-*` unless the operator passes an explicit duplicate override. Parallel
+worktrees are useful, but duplicate package ownership should be intentional.
 
 ## MVP Boundary
 
