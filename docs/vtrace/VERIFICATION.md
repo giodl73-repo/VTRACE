@@ -24,7 +24,7 @@ Repo: VTRACE
 | REQ-CI-001 | workflow inspection / command parity / remote run | Inspect `.github/workflows/ci.yml`, run local validation commands, and inspect GitHub Actions run `26728521454`. | CI mirrors the Rust validation path and completed successfully on GitHub. | passed | EVID-025, EVID-026, EVID-027 |
 | REQ-CLI-001 | design inspection / CLI commands / integration tests | Inspect `docs/framework/cli-orchestrator.md`, run first-slice CLI commands, and run CLI integration tests. | CLI command surface maps to VTRACE artifacts and work-package closure. | passed | EVID-028, EVID-029, EVID-030, EVID-031, EVID-034, EVID-035, EVID-036, EVID-037, EVID-038, EVID-039, EVID-040, EVID-041, EVID-042, EVID-043, EVID-044, EVID-045, EVID-046, EVID-047, EVID-048 |
 | REQ-AI-001 | design inspection / role review / agent brief | Inspect provider and agent boundaries and run `vtrace agent brief`. | Provider output remains advisory and agent handoffs are bounded by work-package trace. | passed | EVID-028, EVID-029 |
-| REQ-INTEGRATION-001 | CLI integration tests / local commands | Run provider, roles, report, GitHub dry-run, and pulse dry-run command tests. | Later-boundary commands exist, dry-run deterministically, and keep output advisory. | passed | EVID-049 |
+| REQ-INTEGRATION-001 | CLI integration tests / local commands / remote CI | Run provider, roles, report, GitHub dry-run, and pulse dry-run command tests. | Later-boundary commands exist, dry-run deterministically, keep output advisory, and pass GitHub Actions CI. | passed | EVID-049, EVID-050 |
 
 ## Validation Commands
 
@@ -98,3 +98,4 @@ Repo: VTRACE
 | EVID-047 | Close affected-surface reporting | `tests/cli.rs`; `cargo test` | passed |
 | EVID-048 | Close changed-path reporting | `tests/cli.rs`; `cargo test` | passed |
 | EVID-049 | Later-boundary integration commands | `tests/cli.rs`; `cargo test` | passed |
+| EVID-050 | Later-boundary remote CI run | GitHub Actions run `26797064050` | passed |
