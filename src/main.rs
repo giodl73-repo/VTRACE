@@ -234,6 +234,7 @@ fn work(args: &[String]) -> Result<(), String> {
             println!("closure readiness:");
             println!("- validator findings: {}", findings.len());
             println!("- work-package status: {}", wp.status);
+            println!("- affected surfaces: {}", wp.affected_surfaces);
             println!("- required review lanes: {}", required_lanes.len());
             println!(
                 "- required review lane names: {}",

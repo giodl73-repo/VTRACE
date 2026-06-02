@@ -185,6 +185,7 @@ fn work_close_reports_readiness_before_blocking() {
     assert!(out.contains("closure readiness:"));
     assert!(out.contains("validator findings:"));
     assert!(out.contains("work-package status: proposed"));
+    assert!(out.contains("affected surfaces: docs/vtrace"));
     assert!(out.contains("required review lanes:"));
     assert!(out.contains("required review lane names:"));
     assert!(out.contains("git scope:"));
@@ -221,6 +222,7 @@ fn work_close_passes_ready_clean_package() {
     let out = stdout(&output);
     assert!(out.contains("validator findings: 0"));
     assert!(out.contains("work-package status: complete"));
+    assert!(out.contains("affected surfaces: docs/vtrace"));
     assert!(out.contains("required review lane names: Systems engineering"));
     assert!(out.contains("git scope: clean"));
     assert!(out.contains("closure gate passed for WP-001"));
