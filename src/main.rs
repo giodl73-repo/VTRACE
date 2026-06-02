@@ -305,12 +305,17 @@ fn worktree(args: &[String]) -> Result<(), String> {
             let target = args.get(3).map(Path::new).unwrap_or(&spec.path);
             create_worktree(root, &spec.branch, target)?;
             write_worktree_record(target, root, &wp, &spec.branch)?;
+            write_agent_brief_record(target, &wp)?;
             println!("VTRACE worktree created: {}", wp.id);
             println!("branch: {}", spec.branch);
             println!("path: {}", target.display());
             println!(
                 "record: {}",
                 target.join(".vtrace").join("worktree.md").display()
+            );
+            println!(
+                "brief: {}",
+                target.join(".vtrace").join("agent-brief.md").display()
             );
             Ok(())
         }
@@ -526,6 +531,15 @@ fn write_worktree_record(
         .map_err(|err| format!("failed to write worktree record: {err}"))
 }
 
+fn write_agent_brief_record(target: &Path, wp: &vtrace::WorkPackage) -> Result<(), String> {
+    let record_dir = target.join(".vtrace");
+    fs::create_dir_all(&record_dir)
+        .map_err(|err| format!("failed to create agent brief directory: {err}"))?;
+    let content = agent_brief_markdown(wp);
+    fs::write(record_dir.join("agent-brief.md"), content)
+        .map_err(|err| format!("failed to write agent brief: {err}"))
+}
+
 fn quote_arg(value: &str) -> String {
     if value.contains(' ') {
         format!("\"{}\"", value.replace('"', "\\\""))
@@ -590,27 +604,23 @@ fn agent(args: &[String]) -> Result<(), String> {
     let wp = vtrace::work_package(root, wp_id)
         .ok_or_else(|| format!("{wp_id} was not found in docs/vtrace/WORK_PACKAGES.md"))?;
 
-    println!("# VTRACE Agent Brief: {}", wp.id);
-    println!();
-    println!("Objective: {}", wp.objective);
-    println!("Parent IDs: {}", wp.parent_ids);
-    println!("Allowed surfaces: {}", wp.affected_surfaces);
-    println!("Entry criteria: {}", wp.entry_criteria);
-    println!("Exit criteria: {}", wp.exit_criteria);
-    println!("Required validation: {}", wp.validation_levels);
-    println!("Current status: {}", wp.status);
-    println!();
-    println!("Stop conditions:");
-    println!("- Parent IDs are missing or conflict with the requested change.");
-    println!("- Required evidence cannot be produced or must be accepted with risk.");
-    println!("- Required review lanes are pending or blocked.");
-    println!("- Git status shows unrelated changes that would be staged by the package.");
-    println!();
-    println!("Closeout:");
-    println!("- Update verification, validation, evidence, review, and work-package status.");
-    println!("- Run `vtrace work check {}` before closure.", wp.id);
-    println!("- Keep child repo commits separate from tracker pointer commits when applicable.");
+    print!("{}", agent_brief_markdown(&wp));
     Ok(())
+}
+
+fn agent_brief_markdown(wp: &vtrace::WorkPackage) -> String {
+    format!(
+        "# VTRACE Agent Brief: {}\n\nObjective: {}\nParent IDs: {}\nAllowed surfaces: {}\nEntry criteria: {}\nExit criteria: {}\nRequired validation: {}\nCurrent status: {}\n\nStop conditions:\n- Parent IDs are missing or conflict with the requested change.\n- Required evidence cannot be produced or must be accepted with risk.\n- Required review lanes are pending or blocked.\n- Git status shows unrelated changes that would be staged by the package.\n\nCloseout:\n- Update verification, validation, evidence, review, and work-package status.\n- Run `vtrace work check {}` before closure.\n- Keep child repo commits separate from tracker pointer commits when applicable.\n",
+        wp.id,
+        wp.objective,
+        wp.parent_ids,
+        wp.affected_surfaces,
+        wp.entry_criteria,
+        wp.exit_criteria,
+        wp.validation_levels,
+        wp.status,
+        wp.id
+    )
 }
 
 fn print_work_package(action: &str, wp: &vtrace::WorkPackage) {

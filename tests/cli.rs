@@ -150,6 +150,9 @@ fn worktree_create_creates_isolated_worktree() {
     let record = fs::read_to_string(target.join(".vtrace").join("worktree.md")).unwrap();
     assert!(record.contains("Work package: WP-001"));
     assert!(record.contains("Closeout commands:"));
+    let brief = fs::read_to_string(target.join(".vtrace").join("agent-brief.md")).unwrap();
+    assert!(brief.contains("# VTRACE Agent Brief: WP-001"));
+    assert!(brief.contains("Stop conditions:"));
 
     let status = run(&["worktree", "status", &root_arg]);
     assert!(status.status.success(), "{}", command_output(&status));

@@ -34,7 +34,7 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 | `vtrace agent brief WP-###` | Produce a bounded agent brief for one work package. | brief file or stdout. |
 | `vtrace worktree status` | List git worktrees and whether each has a VTRACE ownership record. | none. |
 | `vtrace worktree plan WP-###` | Derive the branch, path, and command for isolated worktree execution. | none by default. |
-| `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean and the target path does not exist. | local worktree plus `.vtrace/worktree.md` ownership record. |
+| `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean and the target path does not exist. | local worktree plus `.vtrace/worktree.md` and `.vtrace/agent-brief.md`. |
 | `vtrace worktree remove <path>` | Remove a VTRACE-owned worktree after confirming its ownership record, or require `--force`. | removes local worktree. |
 
 ## Work-Package Execution Contract
@@ -103,10 +103,11 @@ Worktrees are appropriate when parallel agents are implementing separate
 work packages. The CLI should prevent two active worktrees from claiming the
 same `WP-*` unless a maintainer explicitly allows it.
 
-Created worktrees should contain a local `.vtrace/worktree.md` ownership record
-that names the source repo, worktree path, branch, `WP-*`, and closeout
-commands. This record is local execution context, not objective evidence by
-itself.
+Created worktrees should contain local `.vtrace/worktree.md` and
+`.vtrace/agent-brief.md` files. The ownership record names the source repo,
+worktree path, branch, `WP-*`, and closeout commands. The agent brief gives the
+implementer the bounded package context and stop conditions. These files are
+local execution context, not objective evidence by themselves.
 
 Worktree removal should require the ownership record unless the operator passes
 `--force`; this prevents the CLI from deleting arbitrary git worktrees by

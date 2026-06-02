@@ -158,9 +158,9 @@ deterministic, while `init`, `status`, `work start/check/close`, `roles
 review`, `agent brief`, `worktree status`, `worktree plan`, guarded `worktree
 create`, and guarded `worktree remove` help maintainers run the process
 procedurally. Created worktrees receive a local `.vtrace/worktree.md` ownership
-record with closeout commands. LLM provider integrations remain future optional
-helpers; they may draft or review, but they do not replace canonical VTRACE
-artifacts or objective evidence.
+record with closeout commands and a `.vtrace/agent-brief.md` handoff brief. LLM
+provider integrations remain future optional helpers; they may draft or review,
+but they do not replace canonical VTRACE artifacts or objective evidence.
 
 ## License
 
