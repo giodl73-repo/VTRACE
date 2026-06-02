@@ -15,6 +15,7 @@ fn main() {
         Some("init") => init(path_arg(&args, 1)),
         Some("plan") => plan(path_arg(&args, 1)),
         Some("work") => work(&args[1..]),
+        Some("worktree") => worktree(&args[1..]),
         Some("evidence") => evidence(&args[1..]),
         Some("roles") => roles(&args[1..]),
         Some("agent") => agent(&args[1..]),
@@ -55,6 +56,7 @@ fn print_usage() {
   vtrace work start <WP-ID> [repo]
   vtrace work check <WP-ID> [repo]
   vtrace work close <WP-ID> [repo]
+  vtrace worktree plan <WP-ID> [repo]
   vtrace evidence receipt <WP-ID> [repo]
   vtrace roles review <WP-ID> [repo]
   vtrace agent brief <WP-ID> [repo]"
@@ -268,6 +270,62 @@ fn roles(args: &[String]) -> Result<(), String> {
         );
     }
     Ok(())
+}
+
+fn worktree(args: &[String]) -> Result<(), String> {
+    let action = args
+        .first()
+        .map(String::as_str)
+        .ok_or("missing worktree action")?;
+    if action != "plan" {
+        return Err(format!("unknown worktree action `{action}`"));
+    }
+    let wp_id = args.get(1).ok_or("missing work package ID")?;
+    let root = args.get(2).map(Path::new).unwrap_or_else(|| Path::new("."));
+    let wp = vtrace::work_package(root, wp_id)
+        .ok_or_else(|| format!("{wp_id} was not found in docs/vtrace/WORK_PACKAGES.md"))?;
+    let root_path = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
+    let branch = format!("vtrace/{}", wp.id.to_ascii_lowercase());
+    let root_name = root_path
+        .file_name()
+        .and_then(|name| name.to_str())
+        .unwrap_or("repo");
+    let default_path =
+        root_path.with_file_name(format!("{}-{}", root_name, wp.id.to_ascii_lowercase()));
+
+    println!("VTRACE worktree plan: {}", wp.id);
+    println!("objective: {}", wp.objective);
+    println!("repo: {}", root_path.display());
+    println!("branch: {branch}");
+    println!("path: {}", default_path.display());
+    println!("command:");
+    println!(
+        "git -C {} worktree add -b {} {} HEAD",
+        quote_arg(&root_path.display().to_string()),
+        quote_arg(&branch),
+        quote_arg(&default_path.display().to_string())
+    );
+    println!("agent brief:");
+    println!(
+        "vtrace agent brief {} {}",
+        wp.id,
+        quote_arg(&root_path.display().to_string())
+    );
+    println!("close check:");
+    println!(
+        "vtrace work check {} {}",
+        wp.id,
+        quote_arg(&root_path.display().to_string())
+    );
+    Ok(())
+}
+
+fn quote_arg(value: &str) -> String {
+    if value.contains(' ') {
+        format!("\"{}\"", value.replace('"', "\\\""))
+    } else {
+        value.to_string()
+    }
 }
 
 fn evidence(args: &[String]) -> Result<(), String> {

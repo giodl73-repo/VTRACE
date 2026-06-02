@@ -43,6 +43,7 @@ Command receipts should be updated when validation is run.
 | EVID-030 | CLI integration tests | `tests/cli.rs`; `cargo test`; `cargo clippy --all-targets -- -D warnings` | CLI commands are regression-tested for validate, status, work start, roles review, agent brief, and init overwrite protection. | 8 library tests and 7 CLI integration tests passed on 2026-06-01; clippy passed with warnings denied. | passed |
 | EVID-031 | CLI evidence receipt | `cargo run -- evidence receipt WP-009 .`; `tests/cli.rs` | CLI can generate a structured work-package evidence receipt draft without mutating canonical artifacts. | Command passed on 2026-06-01 with validator findings: 0; CLI integration tests cover the receipt output. | passed |
 | EVID-032 | CLI plan command | `cargo run -- plan .`; `tests/cli.rs` | CLI can summarize next procedural action from validator and work-package state. | Command passed on 2026-06-01 and reported no open self work packages; CLI integration tests cover the plan output. | passed |
+| EVID-033 | CLI worktree plan command | `cargo run -- worktree plan WP-009 .`; `tests/cli.rs` | CLI can derive an isolated worktree branch/path/command for a work package without mutating the repo. | Command passed on 2026-06-01 and printed branch `vtrace/wp-009`; CLI integration tests cover the worktree plan output. | passed |
 
 ## Evidence Rules
 

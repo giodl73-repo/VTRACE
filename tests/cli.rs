@@ -75,6 +75,16 @@ fn work_start_reports_selected_work_package() {
 }
 
 #[test]
+fn worktree_plan_reports_branch_and_command() {
+    let output = run(&["worktree", "plan", "WP-009", "."]);
+    assert!(output.status.success(), "{}", stdout(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE worktree plan: WP-009"));
+    assert!(out.contains("branch: vtrace/wp-009"));
+    assert!(out.contains("git -C"));
+}
+
+#[test]
 fn roles_review_reports_required_lanes() {
     let output = run(&["roles", "review", "WP-009", "."]);
     assert!(output.status.success(), "{}", stdout(&output));
