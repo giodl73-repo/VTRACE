@@ -33,7 +33,7 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 | `vtrace roles review WP-###` | Run or prepare the required `.roles` review lanes. | review record draft. |
 | `vtrace agent brief WP-###` | Produce a bounded agent brief for one work package. | brief file or stdout. |
 | `vtrace worktree plan WP-###` | Derive the branch, path, and command for isolated worktree execution. | none by default. |
-| `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution after locking and dirty-state rules are implemented. | local worktree and optional pulse note. |
+| `vtrace worktree create WP-###` | Create a repo-local worktree for isolated execution when the source repo is clean and the target path does not exist. | local worktree. |
 
 ## Work-Package Execution Contract
 
@@ -122,7 +122,7 @@ Later DCRs may add:
 
 - LLM provider adapters,
 - `.roles` execution integrations,
-- worktree creation and locking beyond the current non-mutating worktree plan,
+- stronger worktree locking and active-package ownership records,
 - generated adoption reports,
 - GitHub issue/PR review helpers,
 - TRACKER wave/pulse synchronization.

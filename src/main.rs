@@ -1,6 +1,7 @@
 use std::env;
 use std::fs;
 use std::path::Path;
+use std::process::Command;
 
 fn main() {
     let args: Vec<String> = env::args().skip(1).collect();
@@ -57,6 +58,7 @@ fn print_usage() {
   vtrace work check <WP-ID> [repo]
   vtrace work close <WP-ID> [repo]
   vtrace worktree plan <WP-ID> [repo]
+  vtrace worktree create <WP-ID> [repo] [path]
   vtrace evidence receipt <WP-ID> [repo]
   vtrace roles review <WP-ID> [repo]
   vtrace agent brief <WP-ID> [repo]"
@@ -277,13 +279,36 @@ fn worktree(args: &[String]) -> Result<(), String> {
         .first()
         .map(String::as_str)
         .ok_or("missing worktree action")?;
-    if action != "plan" {
-        return Err(format!("unknown worktree action `{action}`"));
-    }
     let wp_id = args.get(1).ok_or("missing work package ID")?;
     let root = args.get(2).map(Path::new).unwrap_or_else(|| Path::new("."));
     let wp = vtrace::work_package(root, wp_id)
         .ok_or_else(|| format!("{wp_id} was not found in docs/vtrace/WORK_PACKAGES.md"))?;
+    let spec = worktree_spec(root, &wp);
+
+    match action {
+        "plan" => {
+            print_worktree_plan(&wp, &spec);
+            Ok(())
+        }
+        "create" => {
+            let target = args.get(3).map(Path::new).unwrap_or(&spec.path);
+            create_worktree(root, &spec.branch, target)?;
+            println!("VTRACE worktree created: {}", wp.id);
+            println!("branch: {}", spec.branch);
+            println!("path: {}", target.display());
+            Ok(())
+        }
+        other => Err(format!("unknown worktree action `{other}`")),
+    }
+}
+
+struct WorktreeSpec {
+    root: std::path::PathBuf,
+    branch: String,
+    path: std::path::PathBuf,
+}
+
+fn worktree_spec(root: &Path, wp: &vtrace::WorkPackage) -> WorktreeSpec {
     let root_path = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
     let branch = format!("vtrace/{}", wp.id.to_ascii_lowercase());
     let root_name = root_path
@@ -293,30 +318,76 @@ fn worktree(args: &[String]) -> Result<(), String> {
     let default_path =
         root_path.with_file_name(format!("{}-{}", root_name, wp.id.to_ascii_lowercase()));
 
+    WorktreeSpec {
+        root: root_path,
+        branch,
+        path: default_path,
+    }
+}
+
+fn print_worktree_plan(wp: &vtrace::WorkPackage, spec: &WorktreeSpec) {
     println!("VTRACE worktree plan: {}", wp.id);
     println!("objective: {}", wp.objective);
-    println!("repo: {}", root_path.display());
-    println!("branch: {branch}");
-    println!("path: {}", default_path.display());
+    println!("repo: {}", spec.root.display());
+    println!("branch: {}", spec.branch);
+    println!("path: {}", spec.path.display());
     println!("command:");
     println!(
         "git -C {} worktree add -b {} {} HEAD",
-        quote_arg(&root_path.display().to_string()),
-        quote_arg(&branch),
-        quote_arg(&default_path.display().to_string())
+        quote_arg(&spec.root.display().to_string()),
+        quote_arg(&spec.branch),
+        quote_arg(&spec.path.display().to_string())
     );
     println!("agent brief:");
     println!(
         "vtrace agent brief {} {}",
         wp.id,
-        quote_arg(&root_path.display().to_string())
+        quote_arg(&spec.root.display().to_string())
     );
     println!("close check:");
     println!(
         "vtrace work check {} {}",
         wp.id,
-        quote_arg(&root_path.display().to_string())
+        quote_arg(&spec.root.display().to_string())
     );
+}
+
+fn create_worktree(root: &Path, branch: &str, target: &Path) -> Result<(), String> {
+    if target.exists() {
+        return Err(format!(
+            "worktree target already exists: {}",
+            target.display()
+        ));
+    }
+
+    let status = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .arg("status")
+        .arg("--porcelain")
+        .output()
+        .map_err(|err| format!("failed to inspect git status: {err}"))?;
+    if !status.status.success() {
+        return Err(String::from_utf8_lossy(&status.stderr).trim().to_string());
+    }
+    if !status.stdout.is_empty() {
+        return Err("refusing to create worktree from dirty repo".to_string());
+    }
+
+    let output = Command::new("git")
+        .arg("-C")
+        .arg(root)
+        .arg("worktree")
+        .arg("add")
+        .arg("-b")
+        .arg(branch)
+        .arg(target)
+        .arg("HEAD")
+        .output()
+        .map_err(|err| format!("failed to create worktree: {err}"))?;
+    if !output.status.success() {
+        return Err(String::from_utf8_lossy(&output.stderr).trim().to_string());
+    }
     Ok(())
 }
 

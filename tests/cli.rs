@@ -31,6 +31,42 @@ fn unique_temp_repo() -> PathBuf {
     std::env::temp_dir().join(format!("vtrace-cli-test-{unique}"))
 }
 
+fn git(root: &std::path::Path, args: &[&str]) -> std::process::Output {
+    Command::new("git")
+        .current_dir(root)
+        .args(args)
+        .output()
+        .expect("git command should run")
+}
+
+fn committed_worktree_repo() -> PathBuf {
+    let root = unique_temp_repo();
+    let vtrace_dir = root.join("docs").join("vtrace");
+    fs::create_dir_all(&vtrace_dir).unwrap();
+    fs::write(
+        vtrace_dir.join("WORK_PACKAGES.md"),
+        "# Work Packages\n\n| ID | Objective | Parent IDs | Affected Surfaces | Entry Criteria | Exit Criteria | L0 / L1 / L2 | Status |\n|---|---|---|---|---|---|---|---|\n| WP-001 | Test worktree creation. | REQ-001 / SPEC-001 | docs/vtrace | ready | done | L0: diff / L1: test / L2: review | proposed |\n",
+    )
+    .unwrap();
+    assert!(git(&root, &["init"]).status.success());
+    assert!(git(&root, &["add", "."]).status.success());
+    assert!(git(
+        &root,
+        &[
+            "-c",
+            "user.name=VTRACE Test",
+            "-c",
+            "user.email=vtrace@example.invalid",
+            "commit",
+            "-m",
+            "seed",
+        ],
+    )
+    .status
+    .success());
+    root
+}
+
 #[test]
 fn explicit_validate_command_passes_self_package() {
     let output = run(&["validate", "."]);
@@ -82,6 +118,31 @@ fn worktree_plan_reports_branch_and_command() {
     assert!(out.contains("VTRACE worktree plan: WP-009"));
     assert!(out.contains("branch: vtrace/wp-009"));
     assert!(out.contains("git -C"));
+}
+
+#[test]
+fn worktree_create_creates_isolated_worktree() {
+    let root = committed_worktree_repo();
+    let target = root.with_file_name(format!(
+        "{}-wp-001",
+        root.file_name().unwrap().to_string_lossy()
+    ));
+    let root_arg = root.to_string_lossy().to_string();
+    let target_arg = target.to_string_lossy().to_string();
+
+    let output = run(&["worktree", "create", "WP-001", &root_arg, &target_arg]);
+    assert!(output.status.success(), "{}", stdout(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE worktree created: WP-001"));
+    assert!(target
+        .join("docs")
+        .join("vtrace")
+        .join("WORK_PACKAGES.md")
+        .exists());
+
+    let _ = git(&root, &["worktree", "remove", "--force", &target_arg]);
+    let _ = fs::remove_dir_all(&target);
+    let _ = fs::remove_dir_all(&root);
 }
 
 #[test]
