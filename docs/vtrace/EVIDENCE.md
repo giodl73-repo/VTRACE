@@ -63,6 +63,7 @@ Command receipts should be updated when validation is run.
 | EVID-050 | Later-boundary remote CI run | <https://github.com/giodl73-repo/VTRACE/actions/runs/26797064050> | GitHub Actions CI validates the later-boundary integration command slice on `main`. | Run `26797064050` for commit `0392493` completed successfully on 2026-06-02. | passed |
 | EVID-051 | inspection / validator | `docs/framework/communications-strategy.md`; `templates/adoption/COMMUNICATIONS_STRATEGY.md`; `docs/vtrace/COMMUNICATIONS_STRATEGY.md`; validator communication strategy checks | Communications strategy exists, distinguishes user docs from specs, and declares complete `COMMS-*` rows. | Passed on 2026-06-02. | passed |
 | EVID-052 | CLI command / tests | `tests/cli.rs`; `cargo test`; `cargo run -- comms plan .`; `cargo run -- validate .` | `vtrace comms plan` reports source-to-docs mapping and self strategy validates. | Passed on 2026-06-02. | passed |
+| EVID-053 | docs package inspection | `docs/README.md`; `docs/CORPUS.md`; `docs/concepts/`; `docs/how-to/`; `docs/tutorials/`; `docs/examples/`; `docs/traces/`; `docs/decks/`; `cargo run -- comms plan .`; `cargo run -- validate .` | VTRACE has a user-facing docs package derived from its communications strategy. | Passed on 2026-06-02. | passed |
 
 ## Evidence Rules
 

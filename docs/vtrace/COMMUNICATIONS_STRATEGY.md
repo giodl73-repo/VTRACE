@@ -13,11 +13,11 @@ adopters should teach, demonstrate, and govern their own repo documentation.
 
 | Surface ID | Source IDs | Audience | User Question | Generated Docs | Cadence | Owner | Status |
 |---|---|---|---|---|---|---|---|
-| COMMS-README-001 | NEED-001 / REQ-COMMS-001 / SPEC-018 | repo maintainers | Where does communications strategy fit in VTRACE? | `README.md`, `docs/vtrace/README.md` | when adoption guidance changes | VTRACE | accepted |
-| COMMS-CONCEPTS-001 | REQ-COMMS-001 / SPEC-018 | adopters / docs owners | How do VTRACE source artifacts become user-facing concepts? | `docs/framework/communications-strategy.md` | when stage semantics change | VTRACE | accepted |
+| COMMS-README-001 | NEED-001 / REQ-COMMS-001 / SPEC-018 / WP-012 | repo maintainers | Where does communications strategy fit in VTRACE? | `README.md`, `docs/README.md`, `docs/vtrace/README.md` | when adoption guidance changes | VTRACE | accepted |
+| COMMS-CONCEPTS-001 | REQ-COMMS-001 / SPEC-018 / WP-012 | adopters / docs owners | How do VTRACE source artifacts become user-facing concepts? | `docs/concepts/`, `docs/framework/communications-strategy.md` | when stage semantics change | VTRACE | accepted |
 | COMMS-TEMPLATE-001 | REQ-COMMS-001 / SPEC-018 / IF-009 | target repo maintainers | What file do I copy into a repo to plan docs? | `templates/adoption/COMMUNICATIONS_STRATEGY.md` | when template contracts change | VTRACE | accepted |
-| COMMS-CLI-001 | REQ-COMMS-001 / REQ-CLI-001 / SPEC-018 | CLI operators / agents | How do I inspect the docs package a repo should build? | `vtrace comms plan <repo>` | when CLI command surface changes | VTRACE | accepted |
-| COMMS-RUNE-PATTERN-001 | CON-004 / REQ-COMMS-001 / VAL-011 | portfolio adopters | What does a realistic adoption docs package look like? | Concepts, how-to, tutorials, examples, traces, decks, and corpus governance pattern | when target repo docs waves are planned | VTRACE | accepted |
+| COMMS-CLI-001 | REQ-COMMS-001 / REQ-CLI-001 / SPEC-018 / WP-012 | CLI operators / agents | How do I inspect the docs package a repo should build? | `vtrace comms plan <repo>`, `docs/how-to/run-the-cli.md` | when CLI command surface changes | VTRACE | accepted |
+| COMMS-RUNE-PATTERN-001 | CON-004 / REQ-COMMS-001 / VAL-011 / WP-012 | portfolio adopters | What does a realistic adoption docs package look like? | `docs/how-to/`, `docs/tutorials/`, `docs/examples/`, `docs/traces/`, `docs/decks/`, `docs/CORPUS.md` | when target repo docs waves are planned | VTRACE | accepted |
 
 ## Derivation Rules
 
