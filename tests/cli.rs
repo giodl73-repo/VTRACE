@@ -211,6 +211,22 @@ fn work_close_blocks_dirty_git_scope() {
 }
 
 #[test]
+fn work_close_passes_ready_clean_package() {
+    let root = committed_close_ready_repo();
+    let root_arg = root.to_string_lossy().to_string();
+
+    let output = run(&["work", "close", "WP-001", &root_arg]);
+    assert!(output.status.success(), "{}", command_output(&output));
+    let out = stdout(&output);
+    assert!(out.contains("validator findings: 0"));
+    assert!(out.contains("work-package status: complete"));
+    assert!(out.contains("git scope: clean"));
+    assert!(out.contains("closure gate passed for WP-001"));
+
+    let _ = fs::remove_dir_all(&root);
+}
+
+#[test]
 fn worktree_plan_reports_branch_and_command() {
     let output = run(&["worktree", "plan", "WP-009", "."]);
     assert!(output.status.success(), "{}", stdout(&output));

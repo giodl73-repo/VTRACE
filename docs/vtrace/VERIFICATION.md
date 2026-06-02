@@ -22,7 +22,7 @@ Repo: VTRACE
 | REQ-NASA-001 | source-custody inspection | Inspect derived control map and source basis. | No compliance or endorsement overclaim. | passed | EVID-021 |
 | REQ-RUST-001 | automated test / local command | `cargo fmt --check`; `cargo clippy --all-targets -- -D warnings`; `cargo test`; `cargo run -- .` | Rust validator is formatted, lint-clean, tested, and validates VTRACE. | passed | EVID-022, EVID-023 |
 | REQ-CI-001 | workflow inspection / command parity / remote run | Inspect `.github/workflows/ci.yml`, run local validation commands, and inspect GitHub Actions run `26728521454`. | CI mirrors the Rust validation path and completed successfully on GitHub. | passed | EVID-025, EVID-026, EVID-027 |
-| REQ-CLI-001 | design inspection / CLI commands / integration tests | Inspect `docs/framework/cli-orchestrator.md`, run first-slice CLI commands, and run CLI integration tests. | CLI command surface maps to VTRACE artifacts and work-package closure. | passed | EVID-028, EVID-029, EVID-030, EVID-031, EVID-034, EVID-035, EVID-036, EVID-037, EVID-038, EVID-039, EVID-040, EVID-041, EVID-042, EVID-043, EVID-044 |
+| REQ-CLI-001 | design inspection / CLI commands / integration tests | Inspect `docs/framework/cli-orchestrator.md`, run first-slice CLI commands, and run CLI integration tests. | CLI command surface maps to VTRACE artifacts and work-package closure. | passed | EVID-028, EVID-029, EVID-030, EVID-031, EVID-034, EVID-035, EVID-036, EVID-037, EVID-038, EVID-039, EVID-040, EVID-041, EVID-042, EVID-043, EVID-044, EVID-045 |
 | REQ-AI-001 | design inspection / role review / agent brief | Inspect provider and agent boundaries and run `vtrace agent brief`. | Provider output remains advisory and agent handoffs are bounded by work-package trace. | passed | EVID-028, EVID-029 |
 
 ## Validation Commands
@@ -91,3 +91,4 @@ Repo: VTRACE
 | EVID-042 | Duplicate worktree status reporting | `tests/cli.rs`; `cargo test` | passed |
 | EVID-043 | Work-package close readiness report | `tests/cli.rs`; `cargo test` | passed |
 | EVID-044 | Dirty git scope close block | `tests/cli.rs`; `cargo test` | passed |
+| EVID-045 | Clean work-package close pass | `tests/cli.rs`; `cargo test` | passed |
