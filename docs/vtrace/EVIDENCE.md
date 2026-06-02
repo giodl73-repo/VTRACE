@@ -56,6 +56,7 @@ Command receipts should be updated when validation is run.
 | EVID-043 | Work-package close readiness report | `tests/cli.rs`; `cargo test` | `vtrace work close` reports closure readiness dimensions before passing or blocking a work package. | Integration test verifies close output includes validator findings, work-package status, required review lanes, git scope, expected evidence, and closure block text for an incomplete package. | passed |
 | EVID-044 | Dirty git scope close block | `tests/cli.rs`; `cargo test` | `vtrace work close` blocks closure when validator checks pass but git scope is dirty. | Integration test creates a close-ready package, adds an uncommitted file, and verifies close output reports dirty git scope and blocks closure. | passed |
 | EVID-045 | Clean work-package close pass | `tests/cli.rs`; `cargo test` | `vtrace work close` passes a complete, validator-clean, git-clean work package. | Integration test creates a close-ready committed package and verifies close output reports zero findings, complete status, clean git scope, and `closure gate passed`. | passed |
+| EVID-046 | Close review-lane name reporting | `tests/cli.rs`; `cargo test` | `vtrace work close` reports the names of required review lanes in the closure readiness output. | Integration test verifies close output includes the required lane-name line and reports `Systems engineering` for a close-ready package. | passed |
 
 ## Evidence Rules
 

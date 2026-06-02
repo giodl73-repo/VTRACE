@@ -29,7 +29,7 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 | `vtrace plan` | Propose or refresh DCR and work-package candidates from existing artifacts. | optional DCR/WP draft files. |
 | `vtrace work start WP-###` | Show entry criteria, parent IDs, affected surfaces, checks, and review lanes. | execution log or pulse linkage. |
 | `vtrace work check WP-###` | Run configured L0/L1/L2 checks for the selected work package. | evidence receipt draft. |
-| `vtrace work close WP-###` | Report closure readiness across exit criteria, evidence expectations, validation status, review lanes, work-package status, and git scope; block incomplete closure. | `WORK_PACKAGES.md`, `VERIFICATION.md`, `VALIDATION.md`, `EVIDENCE.md`, `REVIEW.md`. |
+| `vtrace work close WP-###` | Report closure readiness across exit criteria, evidence expectations, validation status, review lane counts/names, work-package status, and git scope; block incomplete closure. | `WORK_PACKAGES.md`, `VERIFICATION.md`, `VALIDATION.md`, `EVIDENCE.md`, `REVIEW.md`. |
 | `vtrace roles review WP-###` | Run or prepare the required `.roles` review lanes. | review record draft. |
 | `vtrace agent brief WP-###` | Produce a bounded agent brief for one work package. | brief file or stdout. |
 | `vtrace worktree status` | List git worktrees, whether each has a VTRACE ownership record, the claimed `WP-*`, and whether duplicate ownership was explicitly allowed. | none. |

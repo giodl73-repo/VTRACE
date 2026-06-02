@@ -224,16 +224,25 @@ fn work(args: &[String]) -> Result<(), String> {
         "close" => {
             print_work_package("close", &wp);
             let findings = vtrace::run_checks(root);
-            let required_lanes = vtrace::review_lanes(root)
+            let required_lanes: Vec<String> = vtrace::review_lanes(root)
                 .into_iter()
                 .filter(|lane| lane.required.eq_ignore_ascii_case("yes"))
-                .count();
+                .map(|lane| lane.lane)
+                .collect();
             let git_scope = git_scope_status(root);
 
             println!("closure readiness:");
             println!("- validator findings: {}", findings.len());
             println!("- work-package status: {}", wp.status);
-            println!("- required review lanes: {required_lanes}");
+            println!("- required review lanes: {}", required_lanes.len());
+            println!(
+                "- required review lane names: {}",
+                if required_lanes.is_empty() {
+                    "none".to_string()
+                } else {
+                    required_lanes.join(", ")
+                }
+            );
             println!("- git scope: {git_scope}");
             println!("- expected evidence: verification, validation, evidence, review, and work-package status updates");
 
