@@ -207,6 +207,7 @@ fn work_close_blocks_dirty_git_scope() {
     assert!(out.contains("validator findings: 0"));
     assert!(out.contains("work-package status: complete"));
     assert!(out.contains("git scope: dirty"));
+    assert!(out.contains("changed paths: ?? uncommitted.txt"));
     assert!(out.contains("closure blocked: git scope must be clean before closure"));
 
     let _ = fs::remove_dir_all(&root);
@@ -225,6 +226,7 @@ fn work_close_passes_ready_clean_package() {
     assert!(out.contains("affected surfaces: docs/vtrace"));
     assert!(out.contains("required review lane names: Systems engineering"));
     assert!(out.contains("git scope: clean"));
+    assert!(out.contains("changed paths: none"));
     assert!(out.contains("closure gate passed for WP-001"));
 
     let _ = fs::remove_dir_all(&root);

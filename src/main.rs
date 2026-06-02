@@ -229,7 +229,7 @@ fn work(args: &[String]) -> Result<(), String> {
                 .filter(|lane| lane.required.eq_ignore_ascii_case("yes"))
                 .map(|lane| lane.lane)
                 .collect();
-            let git_scope = git_scope_status(root);
+            let git_scope = git_scope(root);
 
             println!("closure readiness:");
             println!("- validator findings: {}", findings.len());
@@ -244,7 +244,15 @@ fn work(args: &[String]) -> Result<(), String> {
                     required_lanes.join(", ")
                 }
             );
-            println!("- git scope: {git_scope}");
+            println!("- git scope: {}", git_scope.status);
+            println!(
+                "- changed paths: {}",
+                if git_scope.changed_paths.is_empty() {
+                    "none".to_string()
+                } else {
+                    git_scope.changed_paths.join(", ")
+                }
+            );
             println!("- expected evidence: verification, validation, evidence, review, and work-package status updates");
 
             if !findings.is_empty() {
@@ -263,7 +271,7 @@ fn work(args: &[String]) -> Result<(), String> {
                 println!("update work-package status, evidence, verification, validation, and review before closure");
                 std::process::exit(1);
             }
-            if git_scope.starts_with("dirty ") {
+            if git_scope.status.starts_with("dirty ") {
                 println!("closure blocked: git scope must be clean before closure");
                 std::process::exit(1);
             }
@@ -274,7 +282,12 @@ fn work(args: &[String]) -> Result<(), String> {
     }
 }
 
-fn git_scope_status(root: &Path) -> String {
+struct GitScope {
+    status: String,
+    changed_paths: Vec<String>,
+}
+
+fn git_scope(root: &Path) -> GitScope {
     let output = Command::new("git")
         .arg("-C")
         .arg(root)
@@ -282,20 +295,31 @@ fn git_scope_status(root: &Path) -> String {
         .arg("--short")
         .output();
     let Ok(output) = output else {
-        return "not inspected: git status failed to run".to_string();
+        return GitScope {
+            status: "not inspected: git status failed to run".to_string(),
+            changed_paths: Vec::new(),
+        };
     };
     if !output.status.success() {
-        return "not a git worktree or git status unavailable".to_string();
+        return GitScope {
+            status: "not a git worktree or git status unavailable".to_string(),
+            changed_paths: Vec::new(),
+        };
     }
     let stdout = String::from_utf8_lossy(&output.stdout);
-    let changed = stdout
+    let changed_paths: Vec<String> = stdout
         .lines()
         .filter(|line| !line.trim().is_empty())
-        .count();
-    if changed == 0 {
+        .map(|line| line.trim().to_string())
+        .collect();
+    let status = if changed_paths.is_empty() {
         "clean".to_string()
     } else {
-        format!("dirty ({changed} changed path(s))")
+        format!("dirty ({} changed path(s))", changed_paths.len())
+    };
+    GitScope {
+        status,
+        changed_paths,
     }
 }
 
