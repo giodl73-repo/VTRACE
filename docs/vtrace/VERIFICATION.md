@@ -25,6 +25,7 @@ Repo: VTRACE
 | REQ-CLI-001 | design inspection / CLI commands / integration tests | Inspect `docs/framework/cli-orchestrator.md`, run first-slice CLI commands, and run CLI integration tests. | CLI command surface maps to VTRACE artifacts and work-package closure. | passed | EVID-028, EVID-029, EVID-030, EVID-031, EVID-034, EVID-035, EVID-036, EVID-037, EVID-038, EVID-039, EVID-040, EVID-041, EVID-042, EVID-043, EVID-044, EVID-045, EVID-046, EVID-047, EVID-048 |
 | REQ-AI-001 | design inspection / role review / agent brief | Inspect provider and agent boundaries and run `vtrace agent brief`. | Provider output remains advisory and agent handoffs are bounded by work-package trace. | passed | EVID-028, EVID-029 |
 | REQ-INTEGRATION-001 | CLI integration tests / local commands / remote CI | Run provider, roles, report, GitHub dry-run, and pulse dry-run command tests. | Later-boundary commands exist, dry-run deterministically, keep output advisory, and pass GitHub Actions CI. | passed | EVID-049, EVID-050 |
+| REQ-COMMS-001 | validator / CLI integration tests / inspection | Inspect communications strategy docs and template, run validator and `vtrace comms plan`. | User-facing docs are derived from controlled source IDs without replacing specs. | passed | EVID-051, EVID-052 |
 
 ## Validation Commands
 
@@ -46,6 +47,7 @@ Repo: VTRACE
 | L2 | inspect `.github/workflows/ci.yml` command parity | passed |
 | L2 | `cargo run -- plan .`; `cargo run -- work start WP-009 .`; `cargo run -- work check WP-009 .`; `cargo run -- roles review WP-009 .`; `cargo run -- agent brief WP-009 .`; `cargo run -- worktree plan WP-009 .`; `cargo run -- evidence receipt WP-009 .`; `cargo run -- init <temp>`; integration-tested `worktree create` | passed |
 | L2 | `cargo run -- provider list`; `cargo run -- provider check codex`; `cargo run -- provider draft WP-010 --provider codex .`; `cargo run -- roles run WP-010 .`; `cargo run -- report adoption .`; `cargo run -- github issue WP-010 .`; `cargo run -- pulse sync WP-010 .` | passed |
+| L2 | `cargo run -- comms plan .` | passed |
 
 ## Evidence Ledger
 
@@ -99,3 +101,5 @@ Repo: VTRACE
 | EVID-048 | Close changed-path reporting | `tests/cli.rs`; `cargo test` | passed |
 | EVID-049 | Later-boundary integration commands | `tests/cli.rs`; `cargo test` | passed |
 | EVID-050 | Later-boundary remote CI run | GitHub Actions run `26797064050` | passed |
+| EVID-051 | Communications strategy artifacts | `docs/framework/communications-strategy.md`; `templates/adoption/COMMUNICATIONS_STRATEGY.md`; `docs/vtrace/COMMUNICATIONS_STRATEGY.md` | passed |
+| EVID-052 | Communications strategy CLI command | `tests/cli.rs`; `cargo test`; `cargo run -- comms plan .`; `cargo run -- validate .` | passed |

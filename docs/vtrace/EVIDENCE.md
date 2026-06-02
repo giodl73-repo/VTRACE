@@ -61,6 +61,8 @@ Command receipts should be updated when validation is run.
 | EVID-048 | Close changed-path reporting | `tests/cli.rs`; `cargo test` | `vtrace work close` reports changed git paths in the closure readiness output. | Integration test verifies dirty close output includes `?? uncommitted.txt` and clean close output reports `changed paths: none`. | passed |
 | EVID-049 | Later-boundary integration commands | `tests/cli.rs`; `cargo test`; `cargo run -- provider list`; `cargo run -- report adoption .` | VTRACE exposes provider, role packet, adoption report, GitHub dry-run, and pulse sync dry-run command surfaces while keeping generated output advisory. | CLI integration tests cover provider list/check/draft, `roles run`, adoption report, GitHub issue dry-run, and pulse sync dry-run. | passed |
 | EVID-050 | Later-boundary remote CI run | <https://github.com/giodl73-repo/VTRACE/actions/runs/26797064050> | GitHub Actions CI validates the later-boundary integration command slice on `main`. | Run `26797064050` for commit `0392493` completed successfully on 2026-06-02. | passed |
+| EVID-051 | inspection / validator | `docs/framework/communications-strategy.md`; `templates/adoption/COMMUNICATIONS_STRATEGY.md`; `docs/vtrace/COMMUNICATIONS_STRATEGY.md`; validator communication strategy checks | Communications strategy exists, distinguishes user docs from specs, and declares complete `COMMS-*` rows. | Passed on 2026-06-02. | passed |
+| EVID-052 | CLI command / tests | `tests/cli.rs`; `cargo test`; `cargo run -- comms plan .`; `cargo run -- validate .` | `vtrace comms plan` reports source-to-docs mapping and self strategy validates. | Passed on 2026-06-02. | passed |
 
 ## Evidence Rules
 

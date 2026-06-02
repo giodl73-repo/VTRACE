@@ -30,6 +30,7 @@ Use this package as the first place to answer:
 | Which public adoption contracts must stay stable? | `INTERFACES.md` |
 | Which design decisions govern VTRACE? | `DESIGN.md` |
 | What rigor applies to future validators and profiles? | `CODE_RIGOR.md` |
+| How should VTRACE derive user-facing docs from controlled artifacts? | `COMMUNICATIONS_STRATEGY.md` |
 | What changes are requested? | `CHANGE_CONTROL.md` |
 | Which DCRs become work packages? | `IMPLEMENTATION_PLAN.md`, `WORK_PACKAGES.md` |
 | What proves the current state? | `VERIFICATION.md`, `VALIDATION.md`, `TRACE.md` |

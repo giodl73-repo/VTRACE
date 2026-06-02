@@ -39,6 +39,7 @@ VTRACE artifacts with trace IDs, evidence, and review status.
 | `vtrace provider list/check/draft/review` | List Codex, Claude, and Copilot adapters; check local availability; generate advisory draft/review packets; require `--live` for live provider use. | none by default. |
 | `vtrace roles run WP-###` | Emit role-review packets from repo review lanes and `.roles` conventions without closing review lanes. | none by default. |
 | `vtrace report adoption` | Summarize target-repo VTRACE readiness, open work packages, evidence rows, and validator findings. | none. |
+| `vtrace comms plan` | Summarize docs/spec boundaries, show source-to-docs mapping, and list declared communications surfaces. | none. |
 | `vtrace github issue/pr-review WP-###` | Generate GitHub issue or PR-review packets, with live GitHub actions only behind `--live` and `gh` auth checks. | none by default; GitHub side effect with `--live`. |
 | `vtrace pulse sync WP-###` | Generate or write repo-local pulse execution records for portfolio wave/pulse users. | none by default; pulse file with `--live`. |
 
@@ -144,8 +145,12 @@ third-party runtime services.
 
 The later-boundary implementation includes provider adapters, `.roles`
 execution packets, generated adoption reports, GitHub issue/PR helpers, and
-TRACKER wave/pulse synchronization. Live provider/GitHub/pulse actions require
-explicit `--live`; dry-run output remains the default for deterministic use.
+TRACKER wave/pulse synchronization. Communications planning is a deterministic
+advisory command that reads `COMMUNICATIONS_STRATEGY.md` when present and
+explains how mission, CONOPS, requirements, specs, interfaces, work packages,
+and evidence become user-facing docs. Live provider/GitHub/pulse actions
+require explicit `--live`; dry-run output remains the default for deterministic
+use.
 
 ## Validation
 

@@ -18,6 +18,7 @@ Repo: VTRACE
 | VAL-008 | Source custody reviewer | Review deeper NASA-inspired control guidance. | Guidance is derived and pointer-first, without compliance claim. | `docs/framework/nasa-technical-controls.md` | passed |
 | VAL-009 | CLI operator / agent operator | Use VTRACE procedurally instead of filling disconnected files. | CLI commands cover init/status/validate/work start/check/close/review/agent brief boundaries, with provider output advisory until accepted. | `docs/framework/cli-orchestrator.md`, `DCR-009`, `WP-009`, `EVID-029` | passed |
 | VAL-010 | Integration operator | Coordinate providers, roles, GitHub packets, reports, and pulse records from one work package. | Integration commands produce deterministic dry-run packets, guard live actions behind explicit flags, and keep provider output advisory. | `DCR-010`, `WP-010`, `EVID-049` | passed |
+| VAL-011 | Docs owner / adoption guide | Turn a repo's mission, CONOPS scenarios, requirements, specs, interfaces, work packages, and evidence into a user-facing docs package. | VTRACE provides a strategy artifact, template, validator check, and CLI plan command that produce Concepts, How-To, Tutorials, Examples, Traces, decks, and corpus governance without replacing specs. | `COMMUNICATIONS_STRATEGY.md`, `docs/framework/communications-strategy.md`, `EVID-051`, `EVID-052` | passed |
 
 ## Open Validation Gaps
 

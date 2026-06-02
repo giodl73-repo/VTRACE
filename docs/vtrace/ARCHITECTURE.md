@@ -17,6 +17,7 @@ Repo: VTRACE
 | ARCH-007 | `src/`, `Cargo.toml`, `Cargo.lock` | Provide std-only Rust local validation and regression tests for VTRACE artifact contracts. | SPEC-007, SPEC-013 |
 | ARCH-008 | `.github/workflows/` | Run repeatable CI validation for VTRACE artifact and Rust validator changes. | SPEC-014 |
 | ARCH-009 | future CLI orchestrator in `src/` | Guide init/status/validate/work-package execution/evidence closeout and optional agent/provider workflows without replacing canonical artifacts. | SPEC-015, SPEC-016 |
+| ARCH-010 | communications strategy artifacts | Define how repo mission, scenarios, specs, work packages, and evidence become user-facing docs packages. | SPEC-018 |
 
 ## Risks
 

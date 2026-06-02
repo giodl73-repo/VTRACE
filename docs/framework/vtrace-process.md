@@ -48,6 +48,7 @@ evidence that will prove it.
 | Implementation | Code, docs, fixtures, generated artifacts | Build the controlled design through approved work packages. | Meaningful implementation surfaces reference requirement, design, interface, code-rigor, and work-package IDs. |
 | Verification | `docs/vtrace/VERIFICATION.md` | Prove the system was built correctly. | Tests, inspections, static checks, schema checks, simulations, or reports cover requirements. |
 | Validation | `docs/vtrace/VALIDATION.md` | Prove the right thing was built for the intended use. | User workflows, acceptance scenarios, demos, or operator review cover mission success criteria. |
+| Communications Strategy | `docs/vtrace/COMMUNICATIONS_STRATEGY.md` | Plan user-facing docs that explain accepted features without replacing specs. | Mission, CONOPS, requirements, specs, interfaces, work packages, and evidence map to docs surfaces and owners. |
 | Trace Matrix | `docs/vtrace/TRACE.md` | Connect the whole chain. | Rows link need, requirement, design, implementation, verification, validation, and evidence. |
 | Review Gate | `docs/vtrace/REVIEW.md` | Make the readiness decision. | Decision is `pass`, `pass_with_risk`, `blocked`, or `deferred`, with findings recorded. |
 
@@ -64,8 +65,8 @@ slice should produce:
 6. `docs/vtrace/REVIEW.md`
 
 Add CONOPS, architecture, package boundaries, interfaces, detailed design, code rigor,
-implementation planning, and validation depth as the repo's risk and maturity
-justify it.
+implementation planning, communications strategy, and validation depth as the
+repo's risk and maturity justify it.
 
 ## Stage Rules
 
@@ -249,6 +250,30 @@ Validation proves "built the right thing." Methods include:
 - demo scripts,
 - realistic examples,
 - benchmark interpretation tied to user need.
+
+### Communications Strategy
+
+Communications strategy turns the VTRACE source chain into user-facing docs.
+It does not replace requirements, specifications, verification, validation, or
+evidence. It explains accepted claims to the audiences who need to learn,
+operate, adopt, review, or govern the repo.
+
+Use `docs/vtrace/COMMUNICATIONS_STRATEGY.md` when a repo has public users,
+portfolio adopters, contributor onboarding needs, repeated support questions,
+or multiple docs surfaces.
+
+Every source artifact should have a clear communications disposition:
+
+- mission need -> docs map, audience promise, non-goal, or no-user-docs
+  rationale,
+- CONOPS scenario -> tutorial, walkthrough, trace, or stakeholder deck,
+- requirement/spec -> concept, how-to, reference section, example, or
+  internal-only disposition,
+- interface -> copyable usage and expected-output documentation,
+- closed work package/evidence -> release note, trace walkthrough, corpus row,
+  or recorded no-docs-impact decision.
+
+See `docs/framework/communications-strategy.md`.
 
 ### Trace Matrix
 

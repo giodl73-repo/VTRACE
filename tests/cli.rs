@@ -386,6 +386,23 @@ fn adoption_report_summarizes_self_package() {
 }
 
 #[test]
+fn comms_plan_reports_user_doc_surfaces() {
+    let output = run(&["comms", "plan", "."]);
+    assert!(output.status.success(), "{}", command_output(&output));
+    let out = stdout(&output);
+    assert!(out.contains("VTRACE comms plan"));
+    assert!(out.contains("strategy: present"));
+    assert!(out.contains("mission need -> docs/README.md"));
+    assert!(out.contains("CONOPS scenario -> tutorial"));
+    assert!(out.contains("docs/concepts/"));
+    assert!(out.contains("docs/how-to/"));
+    assert!(out.contains("docs/tutorials/"));
+    assert!(out.contains("docs/traces/"));
+    assert!(out.contains("docs/CORPUS.md"));
+    assert!(out.contains("COMMS-CONCEPTS-001"));
+}
+
+#[test]
 fn github_issue_dry_run_reports_work_package_packet() {
     let output = run(&["github", "issue", "WP-009", "."]);
     assert!(output.status.success(), "{}", command_output(&output));

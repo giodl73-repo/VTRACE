@@ -19,6 +19,7 @@
 | REQ-CLI-001 | NEED-001 / NEED-003 / CON-004 | Define and implement the first CLI orchestrator slice for VTRACE procedural execution. | SPEC-015 | ARCH-009 / DES-005 / IF-007 | WP-009 | `docs/framework/cli-orchestrator.md`, `src/` commands, `tests/cli.rs` | design inspection, CLI commands, and integration tests | VAL-009 | EVID-028 / EVID-029 / EVID-030 | verified |
 | REQ-AI-001 | NEED-003 / CON-002 / CON-004 | Define optional LLM provider and agent/worktree boundaries. | SPEC-016 | ARCH-009 / DES-006 / IF-008 | WP-009 | `docs/framework/cli-orchestrator.md`, provider boundaries, agent brief command | design inspection and role review | VAL-009 | EVID-028 / EVID-029 | verified |
 | REQ-INTEGRATION-001 | NEED-003 / CON-002 / CON-004 | Provide explicit provider, role, GitHub, report, and pulse integration commands. | SPEC-017 | ARCH-009 / DES-006 / IF-008 | WP-010 | `src/` commands, `tests/cli.rs`, `docs/framework/cli-orchestrator.md` | CLI integration tests and local commands | VAL-010 | EVID-049 | verified |
+| REQ-COMMS-001 | NEED-001 / NEED-003 / CON-004 | Define source-to-user-docs communications strategy. | SPEC-018 | ARCH-010 / DES-007 / IF-009 | WP-011 | `docs/framework/communications-strategy.md`, `templates/adoption/COMMUNICATIONS_STRATEGY.md`, `docs/vtrace/COMMUNICATIONS_STRATEGY.md`, `src/`, `tests/cli.rs` | validator, CLI integration tests, and inspection | VAL-011 | EVID-051 / EVID-052 | verified |
 
 ## Open Trace Risks
 

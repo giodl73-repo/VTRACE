@@ -22,6 +22,7 @@ fn main() {
         Some("agent") => agent(&args[1..]),
         Some("provider") => provider(&args[1..]),
         Some("report") => report(&args[1..]),
+        Some("comms") => comms(&args[1..]),
         Some("github") => github(&args[1..]),
         Some("pulse") => pulse(&args[1..]),
         Some(path_or_command) if looks_like_path(path_or_command) => {
@@ -74,6 +75,7 @@ fn print_usage() {
   vtrace provider draft <WP-ID> --provider <name> [repo] [--live]
   vtrace provider review <WP-ID> --provider <name> [repo] [--live]
   vtrace report adoption [repo]
+  vtrace comms plan [repo]
   vtrace github issue <WP-ID> [repo] [--dry-run|--live]
   vtrace github pr-review <WP-ID> [repo] [--dry-run|--live]
   vtrace pulse sync <WP-ID> [repo] [--dry-run|--live]"
@@ -963,6 +965,69 @@ fn report(args: &[String]) -> Result<(), String> {
             "blocked"
         }
     );
+    Ok(())
+}
+
+fn comms(args: &[String]) -> Result<(), String> {
+    let action = args
+        .first()
+        .map(String::as_str)
+        .ok_or("missing comms action")?;
+    if action != "plan" {
+        return Err(format!("unknown comms action `{action}`"));
+    }
+    let root = args.get(1).map(Path::new).unwrap_or_else(|| Path::new("."));
+    let strategy_path = root
+        .join("docs")
+        .join("vtrace")
+        .join("COMMUNICATIONS_STRATEGY.md");
+    let surfaces = vtrace::communication_surfaces(root);
+
+    println!("VTRACE comms plan");
+    println!(
+        "strategy: {}",
+        if strategy_path.exists() {
+            "present"
+        } else {
+            "missing"
+        }
+    );
+    println!("boundary: specs control engineering intent; docs explain accepted features to users");
+    println!("source mapping:");
+    println!("- mission need -> docs/README.md and audience promises");
+    println!("- CONOPS scenario -> tutorial, walkthrough, trace, or deck");
+    println!("- requirement/spec -> concept, how-to, reference page, or example");
+    println!(
+        "- work package/evidence -> release note, trace walkthrough, corpus row, or deck update"
+    );
+    println!("recommended surfaces:");
+    println!("- docs/README.md: map the repo documentation package");
+    println!("- docs/concepts/: explain mental models, boundaries, and feature meaning");
+    println!("- docs/how-to/: answer focused user tasks");
+    println!("- docs/tutorials/: teach sequenced learning paths");
+    println!("- docs/examples/: provide copyable examples and expected outputs");
+    println!("- docs/traces/: show end-to-end walkthroughs tied to evidence");
+    println!("- docs/decks/: summarize stakeholder, release, or adoption narratives");
+    println!("- docs/CORPUS.md: govern ownership, cadence, and update obligations");
+
+    if surfaces.is_empty() {
+        println!("declared surfaces: none");
+        println!("next: add docs/vtrace/COMMUNICATIONS_STRATEGY.md from templates/adoption/COMMUNICATIONS_STRATEGY.md");
+        return Ok(());
+    }
+
+    println!("declared surfaces:");
+    for surface in surfaces {
+        println!(
+            "- {} | sources: {} | audience: {} | docs: {} | cadence: {} | status: {}",
+            surface.id,
+            surface.source_ids,
+            surface.audience,
+            surface.generated_docs,
+            surface.cadence,
+            surface.status
+        );
+    }
     Ok(())
 }
 

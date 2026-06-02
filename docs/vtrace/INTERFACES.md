@@ -16,3 +16,4 @@ Repo: VTRACE
 | IF-006 | CI workflow | VTRACE | `.github/workflows/ci.yml` runs the same Rust validation path used locally before merge. | workflow inspection / local command parity | accepted |
 | IF-007 | CLI orchestrator commands | VTRACE | New commands must preserve deterministic validation behavior, avoid silent artifact edits, and write evidence/review changes only through explicit user-selected operations. | CLI tests / design review | accepted |
 | IF-008 | Provider adapter boundary | VTRACE | Provider adapters may draft, summarize, or review; they must not mark evidence passed, close work packages, bypass source custody, or promote claims without review. | role review / security review | accepted |
+| IF-009 | Communications strategy artifact | VTRACE | `COMMUNICATIONS_STRATEGY.md` rows use stable `COMMS-*` IDs and map source IDs to user-facing docs surfaces without treating docs as specifications. | validator / inspection | accepted |

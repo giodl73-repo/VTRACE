@@ -49,6 +49,18 @@ pub struct ReviewLane {
     pub evidence: String,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CommunicationSurface {
+    pub id: String,
+    pub source_ids: String,
+    pub audience: String,
+    pub user_question: String,
+    pub generated_docs: String,
+    pub cadence: String,
+    pub owner: String,
+    pub status: String,
+}
+
 impl Finding {
     pub fn render(&self, root: &Path) -> String {
         let shown = self
@@ -506,6 +518,65 @@ fn check_language_profiles(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
+fn check_communications_strategy(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+    let comms_path = vtrace_dir.join("COMMUNICATIONS_STRATEGY.md");
+    if !comms_path.exists() {
+        return;
+    }
+
+    let required_columns = [
+        "Surface ID",
+        "Source IDs",
+        "Audience",
+        "User Question",
+        "Generated Docs",
+        "Cadence",
+        "Owner",
+        "Status",
+    ];
+    let mut saw_surface = false;
+    for (line_no, row) in table_rows(&comms_path) {
+        if !required_columns
+            .iter()
+            .all(|column| row.contains_key(*column))
+        {
+            continue;
+        }
+        let surface_id = row.get("Surface ID").map(String::as_str).unwrap_or("");
+        if !surface_id.starts_with("COMMS-") {
+            continue;
+        }
+        saw_surface = true;
+
+        for column in required_columns {
+            if row
+                .get(column)
+                .map(|value| value.trim())
+                .unwrap_or("")
+                .is_empty()
+            {
+                add(
+                    findings,
+                    "ERROR",
+                    comms_path.clone(),
+                    line_no,
+                    format!("{surface_id} has blank {column}"),
+                );
+            }
+        }
+    }
+
+    if !saw_surface {
+        add(
+            findings,
+            "ERROR",
+            comms_path,
+            1,
+            "COMMUNICATIONS_STRATEGY.md has no COMMS-* rows",
+        );
+    }
+}
+
 fn vtrace_dir(root: &Path) -> PathBuf {
     root.join("docs").join("vtrace")
 }
@@ -592,6 +663,29 @@ pub fn review_lanes(root: &Path) -> Vec<ReviewLane> {
         .collect()
 }
 
+pub fn communication_surfaces(root: &Path) -> Vec<CommunicationSurface> {
+    let comms_path = vtrace_dir(root).join("COMMUNICATIONS_STRATEGY.md");
+    table_rows(&comms_path)
+        .into_iter()
+        .filter_map(|(_, row)| {
+            let id = row.get("Surface ID")?;
+            if !id.starts_with("COMMS-") {
+                return None;
+            }
+            Some(CommunicationSurface {
+                id: id.to_string(),
+                source_ids: row.get("Source IDs").cloned().unwrap_or_default(),
+                audience: row.get("Audience").cloned().unwrap_or_default(),
+                user_question: row.get("User Question").cloned().unwrap_or_default(),
+                generated_docs: row.get("Generated Docs").cloned().unwrap_or_default(),
+                cadence: row.get("Cadence").cloned().unwrap_or_default(),
+                owner: row.get("Owner").cloned().unwrap_or_default(),
+                status: row.get("Status").cloned().unwrap_or_default(),
+            })
+        })
+        .collect()
+}
+
 pub fn run_checks(root: &Path) -> Vec<Finding> {
     let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
     let vtrace_dir = vtrace_dir(&root);
@@ -617,6 +711,7 @@ pub fn run_checks(root: &Path) -> Vec<Finding> {
     check_review_lanes(&vtrace_dir, &mut findings);
     check_review_checklists(&vtrace_dir, &mut findings);
     check_language_profiles(&vtrace_dir, &mut findings);
+    check_communications_strategy(&vtrace_dir, &mut findings);
     findings
 }
 
@@ -850,5 +945,24 @@ mod tests {
             "#,
         );
         assert!(messages(&run_checks(&repo.root)).contains(&"PROFILE-PYTHON-001 has blank L2"));
+    }
+
+    #[test]
+    fn communications_strategy_requires_complete_surfaces() {
+        let repo = TempRepo::new();
+        repo.write_minimal_valid_package();
+        repo.write(
+            "COMMUNICATIONS_STRATEGY.md",
+            r#"
+            # Communications Strategy
+
+            | Surface ID | Source IDs | Audience | User Question | Generated Docs | Cadence | Owner | Status |
+            |---|---|---|---|---|---|---|---|
+            | COMMS-CONCEPTS-001 | NEED-001 / REQ-001 |  | What should users understand? | docs/concepts/ | release | docs owner | accepted |
+            "#,
+        );
+        assert!(
+            messages(&run_checks(&repo.root)).contains(&"COMMS-CONCEPTS-001 has blank Audience")
+        );
     }
 }

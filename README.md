@@ -115,6 +115,11 @@ Use staged execution and role recommendation guidance to drive completeness and
 create ROLES-conformant review panels in target repos.
 For portfolio repos that already use waves and pulses, record each VTRACE work
 package inside the active repo-local pulse using `PULSE_EXECUTION.md`.
+Use `COMMUNICATIONS_STRATEGY.md` when a repo needs user-facing docs that are
+different from controlled specs. Mission and CONOPS derive the docs audience and
+journeys; requirements, specs, interfaces, work packages, and evidence derive
+concepts, how-to guides, tutorials, examples, traces, decks, and corpus
+governance.
 
 VTRACE also applies itself to itself. Use `docs/vtrace/README.md` as the
 source-of-truth proof package for current VTRACE requirements, specifications,
@@ -156,8 +161,8 @@ evidence reports.
 The Rust CLI now has an orchestration layer. `vtrace validate` remains
 deterministic, while `init`, `status`, `work start/check/close`, `roles
 review/run`, `agent brief`, `report adoption`, provider draft/review helpers,
-GitHub issue/PR packet helpers, pulse sync, and guarded worktree commands help
-maintainers run the process procedurally. Created worktrees receive a local
+GitHub issue/PR packet helpers, pulse sync, `comms plan`, and guarded worktree
+commands help maintainers run the process procedurally. Created worktrees receive a local
 `.vtrace/worktree.md` ownership record with closeout commands and a
 `.vtrace/agent-brief.md` handoff brief. Codex, Claude, and Copilot provider
 commands are advisory and live actions require explicit `--live`; they do not
