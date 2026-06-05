@@ -33,6 +33,11 @@ Baseline date: 2026-05-31
 | SPEC-019 | REQ-SPEC-MODEL-001 | product | current | `templates/adoption/SPEC_MODEL.md` and `docs/vtrace/SPEC_MODEL.md` define required spec classes, spec shape, scenario coupling, descriptor impact, and promotion rules for deep implementation input. | inspection | deep-spec adoption scenario | VTRACE | medium | accepted |
 | SPEC-020 | REQ-CONTRACT-BOUNDARY-001 | product | current | `templates/adoption/CONTRACT_BOUNDARIES.md` and `docs/vtrace/CONTRACT_BOUNDARIES.md` define durable contract-boundary classes and package closeout requirements. | inspection | contract-boundary adoption scenario | VTRACE | medium | accepted |
 | SPEC-021 | REQ-SCENARIO-001 | product | current | `templates/adoption/SCENARIO_MODEL.md` and `docs/vtrace/SCENARIO_MODEL.md` define scenario package shape, findings rules, fixture candidates, and validation coupling. | inspection | scenario adoption scenario | VTRACE | medium | accepted |
+| SPEC-022 | REQ-DIAGNOSTIC-MODEL-001 | product | current | `templates/adoption/DIAGNOSTIC_MODEL.md` and `docs/vtrace/DIAGNOSTIC_MODEL.md` define diagnostic contract shape, severity, location, redaction/custody, diagnostic families, fixture expectations, rendering impact, and allocation rules. | inspection | diagnostic adoption scenario | VTRACE | medium | accepted |
+| SPEC-023 | REQ-PROBLEM-SPACE-001 | product | current | `templates/adoption/PROBLEM_SPACE_MAP.md` and `docs/vtrace/PROBLEM_SPACE_MAP.md` define world regions, traversal order, and cross-region risks for large-domain adoption. | inspection | problem-space adoption scenario | VTRACE | medium | accepted |
+| SPEC-024 | REQ-DOMAIN-BACKLOG-001 | product | current | `templates/adoption/DOMAIN_BACKLOG.md` and `docs/vtrace/DOMAIN_BACKLOG.md` define backlog item types, fields, dispositions, and exit paths for domain discoveries. | inspection | backlog adoption scenario | VTRACE | medium | accepted |
+| SPEC-025 | REQ-FIXTURE-MODEL-001 | product | current | `templates/adoption/FIXTURE_MODEL.md` and `docs/vtrace/FIXTURE_MODEL.md` define fixture classes, required fixture shape, and scenario-to-fixture promotion rules. | inspection | fixture adoption scenario | VTRACE | medium | accepted |
+| SPEC-026 | REQ-RESEARCH-001 | product | current | `templates/adoption/RESEARCH_PLAN.md` and `docs/vtrace/RESEARCH_PLAN.md` define research tracks, item types, required research shape, and research-to-requirement promotion rules. | inspection | research-plan adoption scenario | VTRACE | medium | accepted |
 
 ## Requirement-To-Spec Coverage
 
@@ -59,6 +64,11 @@ Baseline date: 2026-05-31
 | REQ-SPEC-MODEL-001 | SPEC-019 | covered | Deep spec model templates and self-trace copies exist. |
 | REQ-CONTRACT-BOUNDARY-001 | SPEC-020 | covered | Contract-boundary templates and self-trace copies exist. |
 | REQ-SCENARIO-001 | SPEC-021 | covered | Scenario model templates and self-trace copies exist. |
+| REQ-DIAGNOSTIC-MODEL-001 | SPEC-022 | covered | Diagnostic model templates and self-trace copies exist. |
+| REQ-PROBLEM-SPACE-001 | SPEC-023 | covered | Problem-space map templates and self-trace copies exist. |
+| REQ-DOMAIN-BACKLOG-001 | SPEC-024 | covered | Domain backlog templates and self-trace copies exist. |
+| REQ-FIXTURE-MODEL-001 | SPEC-025 | covered | Fixture model templates and self-trace copies exist. |
+| REQ-RESEARCH-001 | SPEC-026 | covered | Research plan templates and self-trace copies exist. |
 
 ## Specification Gate
 

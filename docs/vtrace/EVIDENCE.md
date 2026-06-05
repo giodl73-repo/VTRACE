@@ -67,6 +67,11 @@ Command receipts should be updated when validation is run.
 | EVID-054 | inspection | `templates/adoption/SPEC_MODEL.md`; `docs/vtrace/SPEC_MODEL.md`; stage execution docs | Deep spec model templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
 | EVID-055 | inspection | `templates/adoption/CONTRACT_BOUNDARIES.md`; `docs/vtrace/CONTRACT_BOUNDARIES.md`; stage execution docs | Contract-boundary templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
 | EVID-056 | inspection | `templates/adoption/SCENARIO_MODEL.md`; `docs/vtrace/SCENARIO_MODEL.md`; stage execution docs | Scenario model templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
+| EVID-057 | inspection | `templates/adoption/DIAGNOSTIC_MODEL.md`; `docs/vtrace/DIAGNOSTIC_MODEL.md`; stage execution docs | Diagnostic model templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
+| EVID-058 | inspection | `templates/adoption/PROBLEM_SPACE_MAP.md`; `docs/vtrace/PROBLEM_SPACE_MAP.md`; stage execution docs | Problem-space map templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
+| EVID-059 | inspection | `templates/adoption/DOMAIN_BACKLOG.md`; `docs/vtrace/DOMAIN_BACKLOG.md`; stage execution docs | Domain backlog templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
+| EVID-060 | inspection | `templates/adoption/FIXTURE_MODEL.md`; `docs/vtrace/FIXTURE_MODEL.md`; stage execution docs | Fixture model templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
+| EVID-061 | inspection | `templates/adoption/RESEARCH_PLAN.md`; `docs/vtrace/RESEARCH_PLAN.md`; stage execution docs | Research-plan templates and stage-order placement exist. | Added on 2026-06-05 from LEXIS language-history reuse. | passed |
 
 ## Evidence Rules
 

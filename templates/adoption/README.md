@@ -18,9 +18,14 @@ error-handling discipline.
 
 For non-trivial implementation, also add:
 
+- `PROBLEM_SPACE_MAP.md`
+- `DOMAIN_BACKLOG.md`
+- `RESEARCH_PLAN.md`
 - `SPEC_MODEL.md`
 - `CONTRACT_BOUNDARIES.md`
 - `SCENARIO_MODEL.md`
+- `DIAGNOSTIC_MODEL.md`
+- `FIXTURE_MODEL.md`
 - `IMPLEMENTATION_PLAN.md`
 - `WORK_PACKAGES.md`
 

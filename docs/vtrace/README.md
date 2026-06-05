@@ -35,6 +35,11 @@ Use this package as the first place to answer:
 | What shape must deep product specs follow? | `SPEC_MODEL.md` |
 | Which durable contracts need boundary controls? | `CONTRACT_BOUNDARIES.md` |
 | How should scenarios prove specs and error paths? | `SCENARIO_MODEL.md` |
+| How should durable diagnostics be shaped and allocated? | `DIAGNOSTIC_MODEL.md` |
+| How is the large problem space mapped? | `PROBLEM_SPACE_MAP.md` |
+| Where do domain discoveries wait before becoming specs or packages? | `DOMAIN_BACKLOG.md` |
+| How does research become requirements input? | `RESEARCH_PLAN.md` |
+| How do scenario artifacts become controlled fixtures? | `FIXTURE_MODEL.md` |
 | Which DCRs become work packages? | `IMPLEMENTATION_PLAN.md`, `WORK_PACKAGES.md` |
 | What proves the current state? | `VERIFICATION.md`, `VALIDATION.md`, `TRACE.md` |
 | What source basis supports the framework? | `SOURCE_BASIS.md` |

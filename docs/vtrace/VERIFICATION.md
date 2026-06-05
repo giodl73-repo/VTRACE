@@ -29,6 +29,11 @@ Repo: VTRACE
 | REQ-SPEC-MODEL-001 | inspection | Inspect spec model templates and stage execution files. | Deep spec model templates exist and S1 stage evidence names the model. | passed | EVID-054 |
 | REQ-CONTRACT-BOUNDARY-001 | inspection | Inspect contract-boundary templates and stage execution files. | Contract-boundary templates exist and S2 stage evidence names the model. | passed | EVID-055 |
 | REQ-SCENARIO-001 | inspection | Inspect scenario model templates and stage execution files. | Scenario model templates exist and S2 stage evidence names scenario controls. | passed | EVID-056 |
+| REQ-DIAGNOSTIC-MODEL-001 | inspection | Inspect diagnostic model templates and stage execution files. | Diagnostic model templates exist and S2 stage evidence names diagnostic controls. | passed | EVID-057 |
+| REQ-PROBLEM-SPACE-001 | inspection | Inspect problem-space map templates and stage execution files. | Problem-space map templates exist and S1 stage evidence names map controls. | passed | EVID-058 |
+| REQ-DOMAIN-BACKLOG-001 | inspection | Inspect domain backlog templates and stage execution files. | Domain backlog templates exist and S1 stage evidence names backlog controls. | passed | EVID-059 |
+| REQ-FIXTURE-MODEL-001 | inspection | Inspect fixture model templates and stage execution files. | Fixture model templates exist and S2 stage evidence names fixture controls. | passed | EVID-060 |
+| REQ-RESEARCH-001 | inspection | Inspect research-plan templates and stage execution files. | Research-plan templates exist and S1 stage evidence names research controls. | passed | EVID-061 |
 
 ## Validation Commands
 
@@ -51,7 +56,7 @@ Repo: VTRACE
 | L2 | `cargo run -- plan .`; `cargo run -- work start WP-009 .`; `cargo run -- work check WP-009 .`; `cargo run -- roles review WP-009 .`; `cargo run -- agent brief WP-009 .`; `cargo run -- worktree plan WP-009 .`; `cargo run -- evidence receipt WP-009 .`; `cargo run -- init <temp>`; integration-tested `worktree create` | passed |
 | L2 | `cargo run -- provider list`; `cargo run -- provider check codex`; `cargo run -- provider draft WP-010 --provider codex .`; `cargo run -- roles run WP-010 .`; `cargo run -- report adoption .`; `cargo run -- github issue WP-010 .`; `cargo run -- pulse sync WP-010 .` | passed |
 | L2 | `cargo run -- comms plan .` | passed |
-| L0 | inspect `SPEC_MODEL.md`, `CONTRACT_BOUNDARIES.md`, `SCENARIO_MODEL.md`, and `STAGE_EXECUTION.md` | passed |
+| L0 | inspect `PROBLEM_SPACE_MAP.md`, `DOMAIN_BACKLOG.md`, `RESEARCH_PLAN.md`, `SPEC_MODEL.md`, `CONTRACT_BOUNDARIES.md`, `SCENARIO_MODEL.md`, `DIAGNOSTIC_MODEL.md`, `FIXTURE_MODEL.md`, and `STAGE_EXECUTION.md` | passed |
 
 ## Evidence Ledger
 
@@ -111,3 +116,8 @@ Repo: VTRACE
 | EVID-054 | spec model templates | `templates/adoption/SPEC_MODEL.md`; `docs/vtrace/SPEC_MODEL.md`; stage execution docs | passed |
 | EVID-055 | contract-boundary templates | `templates/adoption/CONTRACT_BOUNDARIES.md`; `docs/vtrace/CONTRACT_BOUNDARIES.md`; stage execution docs | passed |
 | EVID-056 | scenario model templates | `templates/adoption/SCENARIO_MODEL.md`; `docs/vtrace/SCENARIO_MODEL.md`; stage execution docs | passed |
+| EVID-057 | diagnostic model templates | `templates/adoption/DIAGNOSTIC_MODEL.md`; `docs/vtrace/DIAGNOSTIC_MODEL.md`; stage execution docs | passed |
+| EVID-058 | problem-space map templates | `templates/adoption/PROBLEM_SPACE_MAP.md`; `docs/vtrace/PROBLEM_SPACE_MAP.md`; stage execution docs | passed |
+| EVID-059 | domain backlog templates | `templates/adoption/DOMAIN_BACKLOG.md`; `docs/vtrace/DOMAIN_BACKLOG.md`; stage execution docs | passed |
+| EVID-060 | fixture model templates | `templates/adoption/FIXTURE_MODEL.md`; `docs/vtrace/FIXTURE_MODEL.md`; stage execution docs | passed |
+| EVID-061 | research-plan templates | `templates/adoption/RESEARCH_PLAN.md`; `docs/vtrace/RESEARCH_PLAN.md`; stage execution docs | passed |
