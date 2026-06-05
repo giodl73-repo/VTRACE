@@ -18,6 +18,9 @@ error-handling discipline.
 
 For non-trivial implementation, also add:
 
+- `SPEC_MODEL.md`
+- `CONTRACT_BOUNDARIES.md`
+- `SCENARIO_MODEL.md`
 - `IMPLEMENTATION_PLAN.md`
 - `WORK_PACKAGES.md`
 

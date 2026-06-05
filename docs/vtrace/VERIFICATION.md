@@ -26,6 +26,9 @@ Repo: VTRACE
 | REQ-AI-001 | design inspection / role review / agent brief | Inspect provider and agent boundaries and run `vtrace agent brief`. | Provider output remains advisory and agent handoffs are bounded by work-package trace. | passed | EVID-028, EVID-029 |
 | REQ-INTEGRATION-001 | CLI integration tests / local commands / remote CI | Run provider, roles, report, GitHub dry-run, and pulse dry-run command tests. | Later-boundary commands exist, dry-run deterministically, keep output advisory, and pass GitHub Actions CI. | passed | EVID-049, EVID-050 |
 | REQ-COMMS-001 | validator / CLI integration tests / inspection | Inspect communications strategy docs and template, run validator and `vtrace comms plan`. | User-facing docs are derived from controlled source IDs without replacing specs. | passed | EVID-051, EVID-052, EVID-053 |
+| REQ-SPEC-MODEL-001 | inspection | Inspect spec model templates and stage execution files. | Deep spec model templates exist and S1 stage evidence names the model. | passed | EVID-054 |
+| REQ-CONTRACT-BOUNDARY-001 | inspection | Inspect contract-boundary templates and stage execution files. | Contract-boundary templates exist and S2 stage evidence names the model. | passed | EVID-055 |
+| REQ-SCENARIO-001 | inspection | Inspect scenario model templates and stage execution files. | Scenario model templates exist and S2 stage evidence names scenario controls. | passed | EVID-056 |
 
 ## Validation Commands
 
@@ -48,6 +51,7 @@ Repo: VTRACE
 | L2 | `cargo run -- plan .`; `cargo run -- work start WP-009 .`; `cargo run -- work check WP-009 .`; `cargo run -- roles review WP-009 .`; `cargo run -- agent brief WP-009 .`; `cargo run -- worktree plan WP-009 .`; `cargo run -- evidence receipt WP-009 .`; `cargo run -- init <temp>`; integration-tested `worktree create` | passed |
 | L2 | `cargo run -- provider list`; `cargo run -- provider check codex`; `cargo run -- provider draft WP-010 --provider codex .`; `cargo run -- roles run WP-010 .`; `cargo run -- report adoption .`; `cargo run -- github issue WP-010 .`; `cargo run -- pulse sync WP-010 .` | passed |
 | L2 | `cargo run -- comms plan .` | passed |
+| L0 | inspect `SPEC_MODEL.md`, `CONTRACT_BOUNDARIES.md`, `SCENARIO_MODEL.md`, and `STAGE_EXECUTION.md` | passed |
 
 ## Evidence Ledger
 
@@ -104,3 +108,6 @@ Repo: VTRACE
 | EVID-051 | Communications strategy artifacts | `docs/framework/communications-strategy.md`; `templates/adoption/COMMUNICATIONS_STRATEGY.md`; `docs/vtrace/COMMUNICATIONS_STRATEGY.md` | passed |
 | EVID-052 | Communications strategy CLI command | `tests/cli.rs`; `cargo test`; `cargo run -- comms plan .`; `cargo run -- validate .` | passed |
 | EVID-053 | VTRACE docs package | `docs/README.md`; `docs/CORPUS.md`; docs taxonomy directories | passed |
+| EVID-054 | spec model templates | `templates/adoption/SPEC_MODEL.md`; `docs/vtrace/SPEC_MODEL.md`; stage execution docs | passed |
+| EVID-055 | contract-boundary templates | `templates/adoption/CONTRACT_BOUNDARIES.md`; `docs/vtrace/CONTRACT_BOUNDARIES.md`; stage execution docs | passed |
+| EVID-056 | scenario model templates | `templates/adoption/SCENARIO_MODEL.md`; `docs/vtrace/SCENARIO_MODEL.md`; stage execution docs | passed |

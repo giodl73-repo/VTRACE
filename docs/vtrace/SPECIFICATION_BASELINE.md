@@ -30,6 +30,9 @@ Baseline date: 2026-05-31
 | SPEC-016 | REQ-AI-001 | software / assurance | current | Provider and agent integrations remain optional adapter layers; generated output is advisory until accepted into canonical VTRACE artifacts with trace IDs, evidence, and review status. | design inspection / role review | provider-assisted adoption scenario | VTRACE | high | accepted |
 | SPEC-017 | REQ-INTEGRATION-001 / REQ-AI-001 / REQ-CLI-001 | software / assurance | current | The CLI exposes provider list/check/draft/review, roles run, adoption report, GitHub issue/PR dry-run/live helpers, and pulse sync commands with explicit live flags and advisory output boundaries. | CLI integration tests / local commands | integration operator scenario | VTRACE | high | accepted |
 | SPEC-018 | REQ-COMMS-001 / REQ-CLI-001 | product / software | current | `docs/framework/communications-strategy.md`, `templates/adoption/COMMUNICATIONS_STRATEGY.md`, `docs/vtrace/COMMUNICATIONS_STRATEGY.md`, the validator, and `vtrace comms plan` define source-to-user-docs orchestration for target repos. | validator / CLI integration tests / inspection | communications adoption scenario | VTRACE | medium | accepted |
+| SPEC-019 | REQ-SPEC-MODEL-001 | product | current | `templates/adoption/SPEC_MODEL.md` and `docs/vtrace/SPEC_MODEL.md` define required spec classes, spec shape, scenario coupling, descriptor impact, and promotion rules for deep implementation input. | inspection | deep-spec adoption scenario | VTRACE | medium | accepted |
+| SPEC-020 | REQ-CONTRACT-BOUNDARY-001 | product | current | `templates/adoption/CONTRACT_BOUNDARIES.md` and `docs/vtrace/CONTRACT_BOUNDARIES.md` define durable contract-boundary classes and package closeout requirements. | inspection | contract-boundary adoption scenario | VTRACE | medium | accepted |
+| SPEC-021 | REQ-SCENARIO-001 | product | current | `templates/adoption/SCENARIO_MODEL.md` and `docs/vtrace/SCENARIO_MODEL.md` define scenario package shape, findings rules, fixture candidates, and validation coupling. | inspection | scenario adoption scenario | VTRACE | medium | accepted |
 
 ## Requirement-To-Spec Coverage
 
@@ -53,6 +56,9 @@ Baseline date: 2026-05-31
 | REQ-AI-001 | SPEC-016 / SPEC-017 | covered | Provider and agent boundaries are implemented as advisory command surfaces with explicit live guards. |
 | REQ-INTEGRATION-001 | SPEC-017 | covered | Later-boundary integration commands are implemented with guarded live paths and deterministic dry-run tests. |
 | REQ-COMMS-001 | SPEC-018 | covered | Communications strategy artifacts and CLI planning command distinguish user docs from controlled specs. |
+| REQ-SPEC-MODEL-001 | SPEC-019 | covered | Deep spec model templates and self-trace copies exist. |
+| REQ-CONTRACT-BOUNDARY-001 | SPEC-020 | covered | Contract-boundary templates and self-trace copies exist. |
+| REQ-SCENARIO-001 | SPEC-021 | covered | Scenario model templates and self-trace copies exist. |
 
 ## Specification Gate
 

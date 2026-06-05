@@ -21,9 +21,9 @@ Repo or feature:
 | Stage | Required Artifacts | Validation Level | Role Lanes | Evidence Pointer |
 |---|---|---|---|---|
 | S0 |  | none / L0 |  |  |
-| S1 | `MISSION.md`, `REQUIREMENTS.md`, `SPECIFICATION_BASELINE.md` | L0 | systems engineering / traceability |  |
-| S2 |  | L0 / L1 |  |  |
-| S3 |  | L0 |  |  |
+| S1 | `MISSION.md`, `REQUIREMENTS.md`, `SPECIFICATION_BASELINE.md`, `SPEC_MODEL.md` | L0 | systems engineering / traceability |  |
+| S2 | `ARCHITECTURE.md`, `INTERFACES.md`, `DESIGN.md`, `PACKAGE_BOUNDARIES.md`, `CONTRACT_BOUNDARIES.md`, `SCENARIO_MODEL.md` | L0 / L1 | architecture / V&V / assurance |  |
+| S3 | `IMPLEMENTATION_PLAN.md`, `WORK_PACKAGES.md`, `CHANGE_CONTROL.md` | L0 | configuration/change control |  |
 | S4 |  | L0 / L1 |  |  |
 | S5 |  | L2 |  |  |
 | S6 |  | L2 |  |  |

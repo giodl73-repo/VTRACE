@@ -32,6 +32,9 @@ Use this package as the first place to answer:
 | What rigor applies to future validators and profiles? | `CODE_RIGOR.md` |
 | How should VTRACE derive user-facing docs from controlled artifacts? | `COMMUNICATIONS_STRATEGY.md` |
 | What changes are requested? | `CHANGE_CONTROL.md` |
+| What shape must deep product specs follow? | `SPEC_MODEL.md` |
+| Which durable contracts need boundary controls? | `CONTRACT_BOUNDARIES.md` |
+| How should scenarios prove specs and error paths? | `SCENARIO_MODEL.md` |
 | Which DCRs become work packages? | `IMPLEMENTATION_PLAN.md`, `WORK_PACKAGES.md` |
 | What proves the current state? | `VERIFICATION.md`, `VALIDATION.md`, `TRACE.md` |
 | What source basis supports the framework? | `SOURCE_BASIS.md` |
