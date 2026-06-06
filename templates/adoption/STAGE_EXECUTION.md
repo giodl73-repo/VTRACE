@@ -4,9 +4,16 @@
 
 Repo or feature:
 
+Standing boundary rule: if a concept mentions VTRACE, work packages, reviews,
+readiness, proof, validation, fixtures, or package status, it is not a product
+feature unless a product requirement explicitly restates it as customer-facing
+behavior. Do not build product subcommands such as `work-package`, `prove`,
+`readiness`, or `evidence` unless the product requirements explicitly define
+them as user-facing toolchain behavior.
+
 ## Stage Board
 
-| Stage | Status | Gate Decision | Required Next Action |
+| Stage | Status | Gate Decision | Required Next Product Action |
 |---|---|---|---|
 | S0 Intake | not_started |  |  |
 | S1 Specification Baseline | not_started |  |  |
@@ -27,6 +34,13 @@ Repo or feature:
 | S4 |  | L0 / L1 |  |  |
 | S5 |  | L2 |  |  |
 | S6 |  | L2 |  |  |
+
+## Next Product Action
+
+- Product capability:
+- Product files/modules/commands/docs:
+- Verification command:
+- VTRACE-only updates after implementation:
 
 ## Open Stage Findings
 

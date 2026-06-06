@@ -16,6 +16,29 @@ implementation, verification evidence, and validation evidence. VTRACE defines
 that line as a lightweight development framework and packages reusable skills
 that coding agents can apply repo by repo.
 
+## Product Boundary Rule
+
+VTRACE is coordination and verification machinery. It is not the target
+product.
+
+When applying VTRACE to a product repo, keep four sections visibly separate:
+
+- Product requirements: what the product must do for users.
+- Implementation coordination: which product code area changes next.
+- Verification mechanics: which command, test, scenario, or inspection proves
+  the product behavior.
+- VTRACE-only records: which evidence, review, readiness, and package-status
+  rows are updated after the product work.
+
+Standing rule: if a concept mentions VTRACE, work packages, reviews,
+readiness, proof, validation, fixtures, or package status, it is not a product
+feature unless it is explicitly restated as customer-facing product behavior.
+Do not add internal VTRACE concepts to the target product's CLI, API, docs,
+schema, or UX merely because they appear in a VTRACE plan. In particular, do
+not build product subcommands such as `work-package`, `prove`, `readiness`, or
+`evidence` unless the product requirements explicitly define them as user-facing
+toolchain behavior.
+
 ## First Skill
 
 The main reusable skills are:
@@ -106,6 +129,9 @@ right-side verification evidence.
 For non-trivial work, use `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md` before
 coding. VTRACE implementation slices should have parent IDs, entry criteria,
 exit criteria, verification commands, evidence pointers, and review gates.
+The first line of each slice should say what product capability changes and
+which product files, modules, commands, or docs to edit next. VTRACE closeout
+rows come after that product work; they are not the product scope.
 Use execution control guidance for Git branches/worktrees, commits, pushes,
 agent handoffs, and L0/L1/L2 validation levels.
 Use assurance/security review guidance for role lanes covering systems

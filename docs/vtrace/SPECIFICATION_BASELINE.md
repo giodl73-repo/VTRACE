@@ -38,6 +38,7 @@ Baseline date: 2026-05-31
 | SPEC-024 | REQ-DOMAIN-BACKLOG-001 | product | current | `templates/adoption/DOMAIN_BACKLOG.md` and `docs/vtrace/DOMAIN_BACKLOG.md` define backlog item types, fields, dispositions, and exit paths for domain discoveries. | inspection | backlog adoption scenario | VTRACE | medium | accepted |
 | SPEC-025 | REQ-FIXTURE-MODEL-001 | product | current | `templates/adoption/FIXTURE_MODEL.md` and `docs/vtrace/FIXTURE_MODEL.md` define fixture classes, required fixture shape, and scenario-to-fixture promotion rules. | inspection | fixture adoption scenario | VTRACE | medium | accepted |
 | SPEC-026 | REQ-RESEARCH-001 | product | current | `templates/adoption/RESEARCH_PLAN.md` and `docs/vtrace/RESEARCH_PLAN.md` define research tracks, item types, required research shape, and research-to-requirement promotion rules. | inspection | research-plan adoption scenario | VTRACE | medium | accepted |
+| SPEC-027 | REQ-PRODUCT-BOUNDARY-001 | product / assurance | current | VTRACE guidance, adoption templates, skills, CLI init output, plan output, and agent briefs state that VTRACE/work-package/review/readiness/proof/validation/fixture/package-status concepts are not target-product features unless explicitly restated as customer-facing behavior. | inspection / CLI tests | product-boundary adoption scenario | VTRACE | high | accepted |
 
 ## Requirement-To-Spec Coverage
 
@@ -69,6 +70,7 @@ Baseline date: 2026-05-31
 | REQ-DOMAIN-BACKLOG-001 | SPEC-024 | covered | Domain backlog templates and self-trace copies exist. |
 | REQ-FIXTURE-MODEL-001 | SPEC-025 | covered | Fixture model templates and self-trace copies exist. |
 | REQ-RESEARCH-001 | SPEC-026 | covered | Research plan templates and self-trace copies exist. |
+| REQ-PRODUCT-BOUNDARY-001 | SPEC-027 | covered | Product/process/verification/VTRACE-only boundaries are explicit in core guidance, templates, skills, CLI init output, plan output, and agent briefs. |
 
 ## Specification Gate
 

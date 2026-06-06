@@ -15,6 +15,13 @@ Use this skill when a codebase needs stronger systems engineering discipline.
 The goal is not ceremony. The goal is an auditable trace from need to
 requirements, design, implementation, verification, validation, and evidence.
 
+Standing boundary rule: VTRACE coordination, work packages, reviews,
+readiness, proof, validation, fixtures, and package status are not product
+features unless the target repo explicitly restates them as customer-facing
+toolchain behavior. Do not recommend product subcommands such as
+`work-package`, `prove`, `readiness`, or `evidence` unless the product
+requirements explicitly define that UX.
+
 For repeatable repo adoption, prefer the focused skills:
 
 - `vtrace-assess` for the first assessment.
@@ -41,6 +48,9 @@ repo's source notes or public source URLs.
    field data, stakeholder review, or product-level success criteria.
 7. Record gaps as traceability findings, not vague quality concerns.
 8. Propose the smallest complete adoption slice.
+
+When proposing that slice, put the product change first, then the product code
+area, then the verification command, then VTRACE evidence/status updates.
 
 ## VTRACE Stages
 

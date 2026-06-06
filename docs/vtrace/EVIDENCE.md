@@ -72,6 +72,7 @@ Command receipts should be updated when validation is run.
 | EVID-059 | inspection | `templates/adoption/DOMAIN_BACKLOG.md`; `docs/vtrace/DOMAIN_BACKLOG.md`; stage execution docs | Domain backlog templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
 | EVID-060 | inspection | `templates/adoption/FIXTURE_MODEL.md`; `docs/vtrace/FIXTURE_MODEL.md`; stage execution docs | Fixture model templates and stage-order placement exist. | Added on 2026-06-05 from CRAFT agent-platform reuse. | passed |
 | EVID-061 | inspection | `templates/adoption/RESEARCH_PLAN.md`; `docs/vtrace/RESEARCH_PLAN.md`; stage execution docs | Research-plan templates and stage-order placement exist. | Added on 2026-06-05 from LEXIS language-history reuse. | passed |
+| EVID-062 | inspection / command | `README.md`; `docs/framework/vtrace-process.md`; `templates/adoption/IMPLEMENTATION_PLAN.md`; `templates/adoption/WORK_PACKAGES.md`; `templates/adoption/STAGE_EXECUTION.md`; `skills/vtrace-adopt/SKILL.md`; `skills/v-model-rigor/SKILL.md`; `src/main.rs`; `git diff --check`; `cargo fmt --check`; `cargo test`; `cargo run -- validate .` | Product/process/verification/VTRACE-only boundaries are explicit and validation passes. | Passed on 2026-06-06; guidance forbids product `work-package`, `prove`, `readiness`, and `evidence` UX unless product requirements explicitly define it. | passed |
 
 ## Evidence Rules
 

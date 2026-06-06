@@ -142,7 +142,7 @@ fn init(root: &Path) -> Result<(), String> {
         ("REQUIREMENTS.md", "# Requirements\n\n| ID | Requirement | Parent Need / Scenario | Rationale | Priority | Owner | Verification Method | Status |\n|---|---|---|---|---|---|---|---|\n| REQ-001 | The repo shall define a first controlled requirement. | NEED-001 | Seed requirement for VTRACE adoption. | must | maintainer | inspection | draft |\n"),
         ("SPECIFICATION_BASELINE.md", "# Specification Baseline\n\n| Spec ID | Parent REQ IDs | Type | Current / Target / Deprecated / Unknown | Specification Statement | Verification Method | Validation Method | Owner | Risk | Status |\n|---|---|---|---|---|---|---|---|---|---|\n| SPEC-001 | REQ-001 | process | target | First controlled behavior is documented before implementation. | inspection | adoption scenario | maintainer | medium | draft |\n"),
         ("TRACE.md", "# Trace Matrix\n\n| Requirement ID | Specification Item | Work Package | Evidence Pointer | Status |\n|---|---|---|---|---|\n| REQ-001 | SPEC-001 | WP-001 | EVID-001 | draft |\n"),
-        ("WORK_PACKAGES.md", "# Work Packages\n\n| ID | Objective | Parent IDs | Affected Surfaces | Entry Criteria | Exit Criteria | L0 / L1 / L2 | Status |\n|---|---|---|---|---|---|---|---|\n| WP-001 | Close the first VTRACE adoption slice. | REQ-001 / SPEC-001 | docs/vtrace | Required artifacts exist. | Evidence and review are recorded. | L0: git diff --check / L1: vtrace validate / L2: role review if public claim changes | proposed |\n"),
+        ("WORK_PACKAGES.md", "# Work Packages\n\nProduct boundary rule: VTRACE closeout is not product scope. Do not build product subcommands such as `work-package`, `prove`, `readiness`, or `evidence` unless product requirements explicitly define them as user-facing behavior.\n\n| ID | Objective | Product Requirement | Parent IDs | Affected Surfaces | Entry Criteria | Exit Criteria | L0 / L1 / L2 | VTRACE-Only Closeout | Status |\n|---|---|---|---|---|---|---|---|---|---|\n| WP-001 | Define the first product adoption slice. | Product behavior is unchanged unless requirements name code surfaces. | REQ-001 / SPEC-001 | docs/vtrace only unless product requirements name code surfaces | Required artifacts exist. | Evidence and review are recorded. | L0: git diff --check / L1: vtrace validate / L2: role review if public claim changes | evidence / trace / review / status rows | proposed |\n"),
         ("VERIFICATION.md", "# Verification\n\n| Requirement ID | Method | Command / Inspection | Expected Result | Status | Evidence |\n|---|---|---|---|---|---|\n| REQ-001 | inspection | Inspect docs/vtrace | Required artifacts exist. | draft | EVID-001 |\n"),
         ("VALIDATION.md", "# Validation\n\n| ID | User / Actor | Scenario | Success Criteria | Evidence | Status |\n|---|---|---|---|---|---|\n| VAL-001 | maintainer | Apply VTRACE first slice. | Trace and evidence are complete. | EVID-001 | draft |\n"),
         ("EVIDENCE.md", "# Evidence Ledger\n\n| Evidence ID | Type | Source / Command | Expected Result | Actual Result | Status |\n|---|---|---|---|---|---|\n| EVID-001 | inspection | docs/vtrace | First VTRACE package exists. | pending | pending |\n"),
@@ -194,7 +194,7 @@ fn plan(root: &Path) -> Result<(), String> {
 
     if open.is_empty() {
         println!("open work packages: none");
-        println!("next: define a DCR and proposed WP before implementation, or run `vtrace status` for readiness.");
+        println!("next: identify the next product capability and affected product surfaces before defining any VTRACE work package, or run `vtrace status` for readiness.");
         return Ok(());
     }
 
@@ -202,7 +202,7 @@ fn plan(root: &Path) -> Result<(), String> {
     for wp in open {
         println!("- {} [{}] {}", wp.id, wp.status, wp.objective);
         println!("  parents: {}", wp.parent_ids);
-        println!("  next: vtrace work start {}", wp.id);
+        println!("  next: implement the product surfaces named by the package, then run `vtrace work start {}` for controlled closeout", wp.id);
     }
     Ok(())
 }
@@ -228,7 +228,7 @@ fn work(args: &[String]) -> Result<(), String> {
     match action {
         "start" => {
             print_work_package("start", &wp);
-            println!("next: satisfy entry criteria, keep changes inside affected surfaces, then run `vtrace work check {wp_id}`");
+            println!("next: implement the named product behavior inside affected surfaces, then run `vtrace work check {wp_id}` for verification and closeout");
             Ok(())
         }
         "check" => {
@@ -836,7 +836,7 @@ fn agent(args: &[String]) -> Result<(), String> {
 
 fn agent_brief_markdown(wp: &vtrace::WorkPackage) -> String {
     format!(
-        "# VTRACE Agent Brief: {}\n\nObjective: {}\nParent IDs: {}\nAllowed surfaces: {}\nEntry criteria: {}\nExit criteria: {}\nRequired validation: {}\nCurrent status: {}\n\nStop conditions:\n- Parent IDs are missing or conflict with the requested change.\n- Required evidence cannot be produced or must be accepted with risk.\n- Required review lanes are pending or blocked.\n- Git status shows unrelated changes that would be staged by the package.\n\nCloseout:\n- Update verification, validation, evidence, review, and work-package status.\n- Run `vtrace work check {}` before closure.\n- Keep child repo commits separate from tracker pointer commits when applicable.\n",
+        "# VTRACE Agent Brief: {}\n\nObjective: {}\nParent IDs: {}\nAllowed surfaces: {}\nEntry criteria: {}\nExit criteria: {}\nRequired validation: {}\nCurrent status: {}\n\nProduct boundary:\n- Implement the product behavior named by the package; do not add VTRACE, work-package, proof, readiness, or evidence UX to the product unless product requirements explicitly define it.\n\nStop conditions:\n- Parent IDs are missing or conflict with the requested change.\n- Required evidence cannot be produced or must be accepted with risk.\n- Required review lanes are pending or blocked.\n- Git status shows unrelated changes that would be staged by the package.\n\nCloseout:\n- Update verification, validation, evidence, review, and work-package status.\n- Run `vtrace work check {}` before closure.\n- Keep child repo commits separate from tracker pointer commits when applicable.\n",
         wp.id,
         wp.objective,
         wp.parent_ids,

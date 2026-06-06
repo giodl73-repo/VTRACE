@@ -28,6 +28,7 @@
 | REQ-DOMAIN-BACKLOG-001 | NEED-001 / NEED-003 / CON-004 | Provide domain backlog templates. | SPEC-024 | DES-008 | WP-015 | `templates/adoption/DOMAIN_BACKLOG.md`, `docs/vtrace/DOMAIN_BACKLOG.md`, `templates/adoption/STAGE_EXECUTION.md`, `docs/vtrace/STAGE_EXECUTION.md` | inspection | VAL-014 | EVID-059 | verified |
 | REQ-FIXTURE-MODEL-001 | NEED-001 / NEED-003 / CON-004 | Provide fixture model templates. | SPEC-025 | DES-008 | WP-015 | `templates/adoption/FIXTURE_MODEL.md`, `docs/vtrace/FIXTURE_MODEL.md`, `templates/adoption/STAGE_EXECUTION.md`, `docs/vtrace/STAGE_EXECUTION.md` | inspection | VAL-014 | EVID-060 | verified |
 | REQ-RESEARCH-001 | NEED-001 / NEED-003 / CON-004 | Provide research-plan templates. | SPEC-026 | DES-008 | WP-016 | `templates/adoption/RESEARCH_PLAN.md`, `docs/vtrace/RESEARCH_PLAN.md`, `templates/adoption/STAGE_EXECUTION.md`, `docs/vtrace/STAGE_EXECUTION.md` | inspection | VAL-015 | EVID-061 | verified |
+| REQ-PRODUCT-BOUNDARY-001 | NEED-001 / NEED-003 / CON-004 | Separate product requirements from VTRACE process, proof, readiness, fixture, and closeout concepts. | SPEC-027 | DES-003 / DES-006 / DES-008 | WP-017 | `README.md`, `docs/framework/vtrace-process.md`, adoption templates, skills, `src/main.rs` | inspection / CLI tests | VAL-016 | EVID-062 | verified |
 
 ## Open Trace Risks
 

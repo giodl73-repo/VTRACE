@@ -4,17 +4,26 @@
 
 Repo or feature:
 
+Product boundary rule: if a concept mentions VTRACE, work packages, reviews,
+readiness, proof, validation, fixtures, or package status, it is not a product
+feature unless it is explicitly restated below as customer-facing product
+behavior. Do not build product subcommands such as `work-package`, `prove`,
+`readiness`, or `evidence` unless the product requirements explicitly define
+them as user-facing toolchain behavior.
+
 ## Work Package Table
 
-| ID | Objective | Parent IDs | Affected Surfaces | Entry Criteria | Exit Criteria | L0 / L1 / L2 | Status |
-|---|---|---|---|---|---|---|---|
-| WP-001 |  | REQ-001 / SPEC-001 / DES-001 / IF-001 |  |  |  | L0: / L1: / L2: | proposed |
+| ID | Objective | Product Requirement | Parent IDs | Affected Surfaces | Entry Criteria | Exit Criteria | L0 / L1 / L2 | VTRACE-Only Closeout | Status |
+|---|---|---|---|---|---|---|---|---|---|
+| WP-001 |  |  | REQ-001 / SPEC-001 / DES-001 / IF-001 |  |  |  | L0: / L1: / L2: | evidence / trace / review / status rows | proposed |
 
 ## Work Package Details
 
 ### WP-001:
 
 Objective:
+
+Product requirement:
 
 Parent requirement IDs:
 
@@ -26,7 +35,7 @@ Design/interface/code-rigor IDs:
 
 Validation scenario IDs:
 
-Affected files/modules:
+Product files/modules/commands/docs to edit:
 
 Entry criteria:
 
@@ -66,6 +75,15 @@ V closure:
 | Gate |  | pending |  |
 
 Validation impact:
+
+VTRACE-only closeout:
+
+- Evidence rows:
+- Trace rows:
+- Verification rows:
+- Validation rows:
+- Review rows:
+- Package status:
 
 Risks:
 

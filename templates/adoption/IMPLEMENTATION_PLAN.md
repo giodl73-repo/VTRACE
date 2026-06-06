@@ -26,18 +26,21 @@ Implementation baseline:
 
 ## Implementation Strategy
 
-Describe how the baseline will be implemented and integrated.
+Describe the product capability to build, the product modules or docs to edit,
+and how the result will be integrated. Keep VTRACE closeout work separate from
+product implementation.
 
 ## Sequencing
 
-| Order | Work Package | Why This Order |
-|---:|---|---|
-| 1 | WP-001 |  |
+| Order | Product Capability | Product Surfaces To Edit | Work Package | Why This Order |
+|---:|---|---|---|---|
+| 1 |  |  | WP-001 |  |
 
 ## Source-To-Work-Package Mapping
 
 Every accepted requirement should map to a work package or an explicit
-disposition.
+disposition. The requirement statement is product scope only unless it
+explicitly says that a VTRACE/process behavior is customer-facing.
 
 | Source IDs | Work Package | Disposition | Notes |
 |---|---|---|---|
@@ -80,6 +83,19 @@ Pulse close condition:
 ## Integration Strategy
 
 Describe how component outputs become the integrated product.
+
+## Product / Process / Verification Split
+
+| Work Package | Product Requirement | Implementation Area | Verification Command | VTRACE-Only Closeout |
+|---|---|---|---|---|
+| WP-001 |  |  |  | evidence / trace / review / status rows |
+
+Boundary rule: if a concept mentions VTRACE, work packages, reviews,
+readiness, proof, validation, fixtures, or package status, it is not a product
+feature unless this table explicitly restates it as customer-facing product
+behavior. Do not build product subcommands such as `work-package`, `prove`,
+`readiness`, or `evidence` unless the product requirements explicitly define
+them as user-facing toolchain behavior.
 
 ## Verification Strategy
 

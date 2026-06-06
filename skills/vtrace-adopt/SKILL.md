@@ -8,6 +8,16 @@ description: Apply the VTRACE V-model process to a target repo by creating or up
 Use this skill after assessment, or when the user asks to apply VTRACE to a
 repo.
 
+## Product Boundary Rule
+
+If a concept mentions VTRACE, work packages, reviews, readiness, proof,
+validation, fixtures, or package status, it is not a product feature unless it
+is explicitly restated as customer-facing product behavior. Keep product
+requirements, implementation coordination, verification mechanics, and
+VTRACE-only closeout records visibly separate. Do not build product subcommands
+such as `work-package`, `prove`, `readiness`, or `evidence` unless the product
+requirements explicitly define them as user-facing toolchain behavior.
+
 ## Workflow
 
 1. Read VTRACE `docs/framework/vtrace-process.md`.
@@ -32,6 +42,7 @@ repo.
     docs-only, or multi-language boundaries.
 11. Add `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md` before non-trivial
    implementation.
+   Start each package with the product capability and product surfaces to edit.
    Map every accepted `REQ-*` and `SPEC-*` to a work package or explicit
    disposition before coding starts.
    Define branch/worktree strategy, commit/push conditions, and L0/L1/L2
@@ -69,6 +80,11 @@ MISSION -> CONOPS -> REQUIREMENTS -> SPECIFICATION_BASELINE -> ARCHITECTURE
 
 - Keep artifacts concise enough to maintain.
 - Do not duplicate existing architecture or product docs; link to them.
+- Do not add VTRACE, work-package, review, readiness, proof, validation,
+  fixture, or package-status concepts to the target product unless the
+  product requirements explicitly make them customer-facing behavior.
+- Prefer work-package names that describe product capability, not validation
+  levels or proof mechanics.
 - Every requirement should have a verification method.
 - Every accepted requirement should map to a specification item or explicit deferral.
 - Every non-trivial implementation slice should be a work package with entry and

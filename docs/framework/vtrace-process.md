@@ -31,6 +31,21 @@ that the left-side decisions were satisfied.
 The practical rule is simple: every left-side stage must name the right-side
 evidence that will prove it.
 
+## Product Boundary Rule
+
+VTRACE separates product requirements, implementation coordination,
+verification mechanics, and VTRACE-only records. Keep those concerns in that
+order in adoption artifacts.
+
+If a concept mentions VTRACE, work packages, reviews, readiness, proof,
+validation, fixtures, or package status, it is not a product feature unless it
+is explicitly restated as customer-facing product behavior. Internal
+verification commands and closeout records must not become product CLI
+commands, product schemas, product docs, or user workflows by accident. Do not
+build product subcommands such as `work-package`, `prove`, `readiness`, or
+`evidence` unless the product requirements explicitly define them as
+user-facing toolchain behavior.
+
 ## Stage Deliverables
 
 | Stage | Deliverable | Purpose | Exit Criteria |
@@ -44,8 +59,8 @@ evidence that will prove it.
 | Interfaces | `docs/vtrace/INTERFACES.md` | Control APIs, CLIs, schemas, file formats, config, and external boundaries. | Interfaces have owners, compatibility rules, and verification methods. |
 | Detailed Design | `docs/vtrace/DESIGN.md` or feature notes | Define algorithms, invariants, state transitions, edge cases, and tradeoffs. | Design decisions link to requirements and expected component evidence. |
 | Code Rigor | `docs/vtrace/CODE_RIGOR.md` | Define coding constraints that make implementation reviewable, testable, statically checkable, and maintainable. | Size, complexity, assertion, error-handling, warning, and static-analysis expectations are set before code is written. |
-| Implementation Planning | `docs/vtrace/IMPLEMENTATION_PLAN.md`, `docs/vtrace/WORK_PACKAGES.md` | Convert the accepted baseline into controlled work packages. | Work packages have parent IDs, entry criteria, exit criteria, verification commands, and review gates. |
-| Implementation | Code, docs, fixtures, generated artifacts | Build the controlled design through approved work packages. | Meaningful implementation surfaces reference requirement, design, interface, code-rigor, and work-package IDs. |
+| Implementation Planning | `docs/vtrace/IMPLEMENTATION_PLAN.md`, `docs/vtrace/WORK_PACKAGES.md` | Convert the accepted product baseline into product implementation slices plus separate closeout checks. | The next product capability, product code/doc area, verification command, and VTRACE closeout record are separate and explicit. |
+| Implementation | Product code, product docs, test data, generated artifacts | Build the controlled design through approved work packages. | Meaningful product implementation surfaces reference requirement, design, interface, code-rigor, and work-package IDs. |
 | Verification | `docs/vtrace/VERIFICATION.md` | Prove the system was built correctly. | Tests, inspections, static checks, schema checks, simulations, or reports cover requirements. |
 | Validation | `docs/vtrace/VALIDATION.md` | Prove the right thing was built for the intended use. | User workflows, acceptance scenarios, demos, or operator review cover mission success criteria. |
 | Communications Strategy | `docs/vtrace/COMMUNICATIONS_STRATEGY.md` | Plan user-facing docs that explain accepted features without replacing specs. | Mission, CONOPS, requirements, specs, interfaces, work packages, and evidence map to docs surfaces and owners. |
@@ -207,12 +222,18 @@ entries.
 Implementation should start only after the relevant baseline is understood.
 For non-trivial work, create `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md`.
 
+The first job of implementation planning is to tell an agent which product
+capability to build next and where to build it. A work package is a control
+wrapper around product work, not a product feature. Name work packages after
+customer-visible or maintainer-visible product capabilities where possible, not
+after proof levels or validation rituals.
+
 Each work package should name:
 
-- objective,
+- product objective,
 - parent requirement/design/interface/code-rigor IDs,
 - parent specification IDs,
-- affected files or modules,
+- affected product files or modules,
 - entry criteria,
 - exit criteria,
 - verification commands,
@@ -227,6 +248,15 @@ verification methods, accepted risks, or code-rigor constraints.
 Use `INTEGRATION_PLAN.md` when multiple components, generated artifacts,
 schemas, public interfaces, or downstream consumers are involved.
 
+Use this structure inside each work package:
+
+1. Product: what behavior changes for users or maintainers.
+2. Implementation: which product modules, commands, APIs, docs, or schemas to
+   edit.
+3. Verification: which tests, checks, scenarios, or inspections prove it.
+4. VTRACE-only: which evidence, review, trace, validation, readiness, and
+   status rows to update after the product change.
+
 ### Verification
 
 Verification proves "built correctly." Methods include:
@@ -235,7 +265,7 @@ Verification proves "built correctly." Methods include:
 - static checks,
 - coding-standard and complexity checks,
 - schema validation,
-- fixture comparison,
+- test-data comparison,
 - inspections,
 - generated reports,
 - reproducible commands.

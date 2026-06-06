@@ -34,6 +34,7 @@ Repo: VTRACE
 | REQ-DOMAIN-BACKLOG-001 | inspection | Inspect domain backlog templates and stage execution files. | Domain backlog templates exist and S1 stage evidence names backlog controls. | passed | EVID-059 |
 | REQ-FIXTURE-MODEL-001 | inspection | Inspect fixture model templates and stage execution files. | Fixture model templates exist and S2 stage evidence names fixture controls. | passed | EVID-060 |
 | REQ-RESEARCH-001 | inspection | Inspect research-plan templates and stage execution files. | Research-plan templates exist and S1 stage evidence names research controls. | passed | EVID-061 |
+| REQ-PRODUCT-BOUNDARY-001 | inspection / CLI tests | Inspect product-boundary guidance and run VTRACE validation/tests. | Core docs, templates, skills, CLI init output, plan output, and agent briefs distinguish product work from VTRACE-only closeout and forbid product process commands unless explicitly required. | passed | EVID-062 |
 
 ## Validation Commands
 
@@ -57,6 +58,7 @@ Repo: VTRACE
 | L2 | `cargo run -- provider list`; `cargo run -- provider check codex`; `cargo run -- provider draft WP-010 --provider codex .`; `cargo run -- roles run WP-010 .`; `cargo run -- report adoption .`; `cargo run -- github issue WP-010 .`; `cargo run -- pulse sync WP-010 .` | passed |
 | L2 | `cargo run -- comms plan .` | passed |
 | L0 | inspect `PROBLEM_SPACE_MAP.md`, `DOMAIN_BACKLOG.md`, `RESEARCH_PLAN.md`, `SPEC_MODEL.md`, `CONTRACT_BOUNDARIES.md`, `SCENARIO_MODEL.md`, `DIAGNOSTIC_MODEL.md`, `FIXTURE_MODEL.md`, and `STAGE_EXECUTION.md` | passed |
+| L1 | product-boundary commands: `git diff --check`; `cargo fmt --check`; `cargo test`; `cargo run -- validate .` | passed |
 
 ## Evidence Ledger
 
@@ -121,3 +123,4 @@ Repo: VTRACE
 | EVID-059 | domain backlog templates | `templates/adoption/DOMAIN_BACKLOG.md`; `docs/vtrace/DOMAIN_BACKLOG.md`; stage execution docs | passed |
 | EVID-060 | fixture model templates | `templates/adoption/FIXTURE_MODEL.md`; `docs/vtrace/FIXTURE_MODEL.md`; stage execution docs | passed |
 | EVID-061 | research-plan templates | `templates/adoption/RESEARCH_PLAN.md`; `docs/vtrace/RESEARCH_PLAN.md`; stage execution docs | passed |
+| EVID-062 | product-boundary guidance and CLI output | `README.md`; `docs/framework/vtrace-process.md`; adoption templates; skills; `src/main.rs`; `cargo test`; `cargo run -- validate .` | passed |
