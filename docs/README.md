@@ -26,6 +26,7 @@ the user docs below when you need to understand, adopt, or teach VTRACE.
 1. Read `concepts/vtrace-in-one-page.md`.
 2. Follow `tutorials/01-minimum-slice.md`.
 3. Use `how-to/adopt-vtrace-in-an-existing-repo.md`.
-4. Run `vtrace comms plan <repo>` when a repo needs user-facing docs.
-5. Check `traces/communications-strategy-trace.md` to see how this docs package
+4. Follow `how-to/run-a-delivery-dashboard.md` when a repo needs a compact operating view over active VTRACE work.
+5. Run `vtrace comms plan <repo>` when a repo needs user-facing docs.
+6. Check `traces/communications-strategy-trace.md` to see how this docs package
    traces back to VTRACE requirements and evidence.
