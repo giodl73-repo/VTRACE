@@ -9,3 +9,4 @@ How-to guides answer focused adoption and operation tasks.
 | `run-the-cli.md` | Use the current VTRACE CLI commands. |
 | `close-a-work-package.md` | Check and close a VTRACE work package. |
 | `prepare-a-role-review.md` | Prepare review lanes for a scoped change. |
+| `run-a-delivery-dashboard.md` | Create a compact delivery dashboard for active VTRACE work. |

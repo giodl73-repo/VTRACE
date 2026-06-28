@@ -126,6 +126,11 @@ constraints for function size, complexity, assertions, error handling, static
 analysis, or warnings. Code rigor is a left-side design constraint with
 right-side verification evidence.
 
+For repos with many active work packages or a growing VTRACE spine, add a short
+`docs/vtrace/DELIVERY_DASHBOARD.md` so the current delivery posture, next
+packages, evidence needs, and blockers are visible without reading the whole
+spine. See `docs/how-to/run-a-delivery-dashboard.md` for the pattern.
+
 For non-trivial work, use `IMPLEMENTATION_PLAN.md` and `WORK_PACKAGES.md` before
 coding. VTRACE implementation slices should have parent IDs, entry criteria,
 exit criteria, verification commands, evidence pointers, and review gates.

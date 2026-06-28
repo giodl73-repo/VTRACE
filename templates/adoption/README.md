@@ -34,6 +34,10 @@ interfaces, design, validation claims, or verification methods. Add
 `INTEGRATION_PLAN.md` when multiple components, schemas, generated artifacts, or
 downstream consumers are involved.
 
+When the active work needs a compact delivery view, add `DELIVERY_DASHBOARD.md`
+so the current posture, next packages, evidence needs, and blockers are visible
+without reading the whole spine.
+
 Use `docs/framework/execution-control.md` for recommended Git branch/worktree
 discipline, commit/push policy, L0/L1/L2 validation levels, and agent handoff
 rules.
