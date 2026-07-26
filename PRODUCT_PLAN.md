@@ -101,5 +101,5 @@ role-review preparation, and agent briefs.
 
 VTRACE is a standards/protocols repo. It may later use MDLOOM for Markdown and
 report validation, MDPATH for stable references, ROLES for review panels, and
-CROP/MDPORT for portable context records. None are required in the foundation
+MDCROP/MDPORT for portable context records. None are required in the foundation
 commit.
