@@ -99,7 +99,7 @@ role-review preparation, and agent briefs.
 
 ## Dependency Posture
 
-VTRACE is a standards/protocols repo. It may later use PROOF for Markdown and
+VTRACE is a standards/protocols repo. It may later use MDLOOM for Markdown and
 report validation, MDPATH for stable references, ROLES for review panels, and
-CROP/PEBBLE for portable context packs. None are required in the foundation
+CROP/MDPORT for portable context records. None are required in the foundation
 commit.
