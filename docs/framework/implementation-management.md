@@ -62,6 +62,13 @@ is controlled and what would count as a change.
 
 ## Work Package Rule
 
+Apply the
+[product-first delivery and infrastructure budget](product-first-infrastructure-budget.md)
+before admitting implementation work. Project-management code is not a product
+work package. A coherent capability reaching the 100-line tripwire must be a
+demonstrable product-feature package or shared infrastructure with a named
+second adopter.
+
 Every implementation slice should be a work package, not a random task. A work
 package has:
 

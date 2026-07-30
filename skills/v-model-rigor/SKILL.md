@@ -22,6 +22,13 @@ toolchain behavior. Do not recommend product subcommands such as
 `work-package`, `prove`, `readiness`, or `evidence` unless the product
 requirements explicitly define that UX.
 
+Apply `docs/framework/product-first-infrastructure-budget.md`. Reuse
+coordination and assurance capability before building it. Treat 100
+handwritten executable lines across one coherent capability as a review
+tripwire: beyond it, code must live in a demonstrable product-feature package
+or in shared infrastructure with a named second adopter. Do not create
+repo-local project-management crates beyond the tripwire.
+
 For repeatable repo adoption, prefer the focused skills:
 
 - `vtrace-assess` for the first assessment.
@@ -51,6 +58,8 @@ repo's source notes or public source URLs.
 
 When proposing that slice, put the product change first, then the product code
 area, then the verification command, then VTRACE evidence/status updates.
+State the consequential user question, demonstration, and separate product
+versus infrastructure line estimates before implementation.
 
 ## VTRACE Stages
 

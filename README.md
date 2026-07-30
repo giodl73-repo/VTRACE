@@ -39,6 +39,13 @@ not build product subcommands such as `work-package`, `prove`, `readiness`, or
 `evidence` unless the product requirements explicitly define them as user-facing
 toolchain behavior.
 
+Apply the
+[product-first delivery and infrastructure budget](docs/framework/product-first-infrastructure-budget.md)
+before adding coordination code. A coherent capability reaching 100
+handwritten executable lines must become either a demonstrable product-feature
+package or shared infrastructure with a named second adopter. Repo-local
+project-management machinery may not grow past that tripwire.
+
 ## First Skill
 
 The main reusable skills are:
