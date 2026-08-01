@@ -33,6 +33,7 @@ objective evidence repeatable across codebases.
 | 15 | NASA technical controls | complete | Add deeper derived technical control map with source-custody posture. |
 | 16 | Rust validator | complete | Port local validator to std-only Rust crate and update self-trace evidence. |
 | 17 | CI validation | complete | Add GitHub Actions workflow for Rust validator checks. |
+| 18 | Evidence-backed capability assessment | complete | Add an optional VERDICT profile with scored-object, hard-floor, iteration, and claim-boundary controls. |
 
 ## Success Criteria
 

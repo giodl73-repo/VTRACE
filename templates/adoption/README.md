@@ -18,6 +18,8 @@ error-handling discipline.
 
 For non-trivial implementation, also add:
 
+- `CAPABILITY_ASSESSMENT.md` when a program, current system, or candidate needs
+  an evidence-backed maturity score without turning that score into approval;
 - `PROBLEM_SPACE_MAP.md`
 - `DOMAIN_BACKLOG.md`
 - `RESEARCH_PLAN.md`

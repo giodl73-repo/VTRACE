@@ -58,6 +58,7 @@ Use it when a repo needs stronger rigor around:
 - verification planning,
 - validation against intended use,
 - objective evidence,
+- evidence-backed program, system, or candidate capability assessment,
 - review gates and readiness criteria.
 
 ## Source Basis
