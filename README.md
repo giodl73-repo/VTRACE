@@ -163,6 +163,20 @@ VTRACE also applies itself to itself. Use `docs/vtrace/README.md` as the
 source-of-truth proof package for current VTRACE requirements, specifications,
 DCRs, work packages, evidence, validation, and review posture.
 
+## Balanced maturity decision
+
+The 2026-08-18 portfolio baseline identified **leverage** as VTRACE's weakest
+rubric dimension at **35.6**, with BISECT as its only explicit downstream
+dependent. The bounded improvement was to record QUEST's already-complete
+`docs/vtrace/` process spine in QUEST's `repo-map.toml`; it added no VTRACE
+command, schema, runtime dependency, or product-facing scope.
+
+The next offline inventory measured **56.5 leverage** and two explicit
+dependents: BISECT and QUEST. Surfacing a proven adoption matters more than
+adding another feature because VTRACE already has substantial framework and CLI
+scope; another surface would increase maintenance burden without demonstrating
+that the existing contract transfers to a real repository.
+
 ## Examples
 
 Start with `examples/hello-world/` to see the complete process on a tiny
