@@ -151,6 +151,23 @@ engineering, traceability, V&V, software assurance, security/privacy,
 safety/risk, source custody, and configuration control.
 Use staged execution and role recommendation guidance to drive completeness and
 create ROLES-conformant review panels in target repos.
+
+When a repository maintains durable engineering doctrine through
+[PITFALL](https://github.com/giodl73-repo/PITFALL), VTRACE should reference its
+local principle, invariant, and pitfall IDs rather than copying their prose into
+requirements or review records. PITFALL owns reusable decision and failure
+knowledge; VTRACE owns the mission-to-evidence trace. A requirement, risk,
+verification method, or review finding may cite doctrine as rationale, but the
+VTRACE validator must not reinterpret whether that doctrine is true.
+
+The three conventions are complementary and optional:
+
+- PITFALL records how the repository decides, what must remain true, and how it
+  repeatedly fails.
+- ROLES identifies which local judgment lenses review the work and its doctrine.
+- VTRACE connects mission, requirements, implementation, verification,
+  validation, evidence, and review decisions.
+
 For portfolio repos that already use waves and pulses, record each VTRACE work
 package inside the active repo-local pulse using `PULSE_EXECUTION.md`.
 Use `COMMUNICATIONS_STRATEGY.md` when a repo needs user-facing docs that are
