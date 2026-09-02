@@ -1,0 +1,65 @@
+{
+  "$schema": "vtrace.pitfall-integration-boundaries.v1",
+  "owner": "VTRACE maintainer",
+  "purpose": "Machine-readable boundaries for live external evidence and PITFALL doctrine ownership.",
+  "authority": {
+    "deterministic_local_validation": "repeatable local VTRACE evidence",
+    "live_provider_github_pulse_or_remote_ci_output": "external evidence only with durable run metadata",
+    "pitfall_ids": "doctrine citations and rationale links",
+    "pitfall_doctrine_truth": "PITFALL-owned principle, invariant, and pitfall semantics",
+    "vtrace_validator": "trace presence, evidence pointer, artifact integrity, and review-record validation"
+  },
+  "pitfall_boundaries": [
+    {
+      "entryId": "VTRACE-PF-04",
+      "requiredOwner": "Live Evidence Custodian",
+      "sourceLayer": "provider, GitHub, pulse, remote CI, or other live helper output",
+      "maySupport": [
+        "external evidence receipt",
+        "remote run citation",
+        "advisory draft packet",
+        "live side-effect audit"
+      ],
+      "requiredMetadata": [
+        "external tool",
+        "auth state",
+        "run identifier or URL",
+        "commit",
+        "explicit live action",
+        "result"
+      ],
+      "blockedClaims": [
+        "deterministic local evidence",
+        "repeatable validation",
+        "canonical artifact update",
+        "work-package closure",
+        "review pass",
+        "provider-authored truth"
+      ]
+    },
+    {
+      "entryId": "VTRACE-PF-05",
+      "requiredOwner": "PITFALL Doctrine Boundary Steward",
+      "sourceLayer": "PITFALL principle, invariant, and pitfall doctrine",
+      "maySupport": [
+        "trace rationale citation",
+        "review finding rationale",
+        "risk or gate reference",
+        "adopter handoff pointer"
+      ],
+      "requiredCitationShape": [
+        "local PITFALL ID",
+        "local PITFALL file path",
+        "evidence pointer",
+        "VTRACE-owned trace row"
+      ],
+      "blockedClaims": [
+        "VTRACE-owned doctrine truth",
+        "copied PITFALL prose as requirement",
+        "VTRACE validator reinterprets PITFALL status",
+        "trace completeness proves doctrine correctness",
+        "PITFALL structure owned by VTRACE"
+      ]
+    }
+  ]
+}

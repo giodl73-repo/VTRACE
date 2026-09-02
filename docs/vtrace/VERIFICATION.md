@@ -35,6 +35,7 @@ Repo: VTRACE
 | REQ-FIXTURE-MODEL-001 | inspection | Inspect fixture model templates and stage execution files. | Fixture model templates exist and S2 stage evidence names fixture controls. | passed | EVID-060 |
 | REQ-RESEARCH-001 | inspection | Inspect research-plan templates and stage execution files. | Research-plan templates exist and S1 stage evidence names research controls. | passed | EVID-061 |
 | REQ-PRODUCT-BOUNDARY-001 | inspection / CLI tests | Inspect product-boundary guidance and run VTRACE validation/tests. | Core docs, templates, skills, CLI init output, plan output, and agent briefs distinguish product work from VTRACE-only closeout and forbid product process commands unless explicitly required. | passed | EVID-062 |
+| REQ-PITFALL-BOUNDARY-001 | inspection / CLI tests | Inspect `docs/vtrace/pitfall-integration-boundaries.v1.json`, role routing, and orchestrator guidance; run CLI integration tests. | Live helper evidence requires durable external-run metadata and PITFALL doctrine remains citation-owned by PITFALL, not VTRACE validator semantics. | passed | EVID-063 |
 
 ## Validation Commands
 
@@ -59,6 +60,7 @@ Repo: VTRACE
 | L2 | `cargo run -- comms plan .` | passed |
 | L0 | inspect `PROBLEM_SPACE_MAP.md`, `DOMAIN_BACKLOG.md`, `RESEARCH_PLAN.md`, `SPEC_MODEL.md`, `CONTRACT_BOUNDARIES.md`, `SCENARIO_MODEL.md`, `DIAGNOSTIC_MODEL.md`, `FIXTURE_MODEL.md`, and `STAGE_EXECUTION.md` | passed |
 | L1 | product-boundary commands: `git diff --check`; `cargo fmt --check`; `cargo test`; `cargo run -- validate .` | passed |
+| L1 | pitfall-boundary commands: `cargo test`; `cargo run -- validate .`; PITFALL validator | passed |
 
 ## Evidence Ledger
 
@@ -124,3 +126,4 @@ Repo: VTRACE
 | EVID-060 | fixture model templates | `templates/adoption/FIXTURE_MODEL.md`; `docs/vtrace/FIXTURE_MODEL.md`; stage execution docs | passed |
 | EVID-061 | research-plan templates | `templates/adoption/RESEARCH_PLAN.md`; `docs/vtrace/RESEARCH_PLAN.md`; stage execution docs | passed |
 | EVID-062 | product-boundary guidance and CLI output | `README.md`; `docs/framework/vtrace-process.md`; adoption templates; skills; `src/main.rs`; `cargo test`; `cargo run -- validate .` | passed |
+| EVID-063 | live-helper and PITFALL ownership boundary | `docs/vtrace/pitfall-integration-boundaries.v1.json`; `.roles/ROLE.md`; `.roles/parliament/live-evidence-custodian.md`; `.roles/parliament/pitfall-doctrine-boundary-steward.md`; `docs/framework/cli-orchestrator.md`; `README.md`; `tests/cli.rs` | passed |

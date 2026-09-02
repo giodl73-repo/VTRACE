@@ -83,3 +83,24 @@ future-agent role review preserve the boundary.
 
 **Evidence:** `docs/framework/product-first-infrastructure-budget.md`,
 `docs/framework/vtrace-process.md`, and `.roles/stakeholders/future-agent.md`.
+
+## VTRACE-INV-06: Live Evidence And PITFALL Ownership Boundaries Are Machine-Readable
+
+**Status:** VERIFIED
+
+**Claim:** Live helper output cannot become deterministic local evidence, and
+PITFALL doctrine cannot become VTRACE-owned validation semantics.
+
+**Why it matters:** VTRACE is the portfolio's trace framework; if it confuses
+external receipts with repeatable local proof or copies PITFALL doctrine into
+trace ownership, downstream repos inherit false evidence confidence.
+
+**Enforcement:** `docs/vtrace/pitfall-integration-boundaries.v1.json` names
+required owners, live metadata fields, citation shape, and blocked claims.
+`tests/cli.rs` asserts the manifest and guidance stay wired into VTRACE's role
+and framework docs.
+
+**Evidence:** `docs/vtrace/pitfall-integration-boundaries.v1.json`,
+`.roles/parliament/live-evidence-custodian.md`,
+`.roles/parliament/pitfall-doctrine-boundary-steward.md`, `.roles/ROLE.md`,
+`docs/framework/cli-orchestrator.md`, `README.md`, and `tests/cli.rs`.

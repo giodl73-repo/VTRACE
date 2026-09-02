@@ -160,6 +160,12 @@ knowledge; VTRACE owns the mission-to-evidence trace. A requirement, risk,
 verification method, or review finding may cite doctrine as rationale, but the
 VTRACE validator must not reinterpret whether that doctrine is true.
 
+VTRACE's self-trace keeps this boundary in
+`docs/vtrace/pitfall-integration-boundaries.v1.json`. The same manifest also
+records the live-helper evidence rule: provider, GitHub, pulse, and remote CI
+output is external evidence only when the receipt records tool, auth state, run
+identifier or URL, commit, explicit live action, and result.
+
 The three conventions are complementary and optional:
 
 - PITFALL records how the repository decides, what must remain true, and how it

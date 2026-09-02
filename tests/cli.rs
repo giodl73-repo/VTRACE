@@ -376,6 +376,42 @@ fn provider_draft_dry_run_reports_advisory_packet() {
 }
 
 #[test]
+fn pitfall_boundaries_keep_live_evidence_and_doctrine_ownership_separate() {
+    let root = repo_root();
+    let manifest =
+        fs::read_to_string(root.join("docs/vtrace/pitfall-integration-boundaries.v1.json"))
+            .unwrap();
+    assert!(manifest.contains("\"entryId\": \"VTRACE-PF-04\""));
+    assert!(manifest.contains("\"requiredOwner\": \"Live Evidence Custodian\""));
+    assert!(manifest.contains("\"external tool\""));
+    assert!(manifest.contains("\"auth state\""));
+    assert!(manifest.contains("\"run identifier or URL\""));
+    assert!(manifest.contains("\"explicit live action\""));
+    assert!(manifest.contains("\"deterministic local evidence\""));
+    assert!(manifest.contains("\"entryId\": \"VTRACE-PF-05\""));
+    assert!(manifest.contains("\"requiredOwner\": \"PITFALL Doctrine Boundary Steward\""));
+    assert!(manifest.contains("\"local PITFALL ID\""));
+    assert!(manifest.contains("\"VTRACE validator reinterprets PITFALL status\""));
+
+    let role_index = fs::read_to_string(root.join(".roles/ROLE.md")).unwrap();
+    assert!(role_index.contains("Live Evidence Custodian"));
+    assert!(role_index.contains("PITFALL Doctrine Boundary Steward"));
+    assert!(role_index.contains("external tool, auth state, run identifier or URL"));
+    assert!(role_index.contains("PITFALL owns doctrine truth and structure"));
+
+    let orchestrator = fs::read_to_string(root.join("docs/framework/cli-orchestrator.md")).unwrap();
+    assert!(orchestrator
+        .contains("Live provider, GitHub, pulse, and remote CI output becomes evidence only"));
+    assert!(orchestrator.contains("VTRACE validators must not copy"));
+    assert!(orchestrator.contains("PITFALL prose"));
+
+    let readme = fs::read_to_string(root.join("README.md")).unwrap();
+    assert!(readme.contains("PITFALL owns reusable decision and failure"));
+    assert!(readme.contains("knowledge"));
+    assert!(readme.contains("records the live-helper evidence rule"));
+}
+
+#[test]
 fn adoption_report_summarizes_self_package() {
     let output = run(&["report", "adoption", "."]);
     assert!(output.status.success(), "{}", command_output(&output));

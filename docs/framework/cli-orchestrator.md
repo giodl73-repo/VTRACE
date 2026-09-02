@@ -92,6 +92,11 @@ Adapters must not:
 Provider output should be stored as `proposed`, `review_needed`, or
 `accepted_with_changes` until committed into canonical artifacts.
 
+Live provider, GitHub, pulse, and remote CI output becomes evidence only when
+the receipt records the external tool, auth state, run identifier or URL,
+commit, explicit live action, and result. Without that metadata it remains an
+advisory helper result, not deterministic local validation.
+
 ## Agent And Worktree Model
 
 Agent execution should be one work package at a time. A generated brief should
@@ -151,6 +156,11 @@ explains how mission, CONOPS, requirements, specs, interfaces, work packages,
 and evidence become user-facing docs. Live provider/GitHub/pulse actions
 require explicit `--live`; dry-run output remains the default for deterministic
 use.
+
+PITFALL integration stays citation-based. VTRACE rows, reviews, and templates
+may cite local PITFALL IDs and paths, but VTRACE validators must not copy
+PITFALL prose into VTRACE-owned requirement semantics or decide whether
+PITFALL doctrine is true.
 
 ## Validation
 

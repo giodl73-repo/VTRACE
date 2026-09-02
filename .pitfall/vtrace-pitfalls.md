@@ -64,7 +64,7 @@ records.
 
 ## VTRACE-PF-04: Live Helper Output Becomes Deterministic Evidence
 
-**Status:** OPEN
+**Status:** MITIGATED
 
 **Pattern:** Provider, GitHub, pulse, or remote CI output is treated as
 repeatable local evidence without recording the external tool, auth state, run
@@ -78,14 +78,19 @@ surfaces, while remote systems can change independently of the repo.
 
 **Structural solution:** Keep dry-runs deterministic, require explicit live
 flags and availability checks, and record durable run metadata whenever live
-external systems provide evidence.
+external systems provide evidence. The Live Evidence Custodian role and
+`docs/vtrace/pitfall-integration-boundaries.v1.json` block live helper output
+from becoming deterministic local evidence, repeatable validation, canonical
+artifact updates, work-package closure, review pass, or provider-authored truth.
 
 **Evidence:** `docs/framework/cli-orchestrator.md`, `docs/how-to/run-the-cli.md`,
-`docs/vtrace/TRACE.md`, `docs/vtrace/VERIFICATION.md`, and `tests/cli.rs`.
+`docs/vtrace/TRACE.md`, `docs/vtrace/VERIFICATION.md`,
+`docs/vtrace/pitfall-integration-boundaries.v1.json`, `.roles/ROLE.md`,
+`.roles/parliament/live-evidence-custodian.md`, and `tests/cli.rs`.
 
 ## VTRACE-PF-05: PITFALL Doctrine Is Copied Into Trace Ownership
 
-**Status:** OPEN
+**Status:** MITIGATED
 
 **Pattern:** VTRACE requirements, validators, or review records copy PITFALL
 principle and pitfall prose, then start treating doctrine truth as a VTRACE
@@ -99,8 +104,13 @@ VTRACE is tracing evidence or PITFALL is preserving decision doctrine.
 
 **Structural solution:** Cite local PITFALL IDs from VTRACE rows and reviews,
 keep PITFALL validators responsible for doctrine structure, and keep VTRACE
-validators limited to trace/evidence presence and artifact integrity.
+validators limited to trace/evidence presence and artifact integrity. The
+PITFALL Doctrine Boundary Steward role and
+`docs/vtrace/pitfall-integration-boundaries.v1.json` block copied PITFALL prose
+from becoming VTRACE-owned requirement semantics or validator truth.
 
 **Evidence:** `README.md`, `.roles/ROLE.md`,
 `docs/vtrace/ROLE_RECOMMENDATIONS.md`, and
-`docs/framework/vtrace-process.md`.
+`docs/framework/vtrace-process.md`,
+`docs/vtrace/pitfall-integration-boundaries.v1.json`,
+`.roles/parliament/pitfall-doctrine-boundary-steward.md`, and `tests/cli.rs`.
