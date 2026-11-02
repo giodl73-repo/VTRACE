@@ -1,0 +1,12 @@
+{
+  "entry": "7d4f7d25b07769f806e6ecfb973fd0461d43065f",
+  "git_lf_files_sha256": {
+    "src/main.rs": "81ba0a613255832efd84cc5d5b591c79cfd638cbf55891806dc2f1ede2b7c42e",
+    "tests/cli.rs": "b1597757a451a5478ea7b9c93ad028d0af40878403fd792a74f04617c17cb2c5",
+    "Cargo.toml": "fd48442c4c185eb7945592af6bb00f437af23658339a0307864edf7016163515",
+    "Cargo.lock": "08862f5e63d874418c36a21adb1052526196a686e30465e856752c2f324022ef"
+  },
+  "original_unit_module_sha256": "caeb7f18e1b48bfe7b54aab511bc6c09a6fb547dd42ffe657626fb043ae95a52",
+  "original_unit_tests": 9,
+  "original_cli_tests": 22
+}

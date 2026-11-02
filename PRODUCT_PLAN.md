@@ -109,8 +109,9 @@ new orchestration layer for target products.
 The target contract and current/target distinction are in
 `browser/package-inspector/SPEC.md`; implementation and qualification evidence
 are in `context/waves/2026-11-02-package-wasm/`. Native compatibility and local
-adapter/Node-WASM probes pass. Own-file UI, browser-worker recovery, corresponding
-source/legal delivery and hosted/default/live gates remain open. A structural
+adapter/Node-WASM probes pass. The editable own-file UI and real browser-worker
+task/recovery suite also pass locally. Corresponding source/legal delivery,
+outside-Git replay and hosted/default/live gates remain open. A structural
 report does not execute or certify caller evidence, reviews, status, product
 acceptance, compliance, safety or NASA endorsement.
 

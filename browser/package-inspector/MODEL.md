@@ -31,5 +31,11 @@ acceptance, safety, compliance or NASA endorsement. References remain inert.
 
 Original filesystem APIs and their error fallback remain native-compatible.
 The browser UI must reject undecodable UTF-8 instead of silently replacing bytes.
-Real worker/read/startup/compute deadlines and compiled memory limits still need
-full runtime/browser qualification; native adapter tests alone do not prove them.
+The UI uses real 5/12/10-second read/startup/compute deadlines and worker
+generation, job and input-revision fences. Accepted input/report exports remain
+separate from the current draft; finding navigation uses accepted text and keeps
+newer edits. Original opened bytes are retained per admitted filename (at most
+eleven files of64KiB each), including draft files later removed. Failed multi-file
+reads commit neither partial drafts nor partial original-byte collections.
+The 21-case task/recovery suite and real worker comparisons qualify these paths;
+packaged delivery, outside-Git replay and hosted/default/live custody are separate.
