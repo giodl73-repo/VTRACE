@@ -1,0 +1,50 @@
+{
+  "schema": "vtrace.browser-implementation-qualification.v1",
+  "scope": "Software implementation qualification at named branch/PR checkout; NOT default deployment, live publication, product acceptance, independent human review or NASA endorsement.",
+  "checked_at_utc": "2026-11-02T16:52:42.354639+00:00",
+  "tool": "GitHub CLI 2.103.3",
+  "auth_context": "Stored giodl73-repo credentials; GH_TOKEN unset; no live provider/helper calls.",
+  "live_action": "gh run view 41483576915 --repo giodl73-repo/VTRACE --json databaseId,headSha,status,conclusion,jobs,url; gh run download --name package-inspector-qualification",
+  "repository": "giodl73-repo/VTRACE",
+  "branch_head": "d8472c5a3a6675de070d1570afd7f247fb3fa659",
+  "qualified_pr_checkout_commit": "9ba7aeda8fbe4d7832a078ec05522f5d9c55ed8e",
+  "run_id": 41483576915,
+  "url": "https://github.com/giodl73-repo/VTRACE/actions/runs/41483576915",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "databaseId": 125407937563,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "databaseId": 125411235455,
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "native_cases": 36,
+  "independent_original_cli_findings_controls": 17,
+  "packaged_browser_checks": 23,
+  "source_replay": {
+    "commit": "9ba7aeda8fbe4d7832a078ec05522f5d9c55ed8e",
+    "source_files": 246,
+    "original_native_tests": 31,
+    "reader_tests": 4,
+    "adapter_tests": 7,
+    "native_outcomes_identical": 36,
+    "original_cli_controls_identical": 17,
+    "browser_task_and_recovery_checks": 21,
+    "binary_identity_claim": false,
+    "outside_git_path_with_spaces_verified": true
+  },
+  "local_prior_baseline_controls": {
+    "count": 16,
+    "canonical_json_sha256": "67e4618bde1cf48ec07f72c8cc090e4a1462d0c770669387290299d33bcfdcea",
+    "scope": "Frozen original native CLI outputs before/after reader refactor; separate from new17finding-control cases."
+  },
+  "native_core_dependency_posture": "std-only; original CLI,root manifest/lock and31original tests frozen; four added reader tests and seven companion tests.",
+  "remaining": "Final candidate repeat, merge, default Pages artifact, fresh live23checks and exact served-file hashes, then TRACKER snapshot."
+}

@@ -7,7 +7,7 @@ run the existing Rust structural checks, locate each finding in the original
 file/line and inspect the original package summary, work-package, review-lane
 and communication rows without installing a CLI. The browser feature is a
 dedicated unpublished product companion, not repo-management infrastructure.
-Its requirement is REQ-BROWSER-001; SPEC-BROWSER-001 is a target until qualified.
+Its requirement is REQ-BROWSER-001; SPEC-BROWSER-001 began as a target and is now software-implementation qualified; publication remains separately gated.
 The existing filesystem validator and CLI are current behavior and stay valid.
 
 Reuse the original library's complete ten check passes and public extraction
@@ -19,11 +19,12 @@ CLI's orchestration commands remain their own capability.
 
 ## Trace, work package and evidence
 
-WP-BROWSER-001 belongs to this wave while implementation is open; its target
-specification is `browser/package-inspector/SPEC.md`. The existing closed native
-self-package and original CLI assertion that it has no open work packages are
-preserved during portability qualification. New browser evidence is scoped to
-this wave; structural status must never be presented as implementation approval.
+WP-BROWSER-001 was scoped in this wave before code; its
+specification is `browser/package-inspector/SPEC.md`. The original native
+self-package stayed frozen during portability qualification. After actual local
+and hosted implementation qualification, the completed software work package
+and supporting controlled trace/evidence/review rows are promoted into self-trace.
+Default/live publication stays in this wave; structural status is never approval.
 
 Current canonical7d4f7d2 contains two PITFALL commits beyond public main df46242.
 Preserve it remotely as pitfall/integration-boundaries-20261102. Isolate work in

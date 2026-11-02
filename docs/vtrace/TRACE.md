@@ -30,6 +30,7 @@
 | REQ-RESEARCH-001 | NEED-001 / NEED-003 / CON-004 | Provide research-plan templates. | SPEC-026 | DES-008 | WP-016 | `templates/adoption/RESEARCH_PLAN.md`, `docs/vtrace/RESEARCH_PLAN.md`, `templates/adoption/STAGE_EXECUTION.md`, `docs/vtrace/STAGE_EXECUTION.md` | inspection | VAL-015 | EVID-061 | verified |
 | REQ-PRODUCT-BOUNDARY-001 | NEED-001 / NEED-003 / CON-004 | Separate product requirements from VTRACE process, proof, readiness, fixture, and closeout concepts. | SPEC-027 | DES-003 / DES-006 / DES-008 | WP-017 | `README.md`, `docs/framework/vtrace-process.md`, adoption templates, skills, `src/main.rs` | inspection / CLI tests | VAL-016 | EVID-062 | verified |
 | REQ-PITFALL-BOUNDARY-001 | NEED-001 / NEED-003 / CON-004 | Preserve live-helper evidence boundaries and PITFALL doctrine ownership when VTRACE integrates external helper output or PITFALL IDs. | SPEC-028 | DES-006 / DES-008 | WP-018 | `docs/vtrace/pitfall-integration-boundaries.v1.json`, `README.md`, `.roles/ROLE.md`, `docs/framework/cli-orchestrator.md`, `tests/cli.rs` | inspection / CLI tests | VAL-017 | EVID-063 | verified |
+| REQ-BROWSER-001 | NEED-001 / NEED-003 / CON-004 | Inspect owned Markdown and locate/edit structural gaps without installing native tooling. | SPEC-BROWSER-001 | PackageReader plus dedicated browser product companion | WP-BROWSER-001 | src/lib.rs; browser/package-inspector | native/worker/CLI parity; input/recovery/source checks | VAL-BROWSER-001 | EVID-BROWSER-001 | software implementation verified; default/live publication separate |
 
 ## Open Trace Risks
 

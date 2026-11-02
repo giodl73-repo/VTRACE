@@ -5,6 +5,10 @@ p=argparse.ArgumentParser();p.add_argument('--bindgen',required=True,type=Path);
 B=Path(__file__).resolve().parent;R=B.parents[1];archive=R/'target/package-release/VTRACE/source.zip'
 expected=json.loads((B/'.cache/native-cases.json').read_text(encoding='utf-8'));controls=json.loads((B/'.cache/cli-controls.json').read_text(encoding='utf-8'))
 env=os.environ.copy();env.setdefault('CARGO_TARGET_DIR',str(R/'target/cargo'))
+env.pop('VTRACE_URL',None)
+# Tests embed CARGO_MANIFEST_DIR. Keep temporary-source executables out of the
+# normal checkout's dev profile, while reusing the same dependency target cache.
+profile=['--config','profile.vtrace-replay.inherits="dev"','--profile','vtrace-replay']
 with tempfile.TemporaryDirectory(prefix='vtrace delivered source ') as tmp:
     tmp=Path(tmp).resolve()
     with zipfile.ZipFile(archive) as source:
@@ -12,10 +16,13 @@ with tempfile.TemporaryDirectory(prefix='vtrace delivered source ') as tmp:
         source.extractall(tmp)
     root=tmp/'VTRACE-source';record=json.loads((root/'.source-record.json').read_text(encoding='utf-8'));assert not list(root.rglob('.git'))
     for file in record['files']:assert hashlib.sha256((root/file['path']).read_bytes()).hexdigest()==file['sha256'],file['path']
+    # Each replay has a new root. Force first-party compile-time paths to follow
+    # this extraction even if another replay populated the shared profile.
+    for file in root.rglob('*.rs'):file.touch()
     def run(argv,cwd=root):subprocess.run([str(x)for x in argv],cwd=cwd,env=env,check=True)
-    run(['cargo','+1.95.0','test','--locked'])
-    run(['cargo','+1.95.0','test','--manifest-path','browser/package-inspector/Cargo.toml','--all-targets','--locked'])
-    run(['python',root/'browser/package-inspector/build-prototype.py','--bindgen',args.bindgen.resolve()])
+    run(['cargo','+1.95.0','test','--locked',*profile])
+    run(['cargo','+1.95.0','test','--manifest-path','browser/package-inspector/Cargo.toml','--all-targets','--locked',*profile])
+    run(['python',root/'browser/package-inspector/build-prototype.py','--bindgen',args.bindgen.resolve(),'--native-profile','vtrace-replay'])
     companion=root/'browser/package-inspector'
     rebuilt=json.loads((companion/'.cache/native-cases.json').read_text(encoding='utf-8'));assert rebuilt==expected,'Delivered source input/report drift'
     compared=json.loads((companion/'.cache/cli-controls.json').read_text(encoding='utf-8'));assert compared==controls,'Delivered-source original CLI finding/control drift'

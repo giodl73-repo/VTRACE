@@ -43,6 +43,12 @@ delivery, and `python browser/package-inspector/verify-source.py --bindgen
 Use the same commands on Linux; install Chromium system dependencies with
 `npx playwright install --with-deps chromium` where needed.
 
+Source replay uses the `vtrace-replay` Cargo profile inside the same target cache.
+Native tests embed their source directory at compile time, so temporary-source
+test executables must not replace the ordinary checkout's dev-profile tests.
+Each extraction refreshes first-party Rust timestamps before compilation and
+clears any inherited live-site URL before testing its own rebuilt browser files.
+
 Original opened bytes, draft input, normalized editor text, accepted input and
 accepted report remain distinct. Findings refer to accepted source. Source,
 compiled-WASM, build and licensing routes work independently of engine startup.

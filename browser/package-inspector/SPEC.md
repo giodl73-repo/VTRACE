@@ -1,6 +1,6 @@
 # Supplied Markdown package inspection
 
-REQ-BROWSER-001 (target): a maintainer can supply the eleven Markdown artifact
+REQ-BROWSER-001 (current software implementation; publication gated): a maintainer can supply the eleven Markdown artifact
 types consumed by the existing Rust validator, inspect its complete findings
 with source file/line locations and its package/work/review/communication rows,
 edit a supplied artifact and export original inputs, current inputs and reports.
@@ -8,7 +8,7 @@ An original synthetic missing-trace example demonstrates a finding disappearing
 when the matching reference is supplied. Original text stays distinct from
 editor normalization and accepted input/report state.
 
-SPEC-BROWSER-001 (target): a dedicated Rust/WASM companion invokes all original
+SPEC-BROWSER-001 (current software implementation; publication gated): a dedicated Rust/WASM companion invokes all original
 `run_checks` rules and all original public extraction functions through the
 same library reader interface. The native filesystem APIs, CLI behavior and
 std-only production dependency posture remain. Browser input is a logical
@@ -35,5 +35,5 @@ URLs and evidence references are displayed as inert caller text, never executed.
 
 Evidence: this wave's native controls, adapter/native/WASM outputs, original CLI
 comparisons, browser/recovery cases, outside-Git source replay and exact live
-artifact receipts. Gate commands and sequencing are in
+artifact receipts. Controlled self-trace maps this to WP-BROWSER-001 and EVID-BROWSER-001 after implementation qualification. Gate commands and sequencing are in
 `context/waves/2026-11-02-package-wasm/WAVE.md`. No publication is claimed yet.

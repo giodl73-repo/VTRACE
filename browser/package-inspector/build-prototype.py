@@ -3,14 +3,15 @@ import argparse,hashlib,json,os,re,shutil,subprocess,tempfile
 from pathlib import Path
 from controls import NAMES,requests
 
-parser=argparse.ArgumentParser();parser.add_argument('--bindgen',required=True,type=Path);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--bindgen',required=True,type=Path);parser.add_argument('--native-profile',choices=['dev','vtrace-replay'],default='dev');args=parser.parse_args()
 B=Path(__file__).resolve().parent;R=B.parents[1];C=B/'.cache';C.mkdir(exist_ok=True)
 env=os.environ.copy();target=Path(env.get('CARGO_TARGET_DIR',R/'target/cargo')).resolve();env['CARGO_TARGET_DIR']=str(target)
 env['CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS']='-C link-arg=--max-memory=67108864'
 def run(argv,**kwargs):return subprocess.run([str(x) for x in argv],cwd=R,env=env,check=True,**kwargs)
 assert subprocess.check_output([str(args.bindgen.resolve()),'--version']).decode().strip()=='wasm-bindgen 0.2.127'
 run(['python',B/'verify-foundation.py'])
-run(['cargo','+1.95.0','build','--locked','--bin','vtrace'])
+profile=[] if args.native_profile=='dev' else ['--config','profile.vtrace-replay.inherits="dev"','--profile','vtrace-replay']
+run(['cargo','+1.95.0','build','--locked','--bin','vtrace',*profile])
 for extra in [[],['--lib','--target','wasm32-unknown-unknown']]:
     run(['cargo','+1.95.0','build','--manifest-path',B/'Cargo.toml','--release','--locked',*extra])
 S=R/'target/package-prototype/VTRACE';S.mkdir(parents=True,exist_ok=True)
@@ -18,7 +19,7 @@ shutil.copytree(B/'web',S,dirs_exist_ok=True)
 run([args.bindgen.resolve(),target/'wasm32-unknown-unknown/release/vtrace_package_inspector.wasm','--target','web','--out-dir',S/'pkg'])
 for file in (S/'pkg').glob('*.d.ts'):file.unlink()
 suffix='.exe' if os.name=='nt' else ''
-native=target/('release/vtrace-package-control'+suffix);original=target/('debug/vtrace'+suffix)
+native=target/('release/vtrace-package-control'+suffix);original=target/(('debug' if args.native_profile=='dev' else args.native_profile)+'/vtrace'+suffix)
 records=[];cli_controls=[]
 with tempfile.TemporaryDirectory(prefix='vtrace independent cli ') as temporary:
     temporary=Path(temporary).resolve();directory=temporary/'docs/vtrace';directory.mkdir(parents=True)

@@ -36,6 +36,7 @@ Repo: VTRACE
 | REQ-RESEARCH-001 | inspection | Inspect research-plan templates and stage execution files. | Research-plan templates exist and S1 stage evidence names research controls. | passed | EVID-061 |
 | REQ-PRODUCT-BOUNDARY-001 | inspection / CLI tests | Inspect product-boundary guidance and run VTRACE validation/tests. | Core docs, templates, skills, CLI init output, plan output, and agent briefs distinguish product work from VTRACE-only closeout and forbid product process commands unless explicitly required. | passed | EVID-062 |
 | REQ-PITFALL-BOUNDARY-001 | inspection / CLI tests | Inspect `docs/vtrace/pitfall-integration-boundaries.v1.json`, role routing, and orchestrator guidance; run CLI integration tests. | Live helper evidence requires durable external-run metadata and PITFALL doctrine remains citation-owned by PITFALL, not VTRACE validator semantics. | passed | EVID-063 |
+| REQ-BROWSER-001 | native and executing-WASM comparison; original CLI; browser/source inspection | cargo test; companion tests/lint; build-prototype.py; verify-release.py; verify-source.py | Original native behavior and bounded own-file task qualify; artifact/source/routes/custody/recovery remain explicit. | passed for software implementation; publication separate | EVID-BROWSER-001 |
 
 ## Validation Commands
 
