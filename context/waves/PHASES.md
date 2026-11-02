@@ -4,7 +4,11 @@ Work is organized into small waves and pulses.
 
 ## Active wave
 
-- `2026-05-28-foundation`
+- `2026-11-02-package-wasm` — supplied-package browser inspector in qualification.
+
+## Completed foundation
+
+- `2026-05-28-foundation` — original framework/native validator foundation.
 
 ## Protocol
 

@@ -4,6 +4,10 @@
 
 Repo: VTRACE self-adoption
 
+Browser addendum: software implementation qualification only. Default/live publication
+remains in the active browser wave. Review lenses are agent-simulated, not independent
+human sign-off or NASA authority.
+
 Gate type: specification / implementation readiness
 
 Decision: pass
@@ -15,8 +19,8 @@ Decision: pass
 | Systems engineering | yes | pass | Mission, CONOPS, requirements, specs, architecture, and trace exist. |
 | Requirements traceability | yes | pass | `REQ-*` maps to `SPEC-*`, evidence, validation, and DCRs. |
 | V&V | yes | pass | Verification, validation, evidence, checklist, validator, and realistic migration example evidence exist. |
-| Software assurance | yes | pass | Validator is dependency-free, tested, and profile-guided; CI packaging remains future hardening, not readiness-blocking. |
-| Security/privacy | no | not_required | Current change is documentation/process only. |
+| Software assurance | yes | pass_with_risk | Native core stays std-only with original CLI/tests/locks preserved; the separate companion has pinned dependencies and native/worker/source gates in EVID-BROWSER-001. Native heuristics remain deliberately coarse. |
+| Security/privacy | yes | pass_with_risk | Browser text input, worker, dependency/artifact custody and inert rendering are scoped and tested; atomic reads/results, fixed byte/line/memory budgets and real deadlines preserve accepted state. Caller assertions remain unverified. EVID-BROWSER-001. |
 | Safety/mission impact | no | not_required | No safety-critical runtime behavior. |
 | Source custody | yes | pass | Source custody remains pointer-first. |
 | Configuration/change control | yes | pass | DCRs now govern missing capabilities and future semantic changes. |
@@ -24,6 +28,8 @@ Decision: pass
 | Template minimalism | yes | pass | VTRACE self-trace remains thorough while target repos retain a smaller minimum slice. |
 | Repo maintainer | yes | pass | Maintainers have DCRs, work packages, profiles, validator, and examples to drive next work. |
 | Future agent | yes | pass | IDs, DCRs, work packages, evidence, pulse history, and review posture are sufficient to resume. |
+| Browser intended use (agent/automated) | yes | pass_with_risk | Original native findings and known-field rows, own-edit example, source navigation, byte custody, mobile/keyboard and recovery scenarios pass. This is not human usability research or product/domain assurance. EVID-BROWSER-001 / VAL-BROWSER-001. |
+| Live implementation evidence custody | yes | pass | browser-implementation-qualification.v1.json records external tool/auth, action, run URL/ID, branch/checkout commits, conclusion and source replay; default/live completion is explicitly not inferred. |
 
 ## Findings
 

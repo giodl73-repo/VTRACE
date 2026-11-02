@@ -2,6 +2,45 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 
+/// Reads supplied package text and presence without choosing validation policy.
+/// Native wrappers use the filesystem; portable callers supply their own reader.
+/// Read errors keep the original validator's empty-text fallback behavior.
+pub trait PackageReader {
+    fn exists(&self, path: &Path) -> bool;
+    fn read_to_string(&self, path: &Path) -> std::io::Result<String>;
+}
+
+/// Original native filesystem behavior, including ordinary path existence rules.
+pub struct FileSystemReader;
+impl PackageReader for FileSystemReader {
+    fn exists(&self, path: &Path) -> bool {
+        path.exists()
+    }
+    fn read_to_string(&self, path: &Path) -> std::io::Result<String> {
+        fs::read_to_string(path)
+    }
+}
+
+pub fn package_summary(root: &Path) -> PackageSummary {
+    package_summary_with_reader(&FileSystemReader, root)
+}
+pub fn work_package(root: &Path, wanted_id: &str) -> Option<WorkPackage> {
+    work_package_with_reader(&FileSystemReader, root, wanted_id)
+}
+pub fn work_packages(root: &Path) -> Vec<WorkPackage> {
+    work_packages_with_reader(&FileSystemReader, root)
+}
+pub fn review_lanes(root: &Path) -> Vec<ReviewLane> {
+    review_lanes_with_reader(&FileSystemReader, root)
+}
+pub fn communication_surfaces(root: &Path) -> Vec<CommunicationSurface> {
+    communication_surfaces_with_reader(&FileSystemReader, root)
+}
+pub fn run_checks(root: &Path) -> Vec<Finding> {
+    let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
+    run_checks_with_reader(&FileSystemReader, &root)
+}
+
 const REQUIRED_FILES: [&str; 6] = [
     "MISSION.md",
     "REQUIREMENTS.md",
@@ -88,8 +127,9 @@ fn add(
     });
 }
 
-fn read_lines(path: &Path) -> Vec<String> {
-    fs::read_to_string(path)
+fn read_lines(source: &dyn PackageReader, path: &Path) -> Vec<String> {
+    source
+        .read_to_string(path)
         .unwrap_or_default()
         .lines()
         .map(ToOwned::to_owned)
@@ -116,11 +156,11 @@ fn is_separator(cells: &[String]) -> bool {
         })
 }
 
-fn table_rows(path: &Path) -> Vec<(usize, BTreeMap<String, String>)> {
+fn table_rows(source: &dyn PackageReader, path: &Path) -> Vec<(usize, BTreeMap<String, String>)> {
     let mut rows = Vec::new();
     let mut header: Option<Vec<String>> = None;
 
-    for (line_index, line) in read_lines(path).iter().enumerate() {
+    for (line_index, line) in read_lines(source, path).iter().enumerate() {
         let line_no = line_index + 1;
         let cells = split_row(line);
         if cells.is_empty() {
@@ -142,13 +182,13 @@ fn table_rows(path: &Path) -> Vec<(usize, BTreeMap<String, String>)> {
     rows
 }
 
-fn collect_ids(path: &Path, prefix: &str) -> BTreeMap<String, usize> {
+fn collect_ids(source: &dyn PackageReader, path: &Path, prefix: &str) -> BTreeMap<String, usize> {
     let mut ids = BTreeMap::new();
-    if !path.exists() {
+    if !source.exists(path) {
         return ids;
     }
 
-    for (line_index, line) in read_lines(path).iter().enumerate() {
+    for (line_index, line) in read_lines(source, path).iter().enumerate() {
         let line_no = line_index + 1;
         for token in id_tokens(line) {
             if id_has_prefix(&token, prefix) {
@@ -181,10 +221,14 @@ fn id_has_prefix(token: &str, prefix: &str) -> bool {
     token == prefix || token.starts_with(&format!("{prefix}-"))
 }
 
-fn check_required_files(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_required_files(
+    source: &dyn PackageReader,
+    vtrace_dir: &Path,
+    findings: &mut Vec<Finding>,
+) {
     for name in REQUIRED_FILES {
         let path = vtrace_dir.join(name);
-        if !path.exists() {
+        if !source.exists(&path) {
             add(
                 findings,
                 "ERROR",
@@ -196,12 +240,16 @@ fn check_required_files(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_requirements_trace(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_requirements_trace(
+    source: &dyn PackageReader,
+    vtrace_dir: &Path,
+    findings: &mut Vec<Finding>,
+) {
     let req_path = vtrace_dir.join("REQUIREMENTS.md");
     let trace_path = vtrace_dir.join("TRACE.md");
-    let trace_text = fs::read_to_string(&trace_path).unwrap_or_default();
+    let trace_text = source.read_to_string(&trace_path).unwrap_or_default();
 
-    for (req_id, line_no) in collect_ids(&req_path, "REQ") {
+    for (req_id, line_no) in collect_ids(source, &req_path, "REQ") {
         if !trace_text.contains(&req_id) {
             add(
                 findings,
@@ -214,12 +262,12 @@ fn check_requirements_trace(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_spec_trace(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_spec_trace(source: &dyn PackageReader, vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     let spec_path = vtrace_dir.join("SPECIFICATION_BASELINE.md");
     let trace_path = vtrace_dir.join("TRACE.md");
-    let trace_text = fs::read_to_string(&trace_path).unwrap_or_default();
+    let trace_text = source.read_to_string(&trace_path).unwrap_or_default();
 
-    for (spec_id, line_no) in collect_ids(&spec_path, "SPEC") {
+    for (spec_id, line_no) in collect_ids(source, &spec_path, "SPEC") {
         if !trace_text.contains(&spec_id) {
             add(
                 findings,
@@ -232,15 +280,21 @@ fn check_spec_trace(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_evidence_pointers(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_evidence_pointers(
+    source: &dyn PackageReader,
+    vtrace_dir: &Path,
+    findings: &mut Vec<Finding>,
+) {
     let evidence_path = vtrace_dir.join("EVIDENCE.md");
     let trace_path = vtrace_dir.join("TRACE.md");
-    if !evidence_path.exists() || !trace_path.exists() {
+    if !source.exists(&evidence_path) || !source.exists(&trace_path) {
         return;
     }
 
-    let evidence_ids: BTreeSet<String> = collect_ids(&evidence_path, "EVID").into_keys().collect();
-    for (line_no, row) in table_rows(&trace_path) {
+    let evidence_ids: BTreeSet<String> = collect_ids(source, &evidence_path, "EVID")
+        .into_keys()
+        .collect();
+    for (line_no, row) in table_rows(source, &trace_path) {
         let pointer = row
             .get("Evidence Pointer")
             .map(String::as_str)
@@ -262,14 +316,18 @@ fn check_evidence_pointers(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_evidence_ledger(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_evidence_ledger(
+    source: &dyn PackageReader,
+    vtrace_dir: &Path,
+    findings: &mut Vec<Finding>,
+) {
     let evidence_path = vtrace_dir.join("EVIDENCE.md");
-    if !evidence_path.exists() {
+    if !source.exists(&evidence_path) {
         return;
     }
 
     let mut saw_evidence = false;
-    for (line_no, row) in table_rows(&evidence_path) {
+    for (line_no, row) in table_rows(source, &evidence_path) {
         let evidence_id = row.get("Evidence ID").map(String::as_str).unwrap_or("");
         if !evidence_id.starts_with("EVID-") {
             continue;
@@ -318,13 +376,13 @@ fn check_evidence_ledger(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_work_packages(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_work_packages(source: &dyn PackageReader, vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     let wp_path = vtrace_dir.join("WORK_PACKAGES.md");
-    if !wp_path.exists() {
+    if !source.exists(&wp_path) {
         return;
     }
 
-    for (line_no, row) in table_rows(&wp_path) {
+    for (line_no, row) in table_rows(source, &wp_path) {
         let wp_id = row.get("ID").map(String::as_str).unwrap_or("");
         if !wp_id.starts_with("WP-") {
             continue;
@@ -366,14 +424,14 @@ fn check_work_packages(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_review_lanes(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_review_lanes(source: &dyn PackageReader, vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     let review_path = vtrace_dir.join("REVIEW.md");
-    if !review_path.exists() {
+    if !source.exists(&review_path) {
         return;
     }
 
     let mut seen_lane = false;
-    for (line_no, row) in table_rows(&review_path) {
+    for (line_no, row) in table_rows(source, &review_path) {
         if !(row.contains_key("Lane")
             && row.contains_key("Required")
             && row.contains_key("Decision"))
@@ -413,14 +471,18 @@ fn check_review_lanes(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_review_checklists(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_review_checklists(
+    source: &dyn PackageReader,
+    vtrace_dir: &Path,
+    findings: &mut Vec<Finding>,
+) {
     let checklist_path = vtrace_dir.join("REVIEW_CHECKLISTS.md");
-    if !checklist_path.exists() {
+    if !source.exists(&checklist_path) {
         return;
     }
 
     let mut saw_required = false;
-    for (line_no, row) in table_rows(&checklist_path) {
+    for (line_no, row) in table_rows(source, &checklist_path) {
         if !(row.contains_key("Gate")
             && row.contains_key("Item")
             && row.contains_key("Required")
@@ -468,15 +530,19 @@ fn check_review_checklists(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_language_profiles(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_language_profiles(
+    source: &dyn PackageReader,
+    vtrace_dir: &Path,
+    findings: &mut Vec<Finding>,
+) {
     let profile_path = vtrace_dir.join("LANGUAGE_PROFILES.md");
-    if !profile_path.exists() {
+    if !source.exists(&profile_path) {
         return;
     }
 
     let required_columns = ["Profile ID", "Applicability", "L0", "L1", "L2"];
     let mut saw_profile = false;
-    for (line_no, row) in table_rows(&profile_path) {
+    for (line_no, row) in table_rows(source, &profile_path) {
         if !required_columns
             .iter()
             .all(|column| row.contains_key(*column))
@@ -518,9 +584,13 @@ fn check_language_profiles(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
     }
 }
 
-fn check_communications_strategy(vtrace_dir: &Path, findings: &mut Vec<Finding>) {
+fn check_communications_strategy(
+    source: &dyn PackageReader,
+    vtrace_dir: &Path,
+    findings: &mut Vec<Finding>,
+) {
     let comms_path = vtrace_dir.join("COMMUNICATIONS_STRATEGY.md");
-    if !comms_path.exists() {
+    if !source.exists(&comms_path) {
         return;
     }
 
@@ -535,7 +605,7 @@ fn check_communications_strategy(vtrace_dir: &Path, findings: &mut Vec<Finding>)
         "Status",
     ];
     let mut saw_surface = false;
-    for (line_no, row) in table_rows(&comms_path) {
+    for (line_no, row) in table_rows(source, &comms_path) {
         if !required_columns
             .iter()
             .all(|column| row.contains_key(*column))
@@ -581,15 +651,20 @@ fn vtrace_dir(root: &Path) -> PathBuf {
     root.join("docs").join("vtrace")
 }
 
-pub fn package_summary(root: &Path) -> PackageSummary {
+pub fn package_summary_with_reader(source: &dyn PackageReader, root: &Path) -> PackageSummary {
     let vtrace_dir = vtrace_dir(root);
-    let requirements = collect_ids(&vtrace_dir.join("REQUIREMENTS.md"), "REQ").len();
-    let specs = collect_ids(&vtrace_dir.join("SPECIFICATION_BASELINE.md"), "SPEC").len();
-    let evidence_rows = collect_ids(&vtrace_dir.join("EVIDENCE.md"), "EVID").len();
+    let requirements = collect_ids(source, &vtrace_dir.join("REQUIREMENTS.md"), "REQ").len();
+    let specs = collect_ids(
+        source,
+        &vtrace_dir.join("SPECIFICATION_BASELINE.md"),
+        "SPEC",
+    )
+    .len();
+    let evidence_rows = collect_ids(source, &vtrace_dir.join("EVIDENCE.md"), "EVID").len();
 
     let mut work_packages = 0;
     let mut open_work_packages = Vec::new();
-    for (_, row) in table_rows(&vtrace_dir.join("WORK_PACKAGES.md")) {
+    for (_, row) in table_rows(source, &vtrace_dir.join("WORK_PACKAGES.md")) {
         let id = row.get("ID").map(String::as_str).unwrap_or("");
         if !id.starts_with("WP-") {
             continue;
@@ -613,15 +688,19 @@ pub fn package_summary(root: &Path) -> PackageSummary {
     }
 }
 
-pub fn work_package(root: &Path, wanted_id: &str) -> Option<WorkPackage> {
-    work_packages(root)
+pub fn work_package_with_reader(
+    source: &dyn PackageReader,
+    root: &Path,
+    wanted_id: &str,
+) -> Option<WorkPackage> {
+    work_packages_with_reader(source, root)
         .into_iter()
         .find(|work_package| work_package.id == wanted_id)
 }
 
-pub fn work_packages(root: &Path) -> Vec<WorkPackage> {
+pub fn work_packages_with_reader(source: &dyn PackageReader, root: &Path) -> Vec<WorkPackage> {
     let wp_path = vtrace_dir(root).join("WORK_PACKAGES.md");
-    table_rows(&wp_path)
+    table_rows(source, &wp_path)
         .into_iter()
         .filter_map(|(line, row)| {
             let id = row.get("ID")?;
@@ -643,9 +722,9 @@ pub fn work_packages(root: &Path) -> Vec<WorkPackage> {
         .collect()
 }
 
-pub fn review_lanes(root: &Path) -> Vec<ReviewLane> {
+pub fn review_lanes_with_reader(source: &dyn PackageReader, root: &Path) -> Vec<ReviewLane> {
     let review_path = vtrace_dir(root).join("REVIEW.md");
-    table_rows(&review_path)
+    table_rows(source, &review_path)
         .into_iter()
         .filter_map(|(_, row)| {
             let lane = row.get("Lane")?;
@@ -663,9 +742,12 @@ pub fn review_lanes(root: &Path) -> Vec<ReviewLane> {
         .collect()
 }
 
-pub fn communication_surfaces(root: &Path) -> Vec<CommunicationSurface> {
+pub fn communication_surfaces_with_reader(
+    source: &dyn PackageReader,
+    root: &Path,
+) -> Vec<CommunicationSurface> {
     let comms_path = vtrace_dir(root).join("COMMUNICATIONS_STRATEGY.md");
-    table_rows(&comms_path)
+    table_rows(source, &comms_path)
         .into_iter()
         .filter_map(|(_, row)| {
             let id = row.get("Surface ID")?;
@@ -686,12 +768,11 @@ pub fn communication_surfaces(root: &Path) -> Vec<CommunicationSurface> {
         .collect()
 }
 
-pub fn run_checks(root: &Path) -> Vec<Finding> {
-    let root = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
-    let vtrace_dir = vtrace_dir(&root);
+pub fn run_checks_with_reader(source: &dyn PackageReader, root: &Path) -> Vec<Finding> {
+    let vtrace_dir = vtrace_dir(root);
     let mut findings = Vec::new();
 
-    if !vtrace_dir.exists() {
+    if !source.exists(&vtrace_dir) {
         add(
             &mut findings,
             "ERROR",
@@ -702,16 +783,16 @@ pub fn run_checks(root: &Path) -> Vec<Finding> {
         return findings;
     }
 
-    check_required_files(&vtrace_dir, &mut findings);
-    check_requirements_trace(&vtrace_dir, &mut findings);
-    check_spec_trace(&vtrace_dir, &mut findings);
-    check_evidence_pointers(&vtrace_dir, &mut findings);
-    check_evidence_ledger(&vtrace_dir, &mut findings);
-    check_work_packages(&vtrace_dir, &mut findings);
-    check_review_lanes(&vtrace_dir, &mut findings);
-    check_review_checklists(&vtrace_dir, &mut findings);
-    check_language_profiles(&vtrace_dir, &mut findings);
-    check_communications_strategy(&vtrace_dir, &mut findings);
+    check_required_files(source, &vtrace_dir, &mut findings);
+    check_requirements_trace(source, &vtrace_dir, &mut findings);
+    check_spec_trace(source, &vtrace_dir, &mut findings);
+    check_evidence_pointers(source, &vtrace_dir, &mut findings);
+    check_evidence_ledger(source, &vtrace_dir, &mut findings);
+    check_work_packages(source, &vtrace_dir, &mut findings);
+    check_review_lanes(source, &vtrace_dir, &mut findings);
+    check_review_checklists(source, &vtrace_dir, &mut findings);
+    check_language_profiles(source, &vtrace_dir, &mut findings);
+    check_communications_strategy(source, &vtrace_dir, &mut findings);
     findings
 }
 

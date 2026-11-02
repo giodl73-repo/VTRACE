@@ -18,6 +18,8 @@ Use these roles before VTRACE changes are treated as process-ready.
 | `parliament/security-privacy-guardian.md` | Security Privacy Guardian | Security/privacy/supply-chain posture vs. hidden implementation risk |
 | `parliament/safety-risk-officer.md` | Safety Risk Officer | Consequence-aware readiness vs. generic quality review |
 | `parliament/source-custody-counsel.md` | Source Custody Counsel | Standards grounding vs. rights or endorsement mistakes |
+| `parliament/live-evidence-custodian.md` | Live Evidence Custodian | External helper output vs. deterministic local evidence |
+| `parliament/pitfall-doctrine-boundary-steward.md` | PITFALL Doctrine Boundary Steward | Doctrine citations vs. VTRACE-owned validation semantics |
 
 ## Editorial Roles
 
@@ -36,3 +38,15 @@ Use these lenses when deciding whether VTRACE helps real repo work.
 |---|---|---|
 | `stakeholders/repo-maintainer.md` | Repo Maintainer | Can adopt VTRACE incrementally while shipping |
 | `stakeholders/future-agent.md` | Future Agent | Can resume work from trace IDs, evidence, and review records |
+
+## PITFALL gate routing
+
+Invoke Live Evidence Custodian before provider, GitHub, pulse, remote CI, or
+other live helper output is cited as evidence. Live receipts must record the
+external tool, auth state, run identifier or URL, commit, explicit live action,
+and result; dry-run packets remain deterministic and advisory.
+
+Invoke PITFALL Doctrine Boundary Steward before VTRACE requirements,
+validators, trace rows, role reviews, or adoption templates cite PITFALL
+principles, invariants, or pitfalls. VTRACE may cite local PITFALL IDs and file
+paths as rationale; PITFALL owns doctrine truth and structure.

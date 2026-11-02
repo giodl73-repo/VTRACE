@@ -97,6 +97,24 @@ The first slice is implemented as local, dependency-free commands for
 initialization, status, validation, work-package start/check/close,
 role-review preparation, and agent briefs.
 
+## Supplied-package browser inspection (in qualification)
+
+The current native validator is being exposed as a browser task for maintainers:
+open their own Markdown package, locate original structural findings and inspect
+native summary/work/review/communication rows. The dedicated unpublished
+`browser/package-inspector` companion reuses the original Rust library through
+package-reader APIs. This is VTRACE's own user-facing inspection feature, not a
+new orchestration layer for target products.
+
+The target contract and current/target distinction are in
+`browser/package-inspector/SPEC.md`; implementation and qualification evidence
+are in `context/waves/2026-11-02-package-wasm/`. Native compatibility and local
+adapter/Node-WASM probes pass. The editable own-file UI and real browser-worker
+task/recovery suite also pass locally, as do complete packaged source/legal
+delivery and outside-Git replay. Hosted/default/live gates remain open. A structural
+report does not execute or certify caller evidence, reviews, status, product
+acceptance, compliance, safety or NASA endorsement.
+
 ## Dependency Posture
 
 VTRACE is a standards/protocols repo. It may later use PROOF for Markdown and

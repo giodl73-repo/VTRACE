@@ -1,0 +1,48 @@
+{
+  "files": [
+    {
+      "name": "MISSION.md",
+      "text": "# Synthetic package\n\nA fixture for inspecting supplied text. No evidence command is executed.\n"
+    },
+    {
+      "name": "REQUIREMENTS.md",
+      "text": "| ID | Requirement |\n|---|---|\n| REQ-001 | The tool shall show a supplied finding at its source line. |\n"
+    },
+    {
+      "name": "SPECIFICATION_BASELINE.md",
+      "text": "| Spec ID | Parent REQ IDs | State |\n|---|---|---|\n| SPEC-001 | REQ-001 | target |\n"
+    },
+    {
+      "name": "TRACE.md",
+      "text": "| Requirement ID | Specification Item | Work Package | Evidence Pointer |\n|---|---|---|---|\n| REQ-002 | SPEC-001 | WP-001 | EVID-001 |\n"
+    },
+    {
+      "name": "VERIFICATION.md",
+      "text": "# Synthetic verification plan\n\nThe native structural check does not execute this plan.\n"
+    },
+    {
+      "name": "REVIEW.md",
+      "text": "| Lane | Required | Decision | Evidence |\n|---|---|---|---|\n| Synthetic reviewer | yes | passed | Caller-authored fixture assertion only. |\n"
+    },
+    {
+      "name": "EVIDENCE.md",
+      "text": "| Evidence ID | Source / Command | Status |\n|---|---|---|\n| EVID-001 | Synthetic fixture assertion; no command executed. | passed |\n"
+    },
+    {
+      "name": "WORK_PACKAGES.md",
+      "text": "| ID | Objective | Parent IDs | Affected Surfaces | Entry Criteria | Exit Criteria | L0 / L1 / L2 | Status |\n|---|---|---|---|---|---|---|---|\n| WP-001 | Inspect a supplied package. | REQ-001 / SPEC-001 | owned text | example loaded | findings inspected | L0: read / L1: inspect / L2: review | proposed |\n"
+    },
+    {
+      "name": "REVIEW_CHECKLISTS.md",
+      "text": "| Gate | Item | Required | Decision |\n|---|---|---|---|\n| Synthetic inspection | Read the supplied text. | yes | passed |\n"
+    },
+    {
+      "name": "LANGUAGE_PROFILES.md",
+      "text": "| Profile ID | Applicability | L0 | L1 | L2 |\n|---|---|---|---|---|\n| PROFILE-001 | Fixture Markdown | read | inspect | review |\n"
+    },
+    {
+      "name": "COMMUNICATIONS_STRATEGY.md",
+      "text": "| Surface ID | Source IDs | Audience | User Question | Generated Docs | Cadence | Owner | Status |\n|---|---|---|---|---|---|---|---|\n| COMMS-001 | REQ-001 | Maintainer | Where is the finding? | owned notes | on edit | caller | planned |\n"
+    }
+  ]
+}

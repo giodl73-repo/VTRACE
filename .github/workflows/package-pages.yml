@@ -1,0 +1,93 @@
+name: Package inspector Rust WASM Pages
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: vtrace-package-pages-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CARGO_TARGET_DIR: ${{ github.workspace }}/target/cargo
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@1.95.0
+        with:
+          targets: wasm32-unknown-unknown
+          components: rustfmt, clippy
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: browser/package-inspector/package-lock.json
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            . -> target/cargo
+            browser/package-inspector -> ../../target/cargo
+      - name: Original native and reader tests, adapter tests and strict lint
+        run: |
+          cargo fmt --check
+          cargo clippy --all-targets --locked -- -D warnings
+          cargo clippy --lib --target wasm32-unknown-unknown --locked -- -D warnings
+          cargo test --locked
+          cargo run --locked -- .
+          cargo run --locked -- examples/existing-repo-migration
+          cargo fmt --manifest-path browser/package-inspector/Cargo.toml -- --check
+          cargo test --manifest-path browser/package-inspector/Cargo.toml --all-targets --locked
+          cargo clippy --manifest-path browser/package-inspector/Cargo.toml --all-targets --locked -- -D warnings
+          cargo clippy --manifest-path browser/package-inspector/Cargo.toml --lib --target wasm32-unknown-unknown --locked -- -D warnings
+      - name: Install pinned WASM packaging tool
+        run: cargo install wasm-bindgen-cli --version 0.2.127 --locked
+      - name: Build real WASM and independent original CLI controls
+        run: python browser/package-inspector/build-prototype.py --bindgen "$HOME/.cargo/bin/wasm-bindgen"
+      - name: Install browser qualification tools
+        working-directory: browser/package-inspector
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Task and real deadline/recovery qualification
+        working-directory: browser/package-inspector
+        run: npm run test:pages
+      - name: Package exact complete source and original legal notices
+        run: python browser/package-inspector/package-site.py
+      - name: Check complete packaged delivery
+        run: python browser/package-inspector/verify-release.py
+      - name: Rebuild delivered source outside Git
+        run: python browser/package-inspector/verify-source.py --bindgen "$HOME/.cargo/bin/wasm-bindgen"
+      - name: Original checkout tests still work after temporary source replay
+        run: cargo test --locked
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: package-inspector-qualification
+          include-hidden-files: true
+          path: |
+            browser/package-inspector/.cache/
+            browser/package-inspector/test-results/
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: target/package-release/VTRACE
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy tested Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

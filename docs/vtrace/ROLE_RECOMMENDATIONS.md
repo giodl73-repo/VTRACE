@@ -17,6 +17,8 @@ ROLES conformance target: panel
 | Security Privacy Guardian | parliament | conditional | Security/privacy/supply-chain/data trigger. | `.roles/parliament/security-privacy-guardian.md` |
 | Safety Risk Officer | parliament | conditional | Safety, high-consequence, or mission-impacting adoption trigger. | `.roles/parliament/safety-risk-officer.md` |
 | Source Custody Counsel | parliament | yes | Source, license, standards, provenance, or encoding trigger. | `.roles/parliament/source-custody-counsel.md` |
+| Live Evidence Custodian | parliament | conditional | Provider, GitHub, pulse, remote CI, or live helper evidence trigger. | `.roles/parliament/live-evidence-custodian.md` |
+| PITFALL Doctrine Boundary Steward | parliament | conditional | PITFALL principle, invariant, pitfall, validator, trace, or adopter-template trigger. | `.roles/parliament/pitfall-doctrine-boundary-steward.md` |
 | Adoption Guide Editor | editorial | yes | Public docs, templates, examples, or user-facing guidance. | `.roles/editorial/adoption-guide-editor.md` |
 | Template Minimalism Editor | editorial | yes | Template expansion or process-weight change. | `.roles/editorial/template-minimalism-editor.md` |
 | Repo Maintainer | stakeholders | yes | Usability and maintenance impact. | `.roles/stakeholders/repo-maintainer.md` |
@@ -27,10 +29,12 @@ ROLES conformance target: panel
 1. Systems Engineering Steward checks whether the change belongs in VTRACE.
 2. Requirements Traceability Auditor checks IDs and coverage.
 3. Source Custody Counsel checks source and rights posture when source claims change.
-4. V&V Lead checks evidence, validation levels, and gate posture.
-5. Software Assurance Guardian checks code-rigor and validator/profile impact.
-6. Conditional security/safety roles review only when triggered.
-7. Editorial and stakeholder roles check usability, template weight, and future-agent continuity.
+4. Live Evidence Custodian checks durable metadata when live external outputs are evidence.
+5. PITFALL Doctrine Boundary Steward checks ownership when PITFALL doctrine is cited.
+6. V&V Lead checks evidence, validation levels, and gate posture.
+7. Software Assurance Guardian checks code-rigor and validator/profile impact.
+8. Conditional security/safety roles review only when triggered.
+9. Editorial and stakeholder roles check usability, template weight, and future-agent continuity.
 
 ## Current Role Decision
 

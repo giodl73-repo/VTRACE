@@ -13,6 +13,7 @@ Repo: VTRACE
 | PROFILE-PYTHON-001 | Python examples. | `py -m py_compile examples\hello-world\src\hello_world.py`; `py -m py_compile examples\existing-repo-migration\src\report.py` | example CLI smoke checks | Example VTRACE packages validated by Rust validator |
 | PROFILE-GEN-001 | Future schemas, generated reports, and generated evidence. | Source-of-truth and generation command identified | Regeneration produces expected diff or no diff | Generated output consumed by validator/example evidence |
 | PROFILE-MULTI-001 | Future target repos with multiple language boundaries. | Per-language L0 checks named in `PACKAGE_BOUNDARIES.md` | Boundary integration command | End-to-end validation scenario |
+| PROFILE-WASM-001 | Dedicated Rust/WASM browser companion | Pinned tool/lock/source identity; fmt and strict native/WASM Clippy | Original native/reader/adapter tests;36native/worker outcomes;17original-CLI findings controls | Own-file/source-line/byte-custody/recovery scenarios; complete packaged delivery and outside-Git replay; fresh deployment checks separately gated |
 
 ## Tailoring Notes
 
