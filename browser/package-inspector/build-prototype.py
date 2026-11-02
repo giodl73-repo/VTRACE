@@ -36,12 +36,13 @@ with tempfile.TemporaryDirectory(prefix='vtrace independent cli ') as temporary:
         result=subprocess.run([str(original),'validate',str(temporary)],cwd=R,env=env,capture_output=True)
         assert result.returncode in [0,1],result.stderr
         findings=[]
-        for line in result.stdout.decode('utf-8').splitlines():
+        # Rust println separates records with LF. Lone CR/U+2028 may be data.
+        for line in result.stdout.decode('utf-8').split('\n'):
             match=re.fullmatch(r'(ERROR|WARNING): (.+):(\d+): (.*)',line)
             if match:findings.append({'level':match[1],'path':match[2].replace('\\','/'),'line':int(match[3]),'message':match[4]})
         assert findings==response['findings'],(len(records)-1,findings,response['findings'])
         cli_controls.append({'request_index':len(records)-1,'exit_code':result.returncode,'findings':findings,'stdout_sha256':hashlib.sha256(result.stdout).hexdigest()})
-assert len(records)==35 and len(cli_controls)==16
+assert len(records)==36 and len(cli_controls)==17
 assert len(records[-2]['response']['findings'])==1 and not records[-1]['response']['findings']
 assert records[-1]['response']['summary']['open_work_packages']==['WP-001']
 assert set(document['name'] for document in json.loads((B/'web/example.json').read_text(encoding='utf-8'))['files'])==set(records[0]['response']['accepted_artifact_names'])

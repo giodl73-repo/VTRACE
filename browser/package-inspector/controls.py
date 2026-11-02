@@ -24,6 +24,7 @@ def requests(root,companion):
         {'files':[document(name,'') for name in NAMES]},
         {'files':[document('MISSION.md','<script>alert(1)</script>\ufeff\r\n')]},
         {'files':[document('WORK_PACKAGES.md','| ID | Objective | Status | Extra |\n|---|---|---|---|\n| WP-001 | <img src=x> | passed | retain |\n')]},
+        {'files':[document('WORK_PACKAGES.md','| ID |\n|---|\n| WP-💡\rMID\u2028END |\n')]},
         '{','null','{}','{"files":[],"files":[]}',
         '{"files":[{"name":"MISSION.md","text":"\\ud800"}]}',
         {'files':[],'extra':True},

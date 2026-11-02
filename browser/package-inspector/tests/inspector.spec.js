@@ -31,7 +31,7 @@ test('all native outcomes match the real module worker and the compiled memory m
     let refused=false;try{module.memory.grow(1);}catch{refused=true;}
     return {cases:records.length,mismatches,maximum,refused};
   },cases);
-  expect(result).toEqual({cases:35,mismatches:[],maximum:67108864,refused:true});
+  expect(result).toEqual({cases:36,mismatches:[],maximum:67108864,refused:true});
 });
 
 test('finding navigation shows accepted source and preserves a newer draft',async({page})=>{
@@ -39,6 +39,8 @@ test('finding navigation shows accepted source and preserves a newer draft',asyn
   await expect(page.locator('#file-list')).toHaveValue('REQUIREMENTS.md');
   expect(await page.locator('#editor').evaluate(editor=>editor.value.slice(editor.selectionStart,editor.selectionEnd))).toContain('REQ-001');
   await expect(page.locator('#source-lines li.highlight')).toContainText('REQ-001');
+  await page.locator('#source-edit').click();await expect(page.locator('#editor')).toBeFocused();
+  expect(await page.locator('#editor').evaluate(editor=>editor.value.slice(editor.selectionStart,editor.selectionEnd))).toContain('REQ-001');
   const changed='# inserted draft line\n'+await page.locator('#editor').inputValue();await page.locator('#editor').fill(changed);await finding.click();
   await expect(page.locator('#editor')).toHaveValue(changed);await expect(page.locator('#source-note')).toContainText('draft differs');await expect(page.locator('#source-lines')).not.toContainText('inserted draft line');
   const draft=JSON.parse((await download(page,'draft-package')).toString());expect(draft.files.find(file=>file.name==='REQUIREMENTS.md').text).toBe(changed);

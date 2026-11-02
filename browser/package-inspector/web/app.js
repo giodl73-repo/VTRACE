@@ -12,7 +12,8 @@ function controls(){
   $('accepted-input').disabled=$('accepted-report').disabled=!accepted;
   $('editor').disabled=!draft.has(selected);
   $('remove').disabled=$('current-file').disabled=$('lf-file').disabled=!draft.has(selected);
-  $('add').disabled=!$('new-artifact').options.length;
+  $('add').disabled=!$('new-artifact').value;
+  $('new-artifact').disabled=!$('new-artifact').value;
   $('files').disabled=!allowedNames.length;
   $('original-file').disabled=!originals.has($('original-list').value);
   custody();
@@ -31,7 +32,7 @@ function refreshDraft(preferred=selected){
   $('original-list').replaceChildren(...[...originals.keys()].map(name=>new Option(name,name)));
   if(originals.has(originalSelected))$('original-list').value=originalSelected;
   const available=allowedNames.filter(name=>!draft.has(name));
-  $('new-artifact').replaceChildren(...available.map(name=>new Option(name,name)));
+  $('new-artifact').replaceChildren(...(available.length?available.map(name=>new Option(name,name)):[new Option('All supported artifacts are already in the draft','')]));
   selectFile(draft.has(preferred)?preferred:[...draft.keys()][0]??'');
 }
 function fail(message){
@@ -80,10 +81,18 @@ function renderReport(){
   $('work-rows').textContent=JSON.stringify(r.work_packages,null,2);$('review-rows').textContent=JSON.stringify(r.review_lanes,null,2);
   $('comms-rows').textContent=JSON.stringify(r.communication_surfaces,null,2);$('report-json').textContent=JSON.stringify(r,null,2);
   $('source-title').textContent='Accepted source at the finding';$('source-note').textContent='';$('source-lines').replaceChildren();$('source-view').open=false;
+  $('source-edit').disabled=true;
+}
+function nativeLineRange(text,lineNumber){
+  let start=0;for(let line=1;line<lineNumber;line++){const next=text.indexOf('\n',start);start=next<0?text.length:next+1;}
+  const end=text.indexOf('\n',start);const normalize=value=>value.replace(/\r\n?/g,'\n');
+  return [normalize(text.slice(0,start)).length,normalize(text.slice(0,end<0?text.length:end)).length];
 }
 function showSource(finding){
   const name=finding.path.replace(/^docs\/vtrace\//,'');
   const file=JSON.parse(accepted.request).files.find(file=>file.name===name);
+  $('source-edit').disabled=!draft.has(name);$('source-edit').textContent=`Edit current ${name}`;
+  $('source-edit').onclick=()=>{if(draft.has(name)){selectFile(name);if(file&&draft.get(name)===file.text)$('editor').setSelectionRange(...nativeLineRange(file.text,finding.line));$('editor').scrollIntoView({block:'center'});$('editor').focus();}};
   $('source-title').textContent=`Accepted ${name} · native line ${finding.line}`;$('source-view').open=true;
   if(!file){$('source-lines').replaceChildren();$('source-note').textContent='This artifact was not supplied in the accepted input. Add it to the draft and check again.';return;}
   const lines=file.text.split('\n');if(lines.at(-1)==='')lines.pop();
@@ -92,9 +101,7 @@ function showSource(finding){
   $('source-note').textContent=same?'Native line view. Original line-ending bytes remain in accepted/original exports.':'The draft differs. This view belongs to the accepted input; your current edits are retained.';
   if(same){
     selectFile(name);
-    let start=0;for(let line=1;line<finding.line;line++){const next=file.text.indexOf('\n',start);start=next<0?file.text.length:next+1;}
-    const end=file.text.indexOf('\n',start);const normalize=text=>text.replace(/\r\n?/g,'\n');
-    $('editor').focus();$('editor').setSelectionRange(normalize(file.text.slice(0,start)).length,normalize(file.text.slice(0,end<0?file.text.length:end)).length);
+    $('editor').setSelectionRange(...nativeLineRange(file.text,finding.line));
   }
   $('source-lines').querySelector('.highlight')?.scrollIntoView({block:'nearest'});
 }

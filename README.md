@@ -8,6 +8,23 @@ engineering guidance into practical codebase practices: requirements,
 architecture, interfaces, implementation evidence, verification, validation,
 review gates, and traceability records.
 
+## Inspect a supplied package in the browser
+
+[Open the package inspector](https://giodl73-repo.github.io/VTRACE/) to check your
+own `docs/vtrace` Markdown with the original Rust validator compiled to WebAssembly.
+Findings point to accepted source files and lines; you can edit a current draft,
+inspect native package/work/review/communication rows, and export original bytes,
+current inputs and accepted reports separately. The synthetic example demonstrates
+a missing requirement reference and its correction. No account or backend is needed.
+
+These are structural checks. No-findings does not authenticate evidence, execute
+commands, establish completed reviews or certify readiness, compliance, safety or
+NASA endorsement. Native heuristics and original grants remain explicit in the
+[model](browser/package-inspector/MODEL.md), [build recipe](browser/package-inspector/BUILD.md)
+and [complete source scope](browser/package-inspector/SOURCE-SCOPE.md).
+The [browser wave](context/waves/2026-11-02-package-wasm/WAVE.md) distinguishes
+implementation, hosted qualification and default/live publication gates.
+
 ## Purpose
 
 Modern software repos often have tests, docs, and issue history, but they do
