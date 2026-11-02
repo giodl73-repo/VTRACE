@@ -64,6 +64,8 @@ jobs:
         run: python browser/package-inspector/verify-release.py
       - name: Rebuild delivered source outside Git
         run: python browser/package-inspector/verify-source.py --bindgen "$HOME/.cargo/bin/wasm-bindgen"
+      - name: Original checkout tests still work after temporary source replay
+        run: cargo test --locked
       - uses: actions/upload-artifact@v7
         if: always()
         with:

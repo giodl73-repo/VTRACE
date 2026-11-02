@@ -36,4 +36,6 @@ native run must demonstrate that the two contexts remain separate.
 Repeat clean committed packaging, all23 packaged checks, outside-Git replay,
 and ordinary native tests after replay; require fresh hosted qualification,
 main/default deployment, fresh live browser behavior and exact served hashes.
-Canonical checkout and TRACKER gitlink remain unchanged until those gates pass.
+The hosted workflow also reruns ordinary checkout tests after replay to guard
+against future cache-context regressions. Canonical checkout and TRACKER gitlink
+remain unchanged until those gates pass.
