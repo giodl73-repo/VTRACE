@@ -1,0 +1,27 @@
+[package]
+name = "vtrace-package-inspector"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "MIT"
+
+[workspace]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "vtrace-package-control"
+path = "src/main.rs"
+
+[dependencies]
+vtrace = { path = "../.." }
+serde = { version = "=1.0.228", features = ["derive"] }
+serde_json = "=1.0.149"
+wasm-bindgen = "=0.2.127"
+
+[profile.release]
+lto = true
+opt-level = "s"
+codegen-units = 1
+panic = "abort"

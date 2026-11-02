@@ -1,1 +1,6 @@
 /target/
+/browser/package-inspector/.cache/
+/browser/package-inspector/node_modules/
+/browser/package-inspector/test-results/
+/browser/package-inspector/playwright-report/
+__pycache__/
